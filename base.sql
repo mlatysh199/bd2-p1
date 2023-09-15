@@ -35,11 +35,10 @@ CREATE TABLE RECIBO(
 );
 
 CREATE TABLE PRODUCTO_RECIBO(
-    id NUMBER(10) NOT NULL,
     producto_id NUMBER(10) NOT NULL,
     recibo_id NUMBER(10) NOT NULL,
     cantidad NUMBER(10) NOT NULL,
-    CONSTRAINT pk_producto_recibo PRIMARY KEY(id),
+    CONSTRAINT pk_producto_recibo PRIMARY KEY(producto_id, recibo_id),
     CONSTRAINT fk_producto_recibo_producto FOREIGN KEY(producto_id) REFERENCES PRODUCTO(id),
     CONSTRAINT fk_producto_recibo_recibo FOREIGN KEY(recibo_id) REFERENCES RECIBO(id)
 );
@@ -97,7 +96,6 @@ CREATE TABLE BITACORA_PRODUCTO(
 CREATE SEQUENCE seq_producto START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE seq_cliente START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE seq_recibo START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE seq_producto_recibo START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE seq_recibo_detalle START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE seq_proveedor START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE seq_compra_producto START WITH 1 INCREMENT BY 1;
@@ -218,6 +216,12 @@ CREATE OR REPLACE PACKAGE paquete_modificar AS
     PROCEDURE actualizar_proveedor(p_id NUMBER, p_nombre VARCHAR2, p_descripcion VARCHAR2, p_direccion VARCHAR2);
     PROCEDURE eliminar_proveedor(p_id NUMBER);
 
+    -- Also, producto_recibo
+    PROCEDURE insertar_producto_recibo(p_producto_id NUMBER, p_recibo_id NUMBER, p_cantidad NUMBER);
+    PROCEDURE actualizar_producto_recibo(p_id NUMBER, p_producto_id NUMBER, p_recibo_id NUMBER, p_cantidad NUMBER);
+    PROCEDURE eliminar_producto_recibo(p_id NUMBER);
+    PROCEDURE eliminar_producto_recibo_completo(p_recibo_id NUMBER);
+
     -- recibo detalle, compra_producto, compra_detalle
     PROCEDURE insertar_recibo_detalle(p_recibo_id NUMBER, p_monto NUMBER, p_cantidad NUMBER, p_metodo_pago VARCHAR2, p_descripcion VARCHAR2);
     PROCEDURE actualizar_recibo_detalle(id NUMBER, recibo_id NUMBER, monto NUMBER, cantidad NUMBER, metodo_pago VARCHAR2, descripcion VARCHAR2);
@@ -249,8 +253,12 @@ CREATE OR REPLACE PACKAGE paquete_select AS
     FUNCTION obtener_proveedor(id NUMBER) RETURN SYS_REFCURSOR;
     FUNCTION obtener_compra_productos RETURN SYS_REFCURSOR;
     FUNCTION obtener_compra_producto(id NUMBER) RETURN SYS_REFCURSOR; -- incluir join con compra_detalle
-    FUNCTION obtener_articulos_vendido_mes(mes NUMBER) RETURN SYS_REFCURSOR; -- retorna la cantidad vendida por mes por producto
-    FUNCTION obtener_articulo_vendido_mes(id NUMBER, mes NUMBER) RETURN NUMBER; -- retorna la cantidad vendidad de un producto en el último mes (utilizar algún tipo de join)
+    FUNCTION obtener_articulos_vendido_mes(anio_mes DATE) RETURN NUMBER; -- retorna la cantidad vendida por mes en total
+    FUNCTION obtener_articulo_vendido_mes(p_id NUMBER, anio_mes DATE) RETURN NUMBER;  
+    FUNCTION obtener_producto_recibo_todos RETURN SYS_REFCURSOR;
+    FUNCTION obtener_producto_recibo(p_producto_id NUMBER, p_recibo_id NUMBER) RETURN SYS_REFCURSOR;
+    FUNCTION obtener_productos_recibo(p_recibo_id NUMBER) RETURN SYS_REFCURSOR;
+    FUNCTION obtener_producto_recibos(p_producto_id NUMBER) RETURN SYS_REFCURSOR;
 END;
 
 -- Create package body (with exceptions management) for the tables PRODUCTOS, CLIENTE, RECIBO, and PROVEEDOR to INSERT, UPDATE, and DELETE:
@@ -474,6 +482,43 @@ CREATE OR REPLACE PACKAGE BODY paquete_modificar AS
             RAISE_APPLICATION_ERROR(-20023, 'Error al insertar compra producto completo');
     END insertar_compra_producto_completo;
 
+    PROCEDURE insertar_producto_recibo(p_producto_id NUMBER, p_recibo_id NUMBER, p_cantidad NUMBER) AS
+    BEGIN
+        INSERT INTO PRODUCTO_RECIBO(id, producto_id, recibo_id, cantidad)
+        VALUES(seq_producto_recibo.NEXTVAL, p_producto_id, p_recibo_id, p_cantidad);
+    EXCEPTION
+        WHEN OTHERS THEN
+            RAISE_APPLICATION_ERROR(-20024, 'Error al insertar producto recibo');
+    END insertar_producto_recibo;
+
+    PROCEDURE actualizar_producto_recibo(p_id NUMBER, p_producto_id NUMBER, p_recibo_id NUMBER, p_cantidad NUMBER) AS
+    BEGIN
+        UPDATE PRODUCTO_RECIBO
+        SET producto_id = p_producto_id, recibo_id = p_recibo_id, cantidad = p_cantidad
+        WHERE id = p_id;
+    EXCEPTION
+        WHEN OTHERS THEN
+            RAISE_APPLICATION_ERROR(-20025, 'Error al actualizar producto recibo');
+    END actualizar_producto_recibo;
+
+    PROCEDURE eliminar_producto_recibo(p_id NUMBER) AS
+    BEGIN
+        DELETE FROM PRODUCTO_RECIBO
+        WHERE id = p_id;
+    EXCEPTION
+        WHEN OTHERS THEN
+            RAISE_APPLICATION_ERROR(-20026, 'Error al eliminar producto recibo');
+    END eliminar_producto_recibo;
+
+    PROCEDURE eliminar_producto_recibo_completo(p_recibo_id NUMBER) AS
+    BEGIN
+        DELETE FROM PRODUCTO_RECIBO
+        WHERE recibo_id = p_recibo_id;
+    EXCEPTION
+        WHEN OTHERS THEN
+            RAISE_APPLICATION_ERROR(-20027, 'Error al eliminar producto recibo completo');
+    END eliminar_producto_recibo_completo;
+
 END paquete_modificar;
 
 -- Create package body (with exceptions management) for the tables PRODUCTOS, BITACORA_PRODUCTO, CLIENTE, RECIBO, and PROVEEDOR to SELECT:
@@ -648,38 +693,87 @@ CREATE OR REPLACE PACKAGE BODY paquete_select AS
             RAISE_APPLICATION_ERROR(-20037, 'Error al obtener compra producto');
     END obtener_compra_producto;
 
-    FUNCTION obtener_articulos_vendido_mes(mes NUMBER) RETURN SYS_REFCURSOR AS
-        articulos_vendido_mes SYS_REFCURSOR;
+    FUNCTION obtener_articulos_vendido_mes(anio_mes DATE) RETURN NUMBER AS
+        articulos_vendidos NUMBER;
     BEGIN
-        OPEN articulos_vendido_mes FOR
-        SELECT PRODUCTO.id, PRODUCTO.nombre, SUM(PRODUCTO_RECIBO.cantidad) AS cantidad_vendida
-        FROM PRODUCTO
-        INNER JOIN PRODUCTO_RECIBO
-        ON PRODUCTO.id = PRODUCTO_RECIBO.producto_id
+        SELECT SUM(cantidad)
+        INTO articulos_vendidos
+        FROM PRODUCTO_RECIBO
         INNER JOIN RECIBO
         ON PRODUCTO_RECIBO.recibo_id = RECIBO.id
-        WHERE EXTRACT(MONTH FROM RECIBO.fecha) = mes
-        GROUP BY PRODUCTO.id, PRODUCTO.nombre;
-        RETURN articulos_vendido_mes;
+        WHERE EXTRACT(MONTH FROM RECIBO.fecha) = EXTRACT(MONTH FROM anio_mes) AND EXTRACT(YEAR FROM RECIBO.fecha) = EXTRACT(YEAR FROM anio_mes);
+        IF articulos_vendidos IS NULL THEN
+            articulos_vendidos := 0;
+        END IF;
+        RETURN articulos_vendidos;
     EXCEPTION
         WHEN OTHERS THEN
-            RAISE_APPLICATION_ERROR(-20038, 'Error al obtener articulos vendido por el mes');
+            RAISE_APPLICATION_ERROR(-20038, 'Error al obtener articulos vendidos');
     END obtener_articulos_vendido_mes;
 
-    FUNCTION obtener_articulo_vendido_mes(id NUMBER, mes NUMBER) RETURN NUMBER AS
-        articulo_vendido_mes NUMBER;
+    FUNCTION obtener_articulo_vendido_mes(p_id NUMBER, anio_mes DATE) RETURN NUMBER AS
+        articulo_vendido NUMBER;
     BEGIN
-        SELECT SUM(PRODUCTO_RECIBO.cantidad) INTO articulo_vendido_mes
-        FROM PRODUCTO
-        INNER JOIN PRODUCTO_RECIBO
-        ON PRODUCTO.id = PRODUCTO_RECIBO.producto_id
+        SELECT SUM(cantidad)
+        INTO articulo_vendido
+        FROM PRODUCTO_RECIBO
         INNER JOIN RECIBO
         ON PRODUCTO_RECIBO.recibo_id = RECIBO.id
-        WHERE PRODUCTO.id = id AND EXTRACT(MONTH FROM RECIBO.fecha) = mes;
-        RETURN articulo_vendido_mes;
+        WHERE EXTRACT(MONTH FROM RECIBO.fecha) = EXTRACT(MONTH FROM anio_mes) AND EXTRACT(YEAR FROM RECIBO.fecha) = EXTRACT(YEAR FROM anio_mes) AND PRODUCTO_RECIBO.producto_id = p_id;
+        IF (articulo_vendido IS NULL) THEN
+            articulo_vendido := 0;
+        END IF;
+        RETURN articulo_vendido;
     EXCEPTION
         WHEN OTHERS THEN
-            RAISE_APPLICATION_ERROR(-20039, 'Error al obtener articulo vendido por el mes');
+            RAISE_APPLICATION_ERROR(-20039, 'Error al obtener articulo vendido');
     END obtener_articulo_vendido_mes;
+    
+    FUNCTION obtener_producto_recibo_todos RETURN SYS_REFCURSOR AS
+        producto_recibo SYS_REFCURSOR;
+    BEGIN
+        OPEN producto_recibo FOR
+        SELECT * FROM PRODUCTO_RECIBO;
+        RETURN producto_recibo;
+    EXCEPTION
+        WHEN OTHERS THEN
+            RAISE_APPLICATION_ERROR(-20040, 'Error al obtener producto recibo');
+    END obtener_producto_recibo_todos;
+
+    FUNCTION obtener_producto_recibo(p_producto_id NUMBER, p_recibo_id NUMBER) RETURN SYS_REFCURSOR AS
+        producto_recibo SYS_REFCURSOR;
+    BEGIN
+        OPEN producto_recibo FOR
+        SELECT * FROM PRODUCTO_RECIBO
+        WHERE producto_id = p_producto_id AND recibo_id = p_recibo_id;
+        RETURN producto_recibo;
+    EXCEPTION
+        WHEN OTHERS THEN
+            RAISE_APPLICATION_ERROR(-20041, 'Error al obtener producto recibo');
+    END obtener_producto_recibo;
+
+    FUNCTION obtener_productos_recibo(p_recibo_id NUMBER) RETURN SYS_REFCURSOR AS
+        productos_recibo SYS_REFCURSOR;
+    BEGIN
+        OPEN productos_recibo FOR
+        SELECT * FROM PRODUCTO_RECIBO
+        WHERE recibo_id = p_recibo_id;
+        RETURN productos_recibo;
+    EXCEPTION
+        WHEN OTHERS THEN
+            RAISE_APPLICATION_ERROR(-20042, 'Error al obtener productos recibo');
+    END obtener_productos_recibo;
+
+    FUNCTION obtener_producto_recibos(p_producto_id NUMBER) RETURN SYS_REFCURSOR AS
+        producto_recibos SYS_REFCURSOR;
+    BEGIN
+        OPEN producto_recibos FOR
+        SELECT * FROM PRODUCTO_RECIBO
+        WHERE producto_id = p_producto_id;
+        RETURN producto_recibos;
+    EXCEPTION
+        WHEN OTHERS THEN
+            RAISE_APPLICATION_ERROR(-20043, 'Error al obtener producto recibos');
+    END obtener_producto_recibos;
 
 END paquete_select;
