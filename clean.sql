@@ -11,7 +11,6 @@ DROP SEQUENCE seq_compra_detalle;
 DROP SEQUENCE seq_compra_producto;
 DROP SEQUENCE seq_proveedor;
 DROP SEQUENCE seq_recibo_detalle;
-DROP SEQUENCE seq_producto_recibo;
 DROP SEQUENCE seq_recibo;
 DROP SEQUENCE seq_cliente;
 DROP SEQUENCE seq_producto;
