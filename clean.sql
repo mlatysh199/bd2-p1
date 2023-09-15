@@ -1,6 +1,7 @@
 DROP TRIGGER bitacora_producto_insert;
 DROP TRIGGER bitacora_producto_update;
 DROP TRIGGER bitacora_producto_delete;
+DROP TRIGGER recibo_insert;
 
 DROP PACKAGE paquete_modificar;
 DROP PACKAGE paquete_select;
