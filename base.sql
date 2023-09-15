@@ -113,7 +113,6 @@ FOR EACH ROW
         producto_id NUMBER(10);
         producto_nombre VARCHAR2(40);
 BEGIN
-
     producto_id := :NEW.id;
     producto_nombre := :NEW.nombre;
     INSERT INTO BITACORA_PRODUCTO(id, fecha, descripcion, usuario_db)
@@ -154,11 +153,11 @@ BEGIN
     mensaje := 'Se actualizó el producto ' || producto_nombre || ' con id ' || TO_CHAR(producto_id);
 
     IF producto_nombre_nuevo <> producto_nombre_anterior THEN
-        mensaje := mensaje || '; su nombre cambió de ' || producto_nombre_anterior || ' a ' || producto_nombre_nuevo;
+        mensaje := mensaje || '; su nombre cambió de "' || producto_nombre_anterior || '" a "' || producto_nombre_nuevo || '"';
     END IF;
 
     IF producto_descripcion_nuevo <> producto_descripcion_anterior THEN
-        mensaje := mensaje || '; su descripción cambió de ' || producto_descripcion_anterior || ' a ' || producto_descripcion_nuevo;
+        mensaje := mensaje || '; su descripción cambió de "' || producto_descripcion_anterior || '" a "' || producto_descripcion_nuevo || '"';
     END IF;
 
     IF producto_precio_nuevo <> producto_precio_anterior THEN
