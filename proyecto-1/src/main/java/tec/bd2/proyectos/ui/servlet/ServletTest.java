@@ -15,13 +15,16 @@ public class ServletTest extends Servlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'doPost'");
+        //validacion de usuario y contraseña
+
+
+        resp.sendRedirect("src/main/webapp/WEB-INF/irene69.jsp"); //si usuario es valido y contraseña tambien
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         showPage("irene.jsp", req, resp);
+
     }
     
 }
