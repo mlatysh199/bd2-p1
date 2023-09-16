@@ -242,17 +242,17 @@ CREATE OR REPLACE PACKAGE paquete_select AS
     FUNCTION obtener_productos RETURN SYS_REFCURSOR;
     FUNCTION obtener_producto(p_id NUMBER) RETURN SYS_REFCURSOR;
     FUNCTION obtener_productos_categoria RETURN SYS_REFCURSOR; -- incluir join con categoria
-    FUNCTION obtener_producto_categoria(id NUMBER) RETURN SYS_REFCURSOR; -- incluir join con categoria
+    FUNCTION obtener_producto_categoria(p_id NUMBER) RETURN SYS_REFCURSOR; -- incluir join con categoria ACA
     FUNCTION obtener_bitacora_productos RETURN SYS_REFCURSOR;
-    FUNCTION obtener_bitacora_producto(id NUMBER) RETURN SYS_REFCURSOR;
+    FUNCTION obtener_bitacora_producto(p_id NUMBER) RETURN SYS_REFCURSOR;
     FUNCTION obtener_clientes RETURN SYS_REFCURSOR;
-    FUNCTION obtener_cliente(id NUMBER) RETURN SYS_REFCURSOR;
+    FUNCTION obtener_cliente(p_id NUMBER) RETURN SYS_REFCURSOR;
     FUNCTION obtener_recibos RETURN SYS_REFCURSOR;
-    FUNCTION obtener_recibo(id NUMBER) RETURN SYS_REFCURSOR; -- incluir join con recibo_detalle
+    FUNCTION obtener_recibo(p_id NUMBER) RETURN SYS_REFCURSOR; -- incluir join con recibo_detalle
     FUNCTION obtener_proveedores RETURN SYS_REFCURSOR;
-    FUNCTION obtener_proveedor(id NUMBER) RETURN SYS_REFCURSOR;
+    FUNCTION obtener_proveedor(p_id NUMBER) RETURN SYS_REFCURSOR;
     FUNCTION obtener_compra_productos RETURN SYS_REFCURSOR;
-    FUNCTION obtener_compra_producto(id NUMBER) RETURN SYS_REFCURSOR; -- incluir join con compra_detalle
+    FUNCTION obtener_compra_producto(p_id NUMBER) RETURN SYS_REFCURSOR; -- incluir join con compra_detalle
     FUNCTION obtener_articulos_vendido_mes(anio_mes DATE) RETURN NUMBER; -- retorna la cantidad vendida por mes en total
     FUNCTION obtener_articulo_vendido_mes(p_id NUMBER, anio_mes DATE) RETURN NUMBER;  
     FUNCTION obtener_producto_recibo_todos RETURN SYS_REFCURSOR;
@@ -560,14 +560,14 @@ CREATE OR REPLACE PACKAGE BODY paquete_select AS
             RAISE_APPLICATION_ERROR(-20026, 'Error al obtener productos categoria');
     END obtener_productos_categoria;
 
-    FUNCTION obtener_producto_categoria(id NUMBER) RETURN SYS_REFCURSOR AS
+    FUNCTION obtener_producto_categoria(p_id NUMBER) RETURN SYS_REFCURSOR AS --holssssssss
         producto_categoria SYS_REFCURSOR;
     BEGIN
         OPEN producto_categoria FOR
         SELECT * FROM PRODUCTO
         INNER JOIN CATEGORIA
         ON PRODUCTO.categoria_id = CATEGORIA.id
-        WHERE PRODUCTO.id = id;
+        WHERE PRODUCTO.id = p_id;
         RETURN producto_categoria;
     EXCEPTION
         WHEN OTHERS THEN
@@ -585,12 +585,12 @@ CREATE OR REPLACE PACKAGE BODY paquete_select AS
             RAISE_APPLICATION_ERROR(-20028, 'Error al obtener bitacora productos');
     END obtener_bitacora_productos;
 
-    FUNCTION obtener_bitacora_producto(id NUMBER) RETURN SYS_REFCURSOR AS
+    FUNCTION obtener_bitacora_producto(p_id NUMBER) RETURN SYS_REFCURSOR AS
         bitacora_producto SYS_REFCURSOR;
     BEGIN
         OPEN bitacora_producto FOR
         SELECT * FROM BITACORA_PRODUCTO
-        WHERE id = id;
+        WHERE id = p_id;
         RETURN bitacora_producto;
     EXCEPTION
         WHEN OTHERS THEN
@@ -608,19 +608,19 @@ CREATE OR REPLACE PACKAGE BODY paquete_select AS
             RAISE_APPLICATION_ERROR(-20030, 'Error al obtener clientes');
     END obtener_clientes;
 
-    FUNCTION obtener_cliente(id NUMBER) RETURN SYS_REFCURSOR AS
+    FUNCTION obtener_cliente(p_id NUMBER) RETURN SYS_REFCURSOR AS
         cliente SYS_REFCURSOR;
     BEGIN
         OPEN cliente FOR
         SELECT * FROM CLIENTE
-        WHERE id = id;
+        WHERE id = p_id;
         RETURN cliente;
     EXCEPTION
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20031, 'Error al obtener cliente');
     END obtener_cliente;
 
-    FUNCTION obtener_recibos RETURN SYS_REFCURSOR AS
+    FUNCTION obtener_recibos RETURN SYS_REFCURSOR AS --6
         recibos SYS_REFCURSOR;
     BEGIN
         OPEN recibos FOR
@@ -631,21 +631,21 @@ CREATE OR REPLACE PACKAGE BODY paquete_select AS
             RAISE_APPLICATION_ERROR(-20032, 'Error al obtener recibos');
     END obtener_recibos;
 
-    FUNCTION obtener_recibo(id NUMBER) RETURN SYS_REFCURSOR AS
+    FUNCTION obtener_recibo(p_id NUMBER) RETURN SYS_REFCURSOR AS --7
         recibo SYS_REFCURSOR;
     BEGIN
         OPEN recibo FOR
         SELECT * FROM RECIBO
         INNER JOIN RECIBO_DETALLE
         ON RECIBO.id = RECIBO_DETALLE.recibo_id
-        WHERE RECIBO.id = id;
+        WHERE RECIBO.id = p_id;
         RETURN recibo;
     EXCEPTION
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20033, 'Error al obtener recibo');
     END obtener_recibo;
 
-    FUNCTION obtener_proveedores RETURN SYS_REFCURSOR AS
+    FUNCTION obtener_proveedores RETURN SYS_REFCURSOR AS --8
         proveedores SYS_REFCURSOR;
     BEGIN
         OPEN proveedores FOR
@@ -656,19 +656,19 @@ CREATE OR REPLACE PACKAGE BODY paquete_select AS
             RAISE_APPLICATION_ERROR(-20034, 'Error al obtener proveedores');
     END obtener_proveedores;
 
-    FUNCTION obtener_proveedor(id NUMBER) RETURN SYS_REFCURSOR AS
+    FUNCTION obtener_proveedor(p_id NUMBER) RETURN SYS_REFCURSOR AS --9
         proveedor SYS_REFCURSOR;
     BEGIN
         OPEN proveedor FOR
         SELECT * FROM PROVEEDOR
-        WHERE id = id;
+        WHERE id = p_id;
         RETURN proveedor;
     EXCEPTION
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20035, 'Error al obtener proveedor');
     END obtener_proveedor;
 
-    FUNCTION obtener_compra_productos RETURN SYS_REFCURSOR AS
+    FUNCTION obtener_compra_productos RETURN SYS_REFCURSOR AS --10
         compra_productos SYS_REFCURSOR;
     BEGIN
         OPEN compra_productos FOR
@@ -679,14 +679,14 @@ CREATE OR REPLACE PACKAGE BODY paquete_select AS
             RAISE_APPLICATION_ERROR(-20036, 'Error al obtener compra productos');
     END obtener_compra_productos;
 
-    FUNCTION obtener_compra_producto(id NUMBER) RETURN SYS_REFCURSOR AS
+    FUNCTION obtener_compra_producto(p_id NUMBER) RETURN SYS_REFCURSOR AS --11
         compra_producto SYS_REFCURSOR;
     BEGIN  
         OPEN compra_producto FOR
         SELECT * FROM COMPRA_PRODUCTO
         INNER JOIN COMPRA_DETALLE
         ON COMPRA_PRODUCTO.id = COMPRA_DETALLE.compra_producto_id
-        WHERE COMPRA_PRODUCTO.id = id;
+        WHERE COMPRA_PRODUCTO.id = p_id;
         RETURN compra_producto;
     EXCEPTION
         WHEN OTHERS THEN
