@@ -207,23 +207,23 @@ CREATE OR REPLACE PACKAGE paquete_modificar AS
 
     -- recibo detalle, compra_producto, compra_detalle
     PROCEDURE insertar_recibo_detalle(recibo_id NUMBER, monto NUMBER, cantidad NUMBER, metodo_pago VARCHAR2, descripcion VARCHAR2);
-    PROCEDURE actualizar_recibo_detalle(id NUMBER, recibo_id NUMBER, monto NUMBER, cantidad NUMBER, metodo_pago VARCHAR2, descripcion VARCHAR2);
-    PROCEDURE eliminar_recibo_detalle(id NUMBER);
-    PROCEDURE insertar_recibo_completo(fecha DATE, cliente_id NUMBER, monto NUMBER, cantidad NUMBER, metodo_pago VARCHAR2, descripcion VARCHAR2);
-    PROCEDURE insertar_compra_producto(producto_id NUMBER, proveedor_id NUMBER, fecha DATE);
-    PROCEDURE actualizar_compra_producto(id NUMBER, producto_id NUMBER, proveedor_id NUMBER, fecha DATE);
-    PROCEDURE eliminar_compra_producto(id NUMBER);
-    PROCEDURE insertar_compra_detalle(compra_producto_id NUMBER, cantidad NUMBER, monto NUMBER, descripcion VARCHAR2);
-    PROCEDURE actualizar_compra_detalle(id NUMBER, compra_producto_id NUMBER, cantidad NUMBER, monto NUMBER, descripcion VARCHAR2);
-    PROCEDURE eliminar_compra_detalle(id NUMBER);
-    PROCEDURE insertar_compra_producto_completo(producto_id NUMBER, proveedor_id NUMBER, fecha DATE, cantidad NUMBER, monto NUMBER, descripcion VARCHAR2);
+    PROCEDURE actualizar_recibo_detalle(p_id NUMBER, p_recibo_id NUMBER, p_monto NUMBER, p_cantidad NUMBER, p_metodo_pago VARCHAR2, p_descripcion VARCHAR2);
+    PROCEDURE eliminar_recibo_detalle(p_id NUMBER);
+    PROCEDURE insertar_recibo_completo(p_fecha DATE, p_cliente_id NUMBER, p_monto NUMBER, p_cantidad NUMBER, p_metodo_pago VARCHAR2, p_descripcion VARCHAR2);
+    PROCEDURE insertar_compra_producto(p_producto_id NUMBER, p_proveedor_id NUMBER, p_fecha DATE);
+    PROCEDURE actualizar_compra_producto(p_id NUMBER, p_producto_id NUMBER, p_proveedor_id NUMBER, p_fecha DATE);
+    PROCEDURE eliminar_compra_producto(p_id NUMBER);
+    PROCEDURE insertar_compra_detalle(p_compra_producto_id NUMBER, p_cantidad NUMBER, p_monto NUMBER, p_descripcion VARCHAR2);
+    PROCEDURE actualizar_compra_detalle(p_id NUMBER, p_compra_producto_id NUMBER, p_cantidad NUMBER, p_monto NUMBER, p_descripcion VARCHAR2);
+    PROCEDURE eliminar_compra_detalle(p_id NUMBER);
+    PROCEDURE insertar_compra_producto_completo(p_producto_id NUMBER, p_proveedor_id NUMBER, p_fecha DATE, p_cantidad NUMBER, p_monto NUMBER, p_descripcion VARCHAR2);
 END;
 
 -- Create package for the tables PRODUCTOS, BITACORA_PRODUCTO, CLIENTE, RECIBO, and PROVEEDOR to SELECT:
 
 CREATE OR REPLACE PACKAGE paquete_select AS
     FUNCTION obtener_productos RETURN SYS_REFCURSOR;
-    FUNCTION obtener_producto(id NUMBER) RETURN SYS_REFCURSOR;
+    FUNCTION obtener_producto(p_id NUMBER) RETURN SYS_REFCURSOR;
     FUNCTION obtener_productos_categoria RETURN SYS_REFCURSOR; -- incluir join con categoria
     FUNCTION obtener_producto_categoria(id NUMBER) RETURN SYS_REFCURSOR; -- incluir join con categoria
     FUNCTION obtener_bitacora_productos RETURN SYS_REFCURSOR;
@@ -364,98 +364,98 @@ CREATE OR REPLACE PACKAGE BODY paquete_modificar AS
             RAISE_APPLICATION_ERROR(-20013, 'Error al insertar recibo detalle');
     END insertar_recibo_detalle;
 
-    PROCEDURE actualizar_recibo_detalle(id NUMBER, recibo_id NUMBER, monto NUMBER, cantidad NUMBER, metodo_pago VARCHAR2, descripcion VARCHAR2) AS
+    PROCEDURE actualizar_recibo_detalle(p_id NUMBER, p_recibo_id NUMBER, p_monto NUMBER, p_cantidad NUMBER, p_metodo_pago VARCHAR2, p_descripcion VARCHAR2) AS
     BEGIN
         UPDATE RECIBO_DETALLE
-        SET recibo_id = recibo_id, monto = monto, cantidad = cantidad, metodo_pago = metodo_pago, descripcion = descripcion
-        WHERE id = id;
+        SET recibo_id = p_recibo_id, monto = p_monto, cantidad = p_cantidad, metodo_pago = p_metodo_pago, descripcion = p_descripcion
+        WHERE id = p_id;
     EXCEPTION
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20014, 'Error al actualizar recibo detalle');
     END actualizar_recibo_detalle;
 
-    PROCEDURE eliminar_recibo_detalle(id NUMBER) AS
+    PROCEDURE eliminar_recibo_detalle(p_id NUMBER) AS
     BEGIN
         DELETE FROM RECIBO_DETALLE
-        WHERE id = id;
+        WHERE id = p_id;
     EXCEPTION
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20015, 'Error al eliminar recibo detalle');
     END eliminar_recibo_detalle;
 
-    PROCEDURE insertar_recibo_completo(fecha DATE, cliente_id NUMBER, monto NUMBER, cantidad NUMBER, metodo_pago VARCHAR2, descripcion VARCHAR2) AS
+    PROCEDURE insertar_recibo_completo(p_fecha DATE, p_cliente_id NUMBER, p_monto NUMBER, p_cantidad NUMBER, p_metodo_pago VARCHAR2, p_descripcion VARCHAR2) AS
     BEGIN
         INSERT INTO RECIBO(id, fecha, cliente_id)
-        VALUES(seq_recibo.NEXTVAL, fecha, cliente_id);
+        VALUES(seq_recibo.NEXTVAL, p_fecha, p_cliente_id);
         INSERT INTO RECIBO_DETALLE(id, recibo_id, monto, cantidad, metodo_pago, descripcion)
-        VALUES(seq_recibo_detalle.NEXTVAL, seq_recibo.CURRVAL, monto, cantidad, metodo_pago, descripcion);
+        VALUES(seq_recibo_detalle.NEXTVAL, seq_recibo.CURRVAL, p_monto, p_cantidad, p_metodo_pago, p_descripcion);
     EXCEPTION
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20016, 'Error al insertar recibo completo');
     END insertar_recibo_completo;
 
-    PROCEDURE insertar_compra_producto(producto_id NUMBER, proveedor_id NUMBER, fecha DATE) AS
+    PROCEDURE insertar_compra_producto(p_producto_id NUMBER, p_proveedor_id NUMBER, p_fecha DATE) AS
     BEGIN
         INSERT INTO COMPRA_PRODUCTO(id, producto_id, proveedor_id, fecha)
-        VALUES(seq_compra_producto.NEXTVAL, producto_id, proveedor_id, fecha);
+        VALUES(seq_compra_producto.NEXTVAL, p_producto_id, p_proveedor_id, p_fecha);
     EXCEPTION
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20017, 'Error al insertar compra producto');
     END insertar_compra_producto;
 
-    PROCEDURE actualizar_compra_producto(id NUMBER, producto_id NUMBER, proveedor_id NUMBER, fecha DATE) AS
+    PROCEDURE actualizar_compra_producto(p_id NUMBER, p_producto_id NUMBER, p_proveedor_id NUMBER, p_fecha DATE) AS
     BEGIN
         UPDATE COMPRA_PRODUCTO
-        SET producto_id = producto_id, proveedor_id = proveedor_id, fecha = fecha
-        WHERE id = id;
+        SET producto_id = p_producto_id, proveedor_id = p_proveedor_id, fecha = p_fecha
+        WHERE id = p_id;
     EXCEPTION
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20018, 'Error al actualizar compra producto');
     END actualizar_compra_producto;
 
-    PROCEDURE eliminar_compra_producto(id NUMBER) AS
+    PROCEDURE eliminar_compra_producto(p_id NUMBER) AS
     BEGIN
         DELETE FROM COMPRA_PRODUCTO
-        WHERE id = id;
+        WHERE id = p_id;
     EXCEPTION
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20019, 'Error al eliminar compra producto');
     END eliminar_compra_producto;
 
-    PROCEDURE insertar_compra_detalle(compra_producto_id NUMBER, cantidad NUMBER, monto NUMBER, descripcion VARCHAR2) AS
+    PROCEDURE insertar_compra_detalle(p_compra_producto_id NUMBER, p_cantidad NUMBER, p_monto NUMBER, p_descripcion VARCHAR2) AS
     BEGIN
         INSERT INTO COMPRA_DETALLE(id, compra_producto_id, cantidad, monto, descripcion)
-        VALUES(seq_compra_detalle.NEXTVAL, compra_producto_id, cantidad, monto, descripcion);
+        VALUES(seq_compra_detalle.NEXTVAL, p_compra_producto_id, p_cantidad, p_monto, p_descripcion);
     EXCEPTION
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20020, 'Error al insertar compra detalle');
     END insertar_compra_detalle;
 
-    PROCEDURE actualizar_compra_detalle(id NUMBER, compra_producto_id NUMBER, cantidad NUMBER, monto NUMBER, descripcion VARCHAR2) AS
+    PROCEDURE actualizar_compra_detalle(p_id NUMBER, p_compra_producto_id NUMBER, p_cantidad NUMBER, p_monto NUMBER, p_descripcion VARCHAR2) AS
     BEGIN
         UPDATE COMPRA_DETALLE
-        SET compra_producto_id = compra_producto_id, cantidad = cantidad, monto = monto, descripcion = descripcion
-        WHERE id = id;
+        SET compra_producto_id = p_compra_producto_id, cantidad = p_cantidad, monto = p_monto, descripcion = p_descripcion
+        WHERE id = p_id;
     EXCEPTION
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20021, 'Error al actualizar compra detalle');
     END actualizar_compra_detalle;
 
-    PROCEDURE eliminar_compra_detalle(id NUMBER) AS
+    PROCEDURE eliminar_compra_detalle(p_id NUMBER) AS
     BEGIN
         DELETE FROM COMPRA_DETALLE
-        WHERE id = id;
+        WHERE id = p_id;
     EXCEPTION
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20022, 'Error al eliminar compra detalle');
     END eliminar_compra_detalle;
 
-    PROCEDURE insertar_compra_producto_completo(producto_id NUMBER, proveedor_id NUMBER, fecha DATE, cantidad NUMBER, monto NUMBER, descripcion VARCHAR2) AS 
+    PROCEDURE insertar_compra_producto_completo(p_producto_id NUMBER, p_proveedor_id NUMBER, p_fecha DATE, p_cantidad NUMBER, p_monto NUMBER, p_descripcion VARCHAR2) AS 
     BEGIN
         INSERT INTO COMPRA_PRODUCTO(id, producto_id, proveedor_id, fecha)
-        VALUES(seq_compra_producto.NEXTVAL, producto_id, proveedor_id, fecha);
+        VALUES(seq_compra_producto.NEXTVAL, p_producto_id, p_proveedor_id, p_fecha);
         INSERT INTO COMPRA_DETALLE(id, compra_producto_id, cantidad, monto, descripcion)
-        VALUES(seq_compra_detalle.NEXTVAL, seq_compra_producto.CURRVAL, cantidad, monto, descripcion);
+        VALUES(seq_compra_detalle.NEXTVAL, seq_compra_producto.CURRVAL, p_cantidad, p_monto, p_descripcion);
     EXCEPTION
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20023, 'Error al insertar compra producto completo');
@@ -477,12 +477,12 @@ CREATE OR REPLACE PACKAGE BODY paquete_select AS
             RAISE_APPLICATION_ERROR(-20024, 'Error al obtener productos');
     END obtener_productos;
 
-    FUNCTION obtener_producto(id NUMBER) RETURN SYS_REFCURSOR AS
+    FUNCTION obtener_producto(p_id NUMBER) RETURN SYS_REFCURSOR AS
         producto SYS_REFCURSOR;
     BEGIN
         OPEN producto FOR
         SELECT * FROM PRODUCTO
-        WHERE id = id;
+        WHERE id = p_id;
         RETURN producto;
     EXCEPTION
         WHEN OTHERS THEN
