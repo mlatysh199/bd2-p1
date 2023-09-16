@@ -18,7 +18,7 @@ public abstract class Servlet extends HttpServlet {
     protected abstract void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException;
 
-    protected void show(String path, HttpServletRequest req, HttpServletResponse resp)
+    protected void showPage(String path, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/WEB-INF/" + path).forward(req, resp);
     }

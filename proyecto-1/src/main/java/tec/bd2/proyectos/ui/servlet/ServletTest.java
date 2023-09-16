@@ -21,7 +21,7 @@ public class ServletTest extends Servlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        show("irene.jsp", req, resp);
+        showPage("irene.jsp", req, resp);
     }
     
 }
