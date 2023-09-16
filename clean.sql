@@ -1,0 +1,27 @@
+DROP TRIGGER bitacora_producto_insert;
+DROP TRIGGER bitacora_producto_update;
+DROP TRIGGER bitacora_producto_delete;
+DROP TRIGGER recibo_insert;
+
+DROP PACKAGE paquete_modificar;
+DROP PACKAGE paquete_select;
+
+DROP SEQUENCE seq_bitacora_producto;
+DROP SEQUENCE seq_compra_detalle;
+DROP SEQUENCE seq_compra_producto;
+DROP SEQUENCE seq_proveedor;
+DROP SEQUENCE seq_recibo_detalle;
+DROP SEQUENCE seq_recibo;
+DROP SEQUENCE seq_cliente;
+DROP SEQUENCE seq_producto;
+
+DROP TABLE BITACORA_PRODUCTO;
+DROP TABLE COMPRA_DETALLE;
+DROP TABLE COMPRA_PRODUCTO;
+DROP TABLE PROVEEDOR;
+DROP TABLE RECIBO_DETALLE;
+DROP TABLE PRODUCTO_RECIBO;
+DROP TABLE RECIBO;
+DROP TABLE CLIENTE;
+DROP TABLE PRODUCTO;
+DROP TABLE CATEGORIA;
