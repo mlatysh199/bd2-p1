@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gestion de Productos</title>
+    <title>Gestion de Proveedores</title>
     <style>
         
         body {
@@ -16,7 +16,7 @@
             transform: translateX(-50%);
         }
 
-        #id-producto{
+        #id-proveedor{
 
             position: absolute;
             top: 180px;
@@ -24,7 +24,7 @@
 
         }
 
-        #nombre-producto{
+        #nombre-proveedor{
 
             position: absolute;
             top: 180px;
@@ -33,7 +33,7 @@
         }
 
 
-        #descripcion-producto{
+        #descripcion-proveedor{
 
             position: absolute;
             top: 180px;
@@ -41,27 +41,11 @@
 
         }
 
-        #precio-producto{
+        #direccion-proveedor{
 
             position: absolute;
             top: 180px;
             left: 750px;
-
-        }
-
-        #categoria-producto{
-
-            position: absolute;
-            top: 180px;
-            left: 950px;
-
-        }   
-
-        #inventario-producto{
-
-            position: absolute;
-            top: 180px;
-            left: 1150px;
 
         }
 
@@ -90,9 +74,8 @@
             cursor: pointer; /* Cambiar el cursor al pasar el ratón */
             position: absolute;
             top: 250px;
-            left: 1275px;
+            left: 900px;
         }   
-
 
         .boton-eliminar{
 
@@ -104,11 +87,11 @@
             cursor: pointer; /* Cambiar el cursor al pasar el ratón */
             position: absolute;
             top: 250px;
-            left: 1375px;
+            left: 1000px;
 
 
         }
-
+        
         .boton-agregar:hover {
             background-color: #024900;
         }
@@ -120,8 +103,6 @@
         .boton-eliminar:hover {
             background-color: #9c0000;
         }
-
-
 
         /* Estilo para la lista */
         ul {
@@ -162,7 +143,7 @@
             border-radius: 5px; /* Bordes redondeados */
             cursor: pointer; /* Cambiar el cursor al pasar el ratón */
         }
-
+        
         .search-button:hover {
             background-color: #006797;
         }
@@ -173,26 +154,25 @@
 </head>
 <body>
     
-    <h1 id="mi-titulo">Gestion de Productos</h1>
-
-    <button class="boton-agregar">Agregar nuevo producto</button>
+    <h1 id="mi-titulo">Gestion de Proveedores</h1>
+    
+    <button class="boton-agregar">Agregar nuevo proveedor</button>
 
     <button class="boton-editar">Editar</button>
 
     <button class="boton-eliminar">Eliminar</button>
 
     <ul>
-        <li>Elemento 1 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
-        <li>Elemento 2 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
-        <li>Elemento 3 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
-        <li>Elemento 4 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
+        <li>Elemento 1 lablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
+        <li>Elemento 2 lablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
+        <li>Elemento 3 lablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
+        <li>Elemento 4 lablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
     </ul>
-    <p id="id-producto">ID</p>
-    <p id="nombre-producto">Nombre</p>
-    <p id="descripcion-producto">Descripcion</p>
-    <p id="precio-producto">Precio</p>
-    <p id="categoria-producto">Categoria</p>
-    <p id="inventario-producto">Inventario</p>
+    
+    <p id="id-proveedor">ID</p>
+    <p id="nombre-proveedor">Nombre</p>
+    <p id="descripcion-proveedor">Descripcion</p>
+    <p id="direccion-proveedor">Dirección</p>
 
     <div class="search-container">
         <input type="text" class="search-input" placeholder="Buscar...">

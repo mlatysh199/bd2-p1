@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gestion de Productos</title>
+    <title>Gestion de Clientes</title>
     <style>
         
         body {
@@ -16,7 +16,7 @@
             transform: translateX(-50%);
         }
 
-        #id-producto{
+        #id-cliente{
 
             position: absolute;
             top: 180px;
@@ -24,7 +24,7 @@
 
         }
 
-        #nombre-producto{
+        #nombre-cliente{
 
             position: absolute;
             top: 180px;
@@ -33,15 +33,15 @@
         }
 
 
-        #descripcion-producto{
+        #fecha-ultima-compra-cliente{
 
             position: absolute;
             top: 180px;
-            left: 500px;
+            left: 450px;
 
         }
 
-        #precio-producto{
+        #correo-cliente{
 
             position: absolute;
             top: 180px;
@@ -49,7 +49,7 @@
 
         }
 
-        #categoria-producto{
+        #direccion-cliente{
 
             position: absolute;
             top: 180px;
@@ -57,7 +57,7 @@
 
         }   
 
-        #inventario-producto{
+        #cantidad-compras-cliente{
 
             position: absolute;
             top: 180px;
@@ -93,7 +93,6 @@
             left: 1275px;
         }   
 
-
         .boton-eliminar{
 
             background-color: red; /* Color de fondo verde */
@@ -108,7 +107,7 @@
 
 
         }
-
+        
         .boton-agregar:hover {
             background-color: #024900;
         }
@@ -120,8 +119,7 @@
         .boton-eliminar:hover {
             background-color: #9c0000;
         }
-
-
+        
 
         /* Estilo para la lista */
         ul {
@@ -163,19 +161,17 @@
             cursor: pointer; /* Cambiar el cursor al pasar el ratón */
         }
 
-        .search-button:hover {
+	  .search-button:hover {
             background-color: #006797;
         }
-
-
 
     </style>
 </head>
 <body>
     
-    <h1 id="mi-titulo">Gestion de Productos</h1>
-
-    <button class="boton-agregar">Agregar nuevo producto</button>
+    <h1 id="mi-titulo">Gestion de Clientes</h1>
+    
+    <button class="boton-agregar">Agregar nuevo cliente</button>
 
     <button class="boton-editar">Editar</button>
 
@@ -187,12 +183,13 @@
         <li>Elemento 3 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
         <li>Elemento 4 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
     </ul>
-    <p id="id-producto">ID</p>
-    <p id="nombre-producto">Nombre</p>
-    <p id="descripcion-producto">Descripcion</p>
-    <p id="precio-producto">Precio</p>
-    <p id="categoria-producto">Categoria</p>
-    <p id="inventario-producto">Inventario</p>
+    
+    <p id="id-cliente">ID</p>
+    <p id="nombre-cliente">Nombre</p>
+    <p id="fecha-ultima-compra-cliente">Fecha de última compra</p>
+    <p id="correo-cliente">Correo</p>
+    <p id="direccion-cliente">Dirección</p>
+    <p id="cantidad-compras-cliente">Cantidad de compras</p>
 
     <div class="search-container">
         <input type="text" class="search-input" placeholder="Buscar...">

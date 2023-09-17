@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gestion de Productos</title>
+    <title>Gestion de Compras</title>
     <style>
         
         body {
@@ -16,7 +16,7 @@
             transform: translateX(-50%);
         }
 
-        #id-producto{
+        #id-compra{
 
             position: absolute;
             top: 180px;
@@ -24,44 +24,52 @@
 
         }
 
-        #nombre-producto{
+        #producto-compra{
 
             position: absolute;
             top: 180px;
-            left: 250px;
+            left: 220px;
 
         }
 
 
-        #descripcion-producto{
+        #proveedor-compra{
 
             position: absolute;
             top: 180px;
-            left: 500px;
+            left: 400px;
 
         }
 
-        #precio-producto{
+        #fecha-compra{
+
+            position: absolute;
+            top: 180px;
+            left: 600px;
+
+        }
+
+        #cantidad-compra{
 
             position: absolute;
             top: 180px;
             left: 750px;
 
-        }
-
-        #categoria-producto{
-
-            position: absolute;
-            top: 180px;
-            left: 950px;
-
         }   
 
-        #inventario-producto{
+        #monto-compra{
 
             position: absolute;
             top: 180px;
-            left: 1150px;
+            left: 925px;
+
+        }
+
+        #descripcion-compra{
+
+        position: absolute;
+        top: 180px;
+        left: 1100px;
 
         }
 
@@ -93,7 +101,6 @@
             left: 1275px;
         }   
 
-
         .boton-eliminar{
 
             background-color: red; /* Color de fondo verde */
@@ -120,8 +127,6 @@
         .boton-eliminar:hover {
             background-color: #9c0000;
         }
-
-
 
         /* Estilo para la lista */
         ul {
@@ -167,33 +172,32 @@
             background-color: #006797;
         }
 
-
-
     </style>
 </head>
 <body>
     
-    <h1 id="mi-titulo">Gestion de Productos</h1>
-
-    <button class="boton-agregar">Agregar nuevo producto</button>
+    <h1 id="mi-titulo">Gestion de Compras</h1>
+    
+    <button class="boton-agregar">Agregar nueva compra</button>
 
     <button class="boton-editar">Editar</button>
 
     <button class="boton-eliminar">Eliminar</button>
 
     <ul>
-        <li>Elemento 1 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
-        <li>Elemento 2 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
-        <li>Elemento 3 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
-        <li>Elemento 4 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
+        <li>Elemento 1 </li>
+        <li>Elemento 2 </li>
+        <li>Elemento 3 </li>
+        <li>Elemento 4 </li>
     </ul>
-    <p id="id-producto">ID</p>
-    <p id="nombre-producto">Nombre</p>
-    <p id="descripcion-producto">Descripcion</p>
-    <p id="precio-producto">Precio</p>
-    <p id="categoria-producto">Categoria</p>
-    <p id="inventario-producto">Inventario</p>
-
+    
+    <p id="id-compra">ID</p>
+    <p id="producto-compra">Producto</p>
+    <p id="proveedor-compra"> Proveedor</p>
+    <p id="fecha-compra"> Fecha</p>
+    <p id="cantidad-compra"> Cantidad</p>
+    <p id="monto-compra"> Monto</p>
+    <p id="descripcion-compra"> Descripción</p>
     <div class="search-container">
         <input type="text" class="search-input" placeholder="Buscar...">
         <button class="search-button">Buscar</button>
