@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gestion de Productos</title>
+    <title>Gestion de Recibos</title>
     <style>
         
         body {
@@ -16,7 +16,7 @@
             transform: translateX(-50%);
         }
 
-        #id-producto{
+        #id-recibo{
 
             position: absolute;
             top: 180px;
@@ -24,44 +24,52 @@
 
         }
 
-        #nombre-producto{
+        #fecha-recibo{
 
             position: absolute;
             top: 180px;
-            left: 250px;
+            left: 200px;
 
         }
 
 
-        #descripcion-producto{
+        #cliente-id-recibo{
 
             position: absolute;
             top: 180px;
-            left: 500px;
+            left: 350;
 
         }
 
-        #precio-producto{
+        #producto-recibo{
 
             position: absolute;
             top: 180px;
-            left: 750px;
+            left: 550px;
 
         }
 
-        #categoria-producto{
+        #monto-recibo{
+
+            position: absolute;
+            top: 180px;
+            left: 800px;
+
+        }   
+
+        #cantidad-recibo{
 
             position: absolute;
             top: 180px;
             left: 950px;
 
-        }   
+        }
 
-        #inventario-producto{
+        #pago-recibo{
 
-            position: absolute;
-            top: 180px;
-            left: 1150px;
+        position: absolute;
+        top: 180px;
+        left: 1150px;
 
         }
 
@@ -93,7 +101,6 @@
             left: 1275px;
         }   
 
-
         .boton-eliminar{
 
             background-color: red; /* Color de fondo verde */
@@ -120,8 +127,6 @@
         .boton-eliminar:hover {
             background-color: #9c0000;
         }
-
-
 
         /* Estilo para la lista */
         ul {
@@ -167,37 +172,70 @@
             background-color: #006797;
         }
 
+        /* Estilos para el select */
+        select {
+            font-size: 1em; /* Tamaño de fuente */
+            text-align: center;
+            color: white;
+            padding: 8px; /* Espacio alrededor del texto */
+            border: none; /* Quitamos el borde */
+            background-color: #d66000e7; /* Color de fondo */
+            border-radius: 5px; /* Borde redondeado */
+            appearance: none; /* Quitamos la apariencia nativa */
+            outline: none; /* Quitamos el borde al enfocar */
+            box-shadow: none; /* Quitamos la sombra */
+            margin-top: 100px;
+            margin-left: 520px;
+
+        }
+
+        /* Estilos para las opciones */
+        select option {
+        font-size: 1em; /* Tamaño de fuente */
+        padding: 8px; /* Espacio alrededor del texto */
+        border: none; /* Quitamos el borde */
+        background-color: #ff9254; /* Color de fondo */
+        border-radius: 5px; /* Borde redondeado */
+        }
 
 
     </style>
 </head>
 <body>
     
-    <h1 id="mi-titulo">Gestion de Productos</h1>
-
-    <button class="boton-agregar">Agregar nuevo producto</button>
+    <h1 id="mi-titulo">Gestion de Recibos</h1>
+    
+    <button class="boton-agregar">Agregar nuevo recibo</button>
 
     <button class="boton-editar">Editar</button>
 
     <button class="boton-eliminar">Eliminar</button>
 
     <ul>
-        <li>Elemento 1 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
-        <li>Elemento 2 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
-        <li>Elemento 3 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
-        <li>Elemento 4 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
+        <li>Elemento 1 </li>
+        <li>Elemento 2 </li>
+        <li>Elemento 3 </li>
+        <li>Elemento 4 </li>
     </ul>
-    <p id="id-producto">ID</p>
-    <p id="nombre-producto">Nombre</p>
-    <p id="descripcion-producto">Descripcion</p>
-    <p id="precio-producto">Precio</p>
-    <p id="categoria-producto">Categoria</p>
-    <p id="inventario-producto">Inventario</p>
-
+    
+    <p id="id-recibo">ID</p>
+    <p id="fecha-recibo">Fecha</p>
+    <p id="cliente-id-recibo"> ID Cliente</p>
+    <p id="producto-recibo"> Productos</p>
+    <p id="monto-recibo"> Monto</p>
+    <p id="cantidad-recibo"> Cantidad de Productos</p>
+    <p id="pago-recibo"> Método de Pago</p>
     <div class="search-container">
         <input type="text" class="search-input" placeholder="Buscar...">
         <button class="search-button">Buscar</button>
     </div>
+    
+    
+    <select id="opciones" name="opciones">
+        <option value="opcion1">4 Peras</option>
+        <option value="opcion2">1 Coca Cola</option>
+        <option value="opcion3">2 Empanadas</option>
+    </select>
 
 </body>
 </html>
