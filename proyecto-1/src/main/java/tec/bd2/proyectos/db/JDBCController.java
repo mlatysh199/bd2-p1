@@ -10,8 +10,6 @@ public class JDBCController {
     private final Connection conn;
 
     public JDBCController(String jdbcURL, String username, String password, String walletLocation) throws SQLException, ClassNotFoundException {
-        //System.out.println(DriverManager.getDrivers().nextElement().getClass().getName());
-        //Class.forName("oracle.jdbc.driver.OracleDriver");
         Properties props = new Properties();
         props.setProperty("user", username);
         props.setProperty("password", password);
