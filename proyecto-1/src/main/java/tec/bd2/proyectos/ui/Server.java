@@ -6,24 +6,34 @@ import javax.servlet.ServletException;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
-import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.startup.Tomcat;
-import org.apache.catalina.webresources.DirResourceSet;
-import org.apache.catalina.webresources.StandardRoot;
+
+import tec.bd2.proyectos.ui.servlet.ServletTest;
 
 public class Server {
-    public void start() throws ServletException, LifecycleException {
-        Tomcat tomcat = new Tomcat();
-        tomcat.setPort(8080);
+    private Tomcat tomcat;
+    private Context context;
+    private static final int port = 8080;
+
+
+    private void initServlets() {
+        tomcat.addServlet("", "MyServlet", new ServletTest());
+        context.addServletMappingDecoded("/hello", "MyServlet");
+    }
+
+    public void start() throws LifecycleException {
+        tomcat = new Tomcat();
+        tomcat.setPort(port);
 
         String docBase = new File(".").getAbsolutePath();
          
-        Context context = tomcat.addWebapp("/", docBase);
-        File additionWebInfClasses = new File("target/classes");
-        WebResourceRoot resources = new StandardRoot(context);
-        resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes",
-                additionWebInfClasses.getAbsolutePath(), "/"));
-        context.setResources(resources);
+        try {
+            context = tomcat.addWebapp("", docBase);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
+
+        initServlets();
 
         tomcat.start();
 
