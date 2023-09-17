@@ -22,7 +22,7 @@ public class Server {
     private Tomcat tomcat;
     private SessionManager sessionManager;
     private Context context;
-    private static final int port = 8080;
+    public static final int port = 8080;
 
     public Server() {
         sessionManager = new SessionManager();
@@ -69,7 +69,10 @@ public class Server {
         initServlets();
 
         tomcat.start();
+    }
 
-        tomcat.getServer().await();
-    } 
+    public void kill() throws LifecycleException {
+        tomcat.stop();
+        tomcat.destroy();
+    }
 }
