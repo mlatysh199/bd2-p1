@@ -6,24 +6,67 @@ import javax.servlet.ServletException;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
-import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.startup.Tomcat;
-import org.apache.catalina.webresources.DirResourceSet;
-import org.apache.catalina.webresources.StandardRoot;
+
+import tec.bd2.proyectos.logic.SessionManager;
+import tec.bd2.proyectos.ui.servlet.AboutPage;
+import tec.bd2.proyectos.ui.servlet.LoginPage;
+import tec.bd2.proyectos.ui.servlet.MenuPage;
+import tec.bd2.proyectos.ui.servlet.CRUD.ClientPage;
+import tec.bd2.proyectos.ui.servlet.CRUD.ProductBuyPage;
+import tec.bd2.proyectos.ui.servlet.CRUD.ProductPage;
+import tec.bd2.proyectos.ui.servlet.CRUD.ReceiptPage;
+import tec.bd2.proyectos.ui.servlet.CRUD.SummaryPage;
 
 public class Server {
-    public void start() throws ServletException, LifecycleException {
-        Tomcat tomcat = new Tomcat();
-        tomcat.setPort(8080);
+    private Tomcat tomcat;
+    private SessionManager sessionManager;
+    private Context context;
+    private static final int port = 8080;
+
+    public Server() {
+        sessionManager = new SessionManager();
+    }
+
+    private void initServlets() {
+        tomcat.addServlet("", "AboutServlet", new AboutPage(sessionManager));
+        context.addServletMappingDecoded("/", "AboutServlet");
+
+        tomcat.addServlet("", "LoginServlet", new LoginPage(sessionManager));
+        context.addServletMappingDecoded("/login", "LoginServlet");
+
+        tomcat.addServlet("", "MenuServlet", new MenuPage(sessionManager));
+        context.addServletMappingDecoded("/menu", "MenuServlet");
+
+        tomcat.addServlet("", "ClientServlet", new ClientPage(sessionManager));
+        context.addServletMappingDecoded("/CRUD/client", "ClientServlet");
+
+        tomcat.addServlet("", "ProductBuyServlet", new ProductBuyPage(sessionManager));
+        context.addServletMappingDecoded("/CRUD/productBuy", "ProductBuyServlet");
+
+        tomcat.addServlet("", "ProductServlet", new ProductPage(sessionManager));
+        context.addServletMappingDecoded("/CRUD/product", "ProductServlet");
+
+        tomcat.addServlet("", "ReceiptServlet", new ReceiptPage(sessionManager));
+        context.addServletMappingDecoded("/CRUD/receipt", "ReceiptServlet");
+
+        tomcat.addServlet("", "SummaryServlet", new SummaryPage(sessionManager));
+        context.addServletMappingDecoded("/CRUD/summary", "SummaryServlet");
+    }
+
+    public void start() throws LifecycleException {
+        tomcat = new Tomcat();
+        tomcat.setPort(port);
 
         String docBase = new File(".").getAbsolutePath();
          
-        Context context = tomcat.addWebapp("/", docBase);
-        File additionWebInfClasses = new File("target/classes");
-        WebResourceRoot resources = new StandardRoot(context);
-        resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes",
-                additionWebInfClasses.getAbsolutePath(), "/"));
-        context.setResources(resources);
+        try {
+            context = tomcat.addWebapp("", docBase);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
+
+        initServlets();
 
         tomcat.start();
 
