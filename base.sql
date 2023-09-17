@@ -15,7 +15,6 @@ CREATE TABLE PRODUCTO(
     CONSTRAINT fk_categoria FOREIGN KEY(categoria_id) REFERENCES CATEGORIA(id)
 );
 
-
 CREATE TABLE CLIENTE(
     id NUMBER(10) NOT NULL,
     nombre VARCHAR2(50) NOT NULL,
@@ -89,7 +88,7 @@ CREATE TABLE BITACORA_PRODUCTO(
     usuario_db VARCHAR2(50) NOT NULL,
     CONSTRAINT pk_bitacora_producto PRIMARY KEY(id)
 );
-
+/
 -- Path: base.sql
 -- Implement, using ORACLE SQL, automatic sequences for all the tables that need it.
 
@@ -101,7 +100,7 @@ CREATE SEQUENCE seq_proveedor START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE seq_compra_producto START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE seq_compra_detalle START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE seq_bitacora_producto START WITH 1 INCREMENT BY 1;
-
+/
 -- Implement, using ORACLE SQL, the triggers for bitacora_producto table [the triggers have to log all the changes to the product table] (all of the triggers have to occur after the event):
 
 CREATE OR REPLACE TRIGGER bitacora_producto_insert
@@ -116,6 +115,7 @@ BEGIN
     INSERT INTO BITACORA_PRODUCTO(id, fecha, descripcion, usuario_db)
     VALUES(seq_bitacora_producto.NEXTVAL, SYSTIMESTAMP,'Se insertó el producto '|| producto_nombre || ' con id '|| TO_CHAR(producto_id), USER);
 END;
+/
 
 CREATE OR REPLACE TRIGGER bitacora_producto_update
 AFTER UPDATE ON PRODUCTO
@@ -172,6 +172,7 @@ BEGIN
 
     INSERT INTO BITACORA_PRODUCTO(id, fecha, descripcion, usuario_db) VALUES(seq_bitacora_producto.NEXTVAL, SYSTIMESTAMP, mensaje, USER);
 END;
+/
 
 CREATE OR REPLACE TRIGGER bitacora_producto_delete
 AFTER DELETE ON PRODUCTO
@@ -185,6 +186,7 @@ BEGIN
     INSERT INTO BITACORA_PRODUCTO(id, fecha, descripcion, usuario_db)
     VALUES(seq_bitacora_producto.NEXTVAL, SYSTIMESTAMP, 'Se eliminó el producto '|| producto_nombre || ' con id '|| TO_CHAR(producto_id), USER);
 END;
+/
 
 CREATE OR REPLACE TRIGGER recibo_insert
 AFTER INSERT ON RECIBO
@@ -199,7 +201,7 @@ BEGIN
     SET fecha_ultima_compra = recibo_fecha, cantidad_compras = cantidad_compras + 1
     WHERE id = recibo_cliente_id;
 END;
-
+/
 -- Create package for the tables PRODUCTOS, CLIENTE, RECIBO, and PROVEEDOR to INSERT, UPDATE, and DELETE:
 
 CREATE OR REPLACE PACKAGE paquete_modificar AS
@@ -218,8 +220,8 @@ CREATE OR REPLACE PACKAGE paquete_modificar AS
 
     -- Also, producto_recibo
     PROCEDURE insertar_producto_recibo(p_producto_id NUMBER, p_recibo_id NUMBER, p_cantidad NUMBER);
-    PROCEDURE actualizar_producto_recibo(p_id NUMBER, p_producto_id NUMBER, p_recibo_id NUMBER, p_cantidad NUMBER);
-    PROCEDURE eliminar_producto_recibo(p_id NUMBER);
+    PROCEDURE actualizar_producto_recibo(p_producto_id NUMBER, p_recibo_id NUMBER, p_cantidad NUMBER);
+    PROCEDURE eliminar_producto_recibo(p_producto_id NUMBER, p_recibo_id NUMBER);
     PROCEDURE eliminar_producto_recibo_completo(p_recibo_id NUMBER);
 
     -- recibo detalle, compra_producto, compra_detalle
@@ -234,7 +236,14 @@ CREATE OR REPLACE PACKAGE paquete_modificar AS
     PROCEDURE actualizar_compra_detalle(p_id NUMBER, p_compra_producto_id NUMBER, p_cantidad NUMBER, p_monto NUMBER, p_descripcion VARCHAR2);
     PROCEDURE eliminar_compra_detalle(p_id NUMBER);
     PROCEDURE insertar_compra_producto_completo(p_producto_id NUMBER, p_proveedor_id NUMBER, p_fecha DATE, p_cantidad NUMBER, p_monto NUMBER, p_descripcion VARCHAR2);
+
+    PROCEDURE actualizar_recibo_completo(p_id NUMBER, p_fecha DATE, p_cliente_id NUMBER, p_monto NUMBER, p_cantidad NUMBER, p_metodo_pago VARCHAR2, p_descripcion VARCHAR2);
+    PROCEDURE eliminar_recibo_completo(p_id NUMBER);
+
+    PROCEDURE actualizar_compra_producto_completo(p_id NUMBER, p_producto_id NUMBER, p_proveedor_id NUMBER, p_fecha DATE, p_cantidad NUMBER, p_monto NUMBER, p_descripcion VARCHAR2);
+    PROCEDURE eliminar_compra_producto_completo(p_id NUMBER);
 END;
+/
 
 -- Create package for the tables PRODUCTOS, BITACORA_PRODUCTO, CLIENTE, RECIBO, and PROVEEDOR to SELECT:
 
@@ -260,6 +269,7 @@ CREATE OR REPLACE PACKAGE paquete_select AS
     FUNCTION obtener_productos_recibo(p_recibo_id NUMBER) RETURN SYS_REFCURSOR;
     FUNCTION obtener_producto_recibos(p_producto_id NUMBER) RETURN SYS_REFCURSOR;
 END;
+/
 
 -- Create package body (with exceptions management) for the tables PRODUCTOS, CLIENTE, RECIBO, and PROVEEDOR to INSERT, UPDATE, and DELETE:
 
@@ -484,27 +494,27 @@ CREATE OR REPLACE PACKAGE BODY paquete_modificar AS
 
     PROCEDURE insertar_producto_recibo(p_producto_id NUMBER, p_recibo_id NUMBER, p_cantidad NUMBER) AS
     BEGIN
-        INSERT INTO PRODUCTO_RECIBO(id, producto_id, recibo_id, cantidad)
-        VALUES(seq_producto_recibo.NEXTVAL, p_producto_id, p_recibo_id, p_cantidad);
+        INSERT INTO PRODUCTO_RECIBO(producto_id, recibo_id, cantidad)
+        VALUES(p_producto_id, p_recibo_id, p_cantidad);
     EXCEPTION
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20024, 'Error al insertar producto recibo');
     END insertar_producto_recibo;
 
-    PROCEDURE actualizar_producto_recibo(p_id NUMBER, p_producto_id NUMBER, p_recibo_id NUMBER, p_cantidad NUMBER) AS
+    PROCEDURE actualizar_producto_recibo(p_producto_id NUMBER, p_recibo_id NUMBER, p_cantidad NUMBER) AS
     BEGIN
         UPDATE PRODUCTO_RECIBO
-        SET producto_id = p_producto_id, recibo_id = p_recibo_id, cantidad = p_cantidad
-        WHERE id = p_id;
+        SET cantidad = p_cantidad
+        WHERE producto_id = p_producto_id AND recibo_id = p_recibo_id;
     EXCEPTION
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20025, 'Error al actualizar producto recibo');
     END actualizar_producto_recibo;
 
-    PROCEDURE eliminar_producto_recibo(p_id NUMBER) AS
+    PROCEDURE eliminar_producto_recibo(p_producto_id NUMBER, p_recibo_id NUMBER) AS
     BEGIN
         DELETE FROM PRODUCTO_RECIBO
-        WHERE id = p_id;
+        WHERE producto_id = p_producto_id AND recibo_id = p_recibo_id;
     EXCEPTION
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20026, 'Error al eliminar producto recibo');
@@ -519,7 +529,57 @@ CREATE OR REPLACE PACKAGE BODY paquete_modificar AS
             RAISE_APPLICATION_ERROR(-20027, 'Error al eliminar producto recibo completo');
     END eliminar_producto_recibo_completo;
 
+    PROCEDURE actualizar_recibo_completo(p_id NUMBER, p_fecha DATE, p_cliente_id NUMBER, p_monto NUMBER, p_cantidad NUMBER, p_metodo_pago VARCHAR2, p_descripcion VARCHAR2) AS
+    BEGIN
+        UPDATE RECIBO
+        SET fecha = p_fecha, cliente_id = p_cliente_id
+        WHERE id = p_id;
+        UPDATE RECIBO_DETALLE
+        SET monto = p_monto, cantidad = p_cantidad, metodo_pago = p_metodo_pago, descripcion = p_descripcion
+        WHERE recibo_id = p_id;
+    EXCEPTION
+        WHEN OTHERS THEN
+            RAISE_APPLICATION_ERROR(-20028, 'Error al actualizar recibo completo');
+    END actualizar_recibo_completo;
+
+    PROCEDURE eliminar_recibo_completo(p_id NUMBER) AS
+    BEGIN
+        DELETE FROM RECIBO_DETALLE
+        WHERE recibo_id = p_id;
+        DELETE FROM RECIBO
+        WHERE id = p_id;
+    EXCEPTION
+        WHEN OTHERS THEN
+            RAISE_APPLICATION_ERROR(-20029, 'Error al eliminar recibo completo');
+    END eliminar_recibo_completo;
+
+    PROCEDURE actualizar_compra_producto_completo(p_id NUMBER, p_producto_id NUMBER, p_proveedor_id NUMBER, p_fecha DATE, p_cantidad NUMBER, p_monto NUMBER, p_descripcion VARCHAR2) AS
+    BEGIN
+        UPDATE COMPRA_PRODUCTO
+        SET producto_id = p_producto_id, proveedor_id = p_proveedor_id, fecha = p_fecha
+        WHERE id = p_id;
+        UPDATE COMPRA_DETALLE
+        SET cantidad = p_cantidad, monto = p_monto, descripcion = p_descripcion
+        WHERE compra_producto_id = p_id;
+    EXCEPTION
+        WHEN OTHERS THEN
+            RAISE_APPLICATION_ERROR(-20030, 'Error al actualizar compra producto completo');
+    END actualizar_compra_producto_completo;
+
+    PROCEDURE eliminar_compra_producto_completo(p_id NUMBER) AS
+    BEGIN
+        DELETE FROM COMPRA_DETALLE
+        WHERE compra_producto_id = p_id;
+        DELETE FROM COMPRA_PRODUCTO
+        WHERE id = p_id;
+    EXCEPTION
+        WHEN OTHERS THEN
+            RAISE_APPLICATION_ERROR(-20031, 'Error al eliminar compra producto completo');
+    END eliminar_compra_producto_completo;
+
+
 END paquete_modificar;
+/
 
 -- Create package body (with exceptions management) for the tables PRODUCTOS, BITACORA_PRODUCTO, CLIENTE, RECIBO, and PROVEEDOR to SELECT:
 
@@ -620,11 +680,25 @@ CREATE OR REPLACE PACKAGE BODY paquete_select AS
             RAISE_APPLICATION_ERROR(-20031, 'Error al obtener cliente');
     END obtener_cliente;
 
+    --FUNCTION obtener_recibos RETURN SYS_REFCURSOR AS --6
+    --    recibos SYS_REFCURSOR;
+    --BEGIN
+    --    OPEN recibos FOR
+    --    SELECT * FROM RECIBO;
+    --    RETURN recibos;
+    --EXCEPTION
+    --    WHEN OTHERS THEN
+    --        RAISE_APPLICATION_ERROR(-20032, 'Error al obtener recibos');
+    --END obtener_recibos;
+
+    -- with join
     FUNCTION obtener_recibos RETURN SYS_REFCURSOR AS --6
         recibos SYS_REFCURSOR;
     BEGIN
         OPEN recibos FOR
-        SELECT * FROM RECIBO;
+        SELECT * FROM RECIBO
+        INNER JOIN RECIBO_DETALLE
+        ON RECIBO.id = RECIBO_DETALLE.recibo_id;
         RETURN recibos;
     EXCEPTION
         WHEN OTHERS THEN
@@ -668,11 +742,25 @@ CREATE OR REPLACE PACKAGE BODY paquete_select AS
             RAISE_APPLICATION_ERROR(-20035, 'Error al obtener proveedor');
     END obtener_proveedor;
 
+    --FUNCTION obtener_compra_productos RETURN SYS_REFCURSOR AS --10
+    --    compra_productos SYS_REFCURSOR;
+    --BEGIN
+    --    OPEN compra_productos FOR
+    --    SELECT * FROM COMPRA_PRODUCTO;
+    --    RETURN compra_productos;
+    --EXCEPTION
+    --    WHEN OTHERS THEN
+    --        RAISE_APPLICATION_ERROR(-20036, 'Error al obtener compra productos');
+    --END obtener_compra_productos;
+
+    -- Rewrite the previous function to include the join with COMPRA_DETALLE
     FUNCTION obtener_compra_productos RETURN SYS_REFCURSOR AS --10
         compra_productos SYS_REFCURSOR;
     BEGIN
         OPEN compra_productos FOR
-        SELECT * FROM COMPRA_PRODUCTO;
+        SELECT * FROM COMPRA_PRODUCTO
+        INNER JOIN COMPRA_DETALLE
+        ON COMPRA_PRODUCTO.id = COMPRA_DETALLE.compra_producto_id;
         RETURN compra_productos;
     EXCEPTION
         WHEN OTHERS THEN
@@ -777,3 +865,4 @@ CREATE OR REPLACE PACKAGE BODY paquete_select AS
     END obtener_producto_recibos;
 
 END paquete_select;
+/
