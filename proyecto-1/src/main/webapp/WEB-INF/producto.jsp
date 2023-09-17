@@ -93,6 +93,10 @@
             left: 1275px;
         }   
 
+        .boton-editar:hover {
+            background-color: #3e8e41;
+        }
+
         .boton-eliminar{
 
             background-color: red; /* Color de fondo verde */

@@ -23,7 +23,7 @@ public class ServletTest extends Servlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        showPage("irene.jsp", req, resp);
+        showPage("producto.jsp", req, resp);
 
     }
     
