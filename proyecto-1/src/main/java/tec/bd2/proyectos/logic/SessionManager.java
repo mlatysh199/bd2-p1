@@ -5,16 +5,24 @@ import java.util.Map;
 
 public class SessionManager {
     private final Map<String, String> sessions;
+    private final PasswordController passwordController;
 
-    public SessionManager() {
+    public SessionManager(PasswordController passwordController) {
+        this.passwordController = passwordController;
         this.sessions = new HashMap<>();
     }
 
     public boolean attemptAddSession(String session, String username, String password) {
         // TODO: implement this method
-        if (this.sessions.containsKey(session)) {
+        try {
+            if (this.sessions.containsKey(session) || !this.passwordController.verifyPassword(username, password)) {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
+
         addSession(session, username);
         return true;
     }
