@@ -7,6 +7,7 @@ import org.apache.catalina.LifecycleException;
 
 import tec.bd2.proyectos.db.JDBCController;
 import tec.bd2.proyectos.db.entities.ProviderEntity;
+import tec.bd2.proyectos.db.repository.LogRepository;
 import tec.bd2.proyectos.db.repository.ProviderRepository;
 import tec.bd2.proyectos.logic.PasswordController;
 import tec.bd2.proyectos.ui.Server;
