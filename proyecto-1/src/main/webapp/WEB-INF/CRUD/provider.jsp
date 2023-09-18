@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="tec.bd2.proyectos.db.entities.ProviderEntity" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,28 +68,28 @@
 
         .boton-editar{
 
-            background-color: yellow; /* Color de fondo verde */
-            color: black; /* Color del texto en blanco */
-            padding: 10px 20px; /* Espaciado interno para el botón */
-            border: none; /* Sin borde */
-            border-radius: 5px; /* Bordes redondeados */
-            cursor: pointer; /* Cambiar el cursor al pasar el ratón */
-            position: absolute;
-            top: 250px;
-            left: 900px;
+        background-color: yellow; /* Color de fondo verde */
+        color: black; /* Color del texto en blanco */
+        padding: 10px 20px; /* Espaciado interno para el botón */
+        border: none; /* Sin borde */
+        border-radius: 5px; /* Bordes redondeados */
+        cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+        position: absolute;
+        top: 200px;
+        left: 1550px;
         }   
 
         .boton-eliminar{
 
-            background-color: red; /* Color de fondo verde */
-            color: white; /* Color del texto en blanco */
-            padding: 10px 20px; /* Espaciado interno para el botón */
-            border: none; /* Sin borde */
-            border-radius: 5px; /* Bordes redondeados */
-            cursor: pointer; /* Cambiar el cursor al pasar el ratón */
-            position: absolute;
-            top: 250px;
-            left: 1000px;
+        background-color: red; /* Color de fondo verde */
+        color: white; /* Color del texto en blanco */
+        padding: 10px 20px; /* Espaciado interno para el botón */
+        border: none; /* Sin borde */
+        border-radius: 5px; /* Bordes redondeados */
+        cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+        position: absolute;
+        top: 200px;
+        left: 1650px;
 
 
         }
@@ -104,26 +106,33 @@
             background-color: #9c0000;
         }
 
-        /* Estilo para la lista */
-        ul {
-            list-style-type: none; /* Quita los marcadores de lista (viñetas) */
-            padding: 0; /* Elimina el espacio de relleno predeterminado */
-            position: absolute; /* Esto establece la posición absoluta para el título */
-            top: 210px; /* Ajusta la distancia desde la parte superior */
-            left: 100px;
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 10%;
         }
 
-        /* Estilo para los elementos de la lista */
-        li {
-            margin: 0; /* Elimina el margen predeterminado */
-            padding: 20px 0; /* Espaciado vertical entre elementos */
-            border-bottom: 1px solid gray;
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
         }
 
-        .search-container {
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .search-container{
             text-align: center; /* Centra el contenido horizontalmente */
             margin-top: 75px;
-            margin-left: 900px;
+            margin-left: 1000px;
+            position: absolute;
+            top: 0;
+            right: 0;
         }
 
         /* Estilo para la entrada de búsqueda */
@@ -162,21 +171,35 @@
 
     <button class="boton-eliminar">Eliminar</button>
 
-    <ul>
-        <li>Elemento 1 lablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
-        <li>Elemento 2 lablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
-        <li>Elemento 3 lablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
-        <li>Elemento 4 lablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
-    </ul>
-    
-    <p id="id-proveedor">ID</p>
-    <p id="nombre-proveedor">Nombre</p>
-    <p id="descripcion-proveedor">Descripcion</p>
-    <p id="direccion-proveedor">Dirección</p>
+    <table>
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>nombre</th>
+            <th>direccion</th>
+            <th>descripcion</th>
+        </tr>
+        </thead>
+        <tbody>
+            <%
+                List<ProviderEntity> providers = (List<ProviderEntity>) request.getAttribute("providers");
+                for (ProviderEntity provider : providers) {
+            %>
+            <tr>
+                <td><%= provider.getId() %></td>
+                <td><%= provider.getName() %></td>
+                <td><%= provider.getAddress() %></td>
+                <td><%= provider.getDescription() %></td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
 
     <div class="search-container">
-        <input type="text" class="search-input" placeholder="Buscar...">
-        <button class="search-button">Buscar</button>
+        <form action="/CRUD/provider" method="get">
+        <input type="text" name="search" class="search-input" placeholder="Buscar...">
+        <button type="submit" class="search-button">Buscar</button>
+    </form>
     </div>
 
 </body>
