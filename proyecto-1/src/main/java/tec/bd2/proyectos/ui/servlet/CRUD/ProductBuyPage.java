@@ -6,13 +6,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import tec.bd2.proyectos.db.DatabaseContext;
 import tec.bd2.proyectos.logic.SessionManager;
-import tec.bd2.proyectos.ui.servlet.Servlet;
 
-public class ProductBuyPage extends Servlet {
+public class ProductBuyPage extends CRUDPage {
 
-    public ProductBuyPage(SessionManager sessionManager) {
-        super(sessionManager);
+    public ProductBuyPage(SessionManager sessionManager, DatabaseContext databaseContext) {
+        super(sessionManager, databaseContext);
         //TODO Auto-generated constructor stub
     }
 

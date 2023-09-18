@@ -6,13 +6,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import tec.bd2.proyectos.db.DatabaseContext;
 import tec.bd2.proyectos.logic.SessionManager;
-import tec.bd2.proyectos.ui.servlet.Servlet;
 
-public class ClientPage extends Servlet {
+public class ClientPage extends CRUDPage {
 
-    public ClientPage(SessionManager sessionManager) {
-        super(sessionManager);
+    public ClientPage(SessionManager sessionManager, DatabaseContext databaseContext) {
+        super(sessionManager, databaseContext);
         //TODO Auto-generated constructor stub
     }
 
@@ -25,7 +25,7 @@ public class ClientPage extends Servlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (!loggedIn(req)) {
-            resp.sendRedirect(req.getContextPath() + "/login");
+            redirect("/login", resp);
             return;
         }
         showPage("CRUD/client.jsp", req, resp);

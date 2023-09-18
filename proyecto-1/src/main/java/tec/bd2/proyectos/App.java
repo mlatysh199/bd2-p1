@@ -5,10 +5,7 @@ import java.sql.SQLException;
 
 import org.apache.catalina.LifecycleException;
 
-import tec.bd2.proyectos.db.JDBCController;
-import tec.bd2.proyectos.db.entities.ProviderEntity;
-import tec.bd2.proyectos.db.repository.ProviderRepository;
-import tec.bd2.proyectos.logic.PasswordController;
+import tec.bd2.proyectos.db.DatabaseContext;
 import tec.bd2.proyectos.ui.Server;
  
 public class App {
@@ -21,8 +18,7 @@ public class App {
         }
     }
     public static void main(String[] args) throws LifecycleException, ClassNotFoundException, SQLException  {
-        JDBCController controller = new JDBCController("jdbc:oracle:thin:@siuadb2_high", "MLATYSH", "bdAlajuela2023s2", "Wallet_siuadb2");
-        Server server = new Server();
+        Server server = new Server(new DatabaseContext("jdbc:oracle:thin:@siuadb2_high", "MLATYSH", "bdAlajuela2023s2", "Wallet_siuadb2"));
 
         /*ProviderRepository providerRepository = new ProviderRepository(controller.getConnection());
         ProviderEntity provider = new ProviderEntity(1, "Provider 1", "Description 1", "Address 1");
@@ -41,6 +37,5 @@ public class App {
         System.out.println("\n (!) Killing server thread...\n\n");
 
         server.kill();
-        controller.closeConnection();
     }
 }

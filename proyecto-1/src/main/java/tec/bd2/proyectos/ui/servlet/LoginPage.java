@@ -17,14 +17,18 @@ public class LoginPage extends Servlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        resp.sendRedirect("menu"); //si usuario es valido y contraseña tambien
+        if (!login(req, req.getParameter("username"), req.getParameter("password"))) {
+            req.setAttribute("error", "Usuario o contraseña incorrectos");
+            showPage("login.jsp", req, resp);
+            return;
+        }
+        redirect("/menu", resp); //si usuario es valido y contraseña tambien
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (loggedIn(req)) {
-            resp.sendRedirect(req.getContextPath() + "/");
+            redirect("/menu", resp);
             return;
         }
         showPage("login.jsp", req, resp);
