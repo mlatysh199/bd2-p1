@@ -2,8 +2,8 @@ package tec.bd2.proyectos.logic;
 
 public class PasswordController {
 
-    private long base1 = 127;
-    private long base2 = 131;
+    private long base1 = 7919;
+    private long base2 = 5003;
 
     public static long getRollingHash(String password, long base) {
         long hash = 0;
@@ -14,6 +14,14 @@ public class PasswordController {
             power = (power * base)%mod;
         }
         return hash;
+    }
+
+    public long getHash1(String password) {
+        return getRollingHash(password, base1);
+    }
+
+    public long getHash2(String password) {
+        return getRollingHash(password, base2);
     }
     
 }

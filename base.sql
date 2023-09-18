@@ -1,3 +1,11 @@
+CREATE TABLE USUARIO(
+    nombre VARCHAR2(50) NOT NULL,
+    passhash1 NUMBER(10) NOT NULL,
+    passhash2 NUMBER(10) NOT NULL,
+    nivel NUMBER(2) NOT NULL,
+    CONSTRAINT pk_usuario PRIMARY KEY(nombre)
+);
+
 CREATE TABLE CATEGORIA(
     id VARCHAR2(10) NOT NULL,
     descripcion VARCHAR2(100) NOT NULL,
@@ -866,3 +874,7 @@ CREATE OR REPLACE PACKAGE BODY paquete_select AS
 
 END paquete_select;
 /
+
+-- Inserts
+
+INSERT INTO USUARIO(nombre, passhash1, passhash2, 0) VALUES('admin', 133524947, 894447882);
