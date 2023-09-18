@@ -56,17 +56,17 @@ public class ProviderRepository implements BaseRepository<ProviderEntity> {
         cstmt.setInt(2, id);
         cstmt.execute();
 
-        cstmt.close();
+        
 
         // process the cursor returned by the stored procedure into a ResultSet
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
         if (!rs.next()) {
-            rs.close();
+            cstmt.close();
             return null;
         }
         ProviderEntity providerEntity = new ProviderEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
 
-        rs.close();
+        cstmt.close();
 
         return providerEntity;
     }
@@ -78,7 +78,7 @@ public class ProviderRepository implements BaseRepository<ProviderEntity> {
 
         cstmt.execute();
 
-        cstmt.close();
+        
 
         // process the cursor returned by the stored procedure into a ResultSet
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
@@ -86,7 +86,7 @@ public class ProviderRepository implements BaseRepository<ProviderEntity> {
         while(rs.next()) {
             iterable.add(new ProviderEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)));
         }
-        rs.close();
+        cstmt.close();
         return iterable;
     }
     

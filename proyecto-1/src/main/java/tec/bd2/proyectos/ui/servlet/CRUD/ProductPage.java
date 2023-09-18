@@ -30,5 +30,13 @@ public class ProductPage extends CRUDPage {
         }
         showPage("CRUD/product.jsp", req, resp);
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'doDelete'");
+    }
+
+
     
 }

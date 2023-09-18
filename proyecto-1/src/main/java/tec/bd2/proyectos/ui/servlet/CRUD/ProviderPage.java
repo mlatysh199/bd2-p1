@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import tec.bd2.proyectos.db.DatabaseContext;
-import tec.bd2.proyectos.db.entities.ClientEntity;
 import tec.bd2.proyectos.db.entities.ProviderEntity;
 import tec.bd2.proyectos.logic.SessionManager;
 
@@ -57,5 +56,12 @@ public class ProviderPage extends CRUDPage {
 
         showPage("CRUD/provider.jsp", req, resp);
     }
-    
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'doDelete'");
+    }
+
+
 }

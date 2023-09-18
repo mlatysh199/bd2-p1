@@ -2,6 +2,7 @@ package tec.bd2.proyectos.db.repository;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class ClientRepository implements BaseRepository<ClientEntity> {
 
         CallableStatement cstmt = conn.prepareCall("{call paquete_modificar.insertar_cliente(?, ?, ?, ?, ?)}");
         cstmt.setString(1, entity.getNombre());
-        cstmt.setString(2, entity.getFechaUltimaCompra());
+        cstmt.setDate(2, Date.valueOf(entity.getFechaUltimaCompra()));
         cstmt.setString(3, entity.getCorreo());
         cstmt.setString(4, entity.getDireccion());
         cstmt.setInt(5, entity.getCantidadCompras());
@@ -37,7 +38,7 @@ public class ClientRepository implements BaseRepository<ClientEntity> {
         CallableStatement cstmt = conn.prepareCall("{call paquete_modificar.actualizar_cliente(?, ?, ?, ?, ?, ?)}");
         cstmt.setInt(1, entity.getId());
         cstmt.setString(2, entity.getNombre());
-        cstmt.setString(3, entity.getFechaUltimaCompra());
+        cstmt.setDate(3, Date.valueOf(entity.getFechaUltimaCompra()));
         cstmt.setString(4, entity.getCorreo());
         cstmt.setString(5, entity.getDireccion());
         cstmt.setInt(6, entity.getCantidadCompras());
@@ -66,7 +67,7 @@ public class ClientRepository implements BaseRepository<ClientEntity> {
             cstmt.close();
             return null;
         }
-        ClientEntity clientEntity = new ClientEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
+        ClientEntity clientEntity = new ClientEntity(rs.getInt(1), rs.getString(2), rs.getDate(3).toString(), rs.getString(4), rs.getString(5), rs.getInt(6));
         cstmt.close();
         return clientEntity;
     }
@@ -82,7 +83,7 @@ public class ClientRepository implements BaseRepository<ClientEntity> {
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
         List<ClientEntity> iterable = new ArrayList<>();
         while(rs.next()) {
-            iterable.add(new ClientEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6)));
+            iterable.add(new ClientEntity(rs.getInt(1), rs.getString(2), rs.getDate(3).toString(), rs.getString(4), rs.getString(5), rs.getInt(6)));
         }
         cstmt.close();
         return iterable;

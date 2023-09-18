@@ -12,6 +12,9 @@ public class ClientEntity implements Entity {
     private String direccion;
     private int cantidadCompras;
 
+    public ClientEntity() {
+    }
+
     public ClientEntity(int id, String nombre, String fechaUltimaCompra, String correo, String direccion, int cantidadCompras) {
         this.id = id;
         this.nombre = nombre;
