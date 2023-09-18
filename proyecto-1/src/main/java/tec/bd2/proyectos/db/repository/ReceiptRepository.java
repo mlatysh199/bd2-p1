@@ -1,5 +1,7 @@
 package tec.bd2.proyectos.db.repository;
 
+import java.util.List;
+
 import tec.bd2.proyectos.db.entities.ReceiptEntity;
 
 public class ReceiptRepository implements BaseRepository<ReceiptEntity> {
@@ -17,7 +19,7 @@ public class ReceiptRepository implements BaseRepository<ReceiptEntity> {
     }
 
     @Override
-    public void delete(ReceiptEntity entity) {
+    public void delete(int id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
@@ -29,7 +31,7 @@ public class ReceiptRepository implements BaseRepository<ReceiptEntity> {
     }
 
     @Override
-    public Iterable<ReceiptEntity> findAll() {
+    public List<ReceiptEntity> findAll() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findAll'");
     }
