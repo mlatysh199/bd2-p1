@@ -18,7 +18,7 @@ public class App {
         }
     }
     public static void main(String[] args) throws LifecycleException, ClassNotFoundException, SQLException  {
-        Server server = new Server(new DatabaseContext("jdbc:oracle:thin:@siuadb2_high", "MLATYSH", "bdAlajuela2023s2", "Wallet_siuadb2"));
+        Server server = new Server(new DatabaseContext("jdbc:oracle:thin:@siuadb2_high", "JMENA", "bdAlajuela2023s2", "Wallet_siuadb2"));
 
         /*ProviderRepository providerRepository = new ProviderRepository(controller.getConnection());
         ProviderEntity provider = new ProviderEntity(1, "Provider 1", "Description 1", "Address 1");
