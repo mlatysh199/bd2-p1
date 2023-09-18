@@ -91,8 +91,8 @@
             border-radius: 5px; /* Bordes redondeados */
             cursor: pointer; /* Cambiar el cursor al pasar el ratón */
             position: absolute;
-            top: 250px;
-            left: 1275px;
+            top: 200px;
+            left: 1550px;
         }   
 
         .boton-eliminar{
@@ -104,11 +104,11 @@
             border-radius: 5px; /* Bordes redondeados */
             cursor: pointer; /* Cambiar el cursor al pasar el ratón */
             position: absolute;
-            top: 250px;
-            left: 1375px;
+            top: 200px;
+            left: 1650px;
 
 
-        }
+            }   
         
         .boton-agregar:hover {
             background-color: #024900;
@@ -143,10 +143,13 @@
             background-color: #f5f5f5;
         }
 
-        .search-container {
+        .search-container{
             text-align: center; /* Centra el contenido horizontalmente */
             margin-top: 75px;
-            margin-left: 900px;
+            margin-left: 1000px;
+            position: absolute;
+            top: 0;
+            right: 0;
         }
 
         /* Estilo para la entrada de búsqueda */
