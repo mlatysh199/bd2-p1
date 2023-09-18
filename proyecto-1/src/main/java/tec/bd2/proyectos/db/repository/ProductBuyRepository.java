@@ -67,7 +67,7 @@ public class ProductBuyRepository implements BaseRepository<ProductBuyEntity> {
 
         }
         else{
-            rs.next();
+            if (!rs.next()) return null;
             return new ProductBuyEntity(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4),rs.getInt(5), rs.getInt(6),rs.getString(7));
         }
         

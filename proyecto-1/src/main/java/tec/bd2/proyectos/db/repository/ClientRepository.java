@@ -59,7 +59,7 @@ public class ClientRepository implements BaseRepository<ClientEntity> {
 
         // process the cursor returned by the stored procedure into a ResultSet
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
-        rs.next();
+        if (!rs.next()) return null;
         return new ClientEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
     }
 

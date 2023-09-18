@@ -226,8 +226,10 @@
     </table>
 
     <div class="search-container">
-        <input type="text" class="search-input" placeholder="Buscar...">
-        <button class="search-button">Buscar</button>
+        <form action="/CRUD/client" method="get">
+        <input type="text" name="search" class="search-input" placeholder="Buscar...">
+        <button type="submit" class="search-button">Buscar</button>
+    </form>
     </div>
 
 </body>

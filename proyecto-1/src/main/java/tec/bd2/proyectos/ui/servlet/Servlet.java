@@ -55,4 +55,8 @@ public abstract class Servlet extends HttpServlet {
     protected void redirect(String path, HttpServletResponse resp) throws IOException {
         resp.sendRedirect(path);
     }
+
+    protected void refresh(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        redirect(req.getRequestURI(), resp);
+    }
 }

@@ -35,9 +35,6 @@
     .cuerpo{
         text-align: center;
         margin-top: 325px;
-
-
-       
     }
 
 

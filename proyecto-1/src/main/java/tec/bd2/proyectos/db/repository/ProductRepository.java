@@ -66,7 +66,7 @@ public class ProductRepository implements BaseRepository<ProductEntity> {
         }
         else{
 
-            rs.next();
+            if (!rs.next()) return null;
             return new ProductEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getString(5), rs.getInt(6));
 
         }
