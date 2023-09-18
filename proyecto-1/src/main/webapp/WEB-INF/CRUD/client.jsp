@@ -123,13 +123,24 @@
         }
         
 
-        /* Estilo para la lista */
         table {
-            list-style-type: none; /* Quita los marcadores de lista (viñetas) */
-            padding: 0; /* Elimina el espacio de relleno predeterminado */
-            position: absolute; /* Esto establece la posición absoluta para el título */
-            top: 210px; /* Ajusta la distancia desde la parte superior */
-            left: 100px;
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 10%;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
         }
 
         .search-container {
