@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tec.bd2.proyectos.db.entities.ProductBuyEntity;
-import tec.bd2.proyectos.db.entities.ProductEntity;
 
 public class ProductBuyRepository implements BaseRepository<ProductBuyEntity> {
 

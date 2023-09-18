@@ -1,6 +1,8 @@
 package tec.bd2.proyectos.ui.servlet.CRUD;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +30,15 @@ public class ClientPage extends CRUDPage {
             redirect("/login", resp);
             return;
         }
+
+        showData("username", this.getSessionManager().getUsername(req.getSession().getId()), req);
+        try {
+            showData("clients", this.getDatabaseContext().getClientRepository().findAll(), req);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showData("clients", new ArrayList<>(), req);
+        }
+
         showPage("CRUD/client.jsp", req, resp);
     }
     

@@ -27,6 +27,9 @@ public class MenuPage extends Servlet {
             resp.sendRedirect(req.getContextPath() + "/login");
             return;
         }
+
+        showData("username", this.getSessionManager().getUsername(req.getSession().getId()), req);
+
         showPage("menu.jsp", req, resp);
     }
     

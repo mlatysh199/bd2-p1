@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tec.bd2.proyectos.db.entities.ClientEntity;
-import tec.bd2.proyectos.db.entities.ProviderEntity;
 
 public class ClientRepository implements BaseRepository<ClientEntity> {
 

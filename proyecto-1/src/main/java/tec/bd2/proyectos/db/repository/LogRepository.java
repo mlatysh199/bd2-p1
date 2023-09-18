@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import tec.bd2.proyectos.db.entities.ClientEntity;
 import tec.bd2.proyectos.db.entities.LogEntity;
 
 public class LogRepository implements BaseRepository<LogEntity> {

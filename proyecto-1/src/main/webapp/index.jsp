@@ -6,8 +6,9 @@
     <title>Proyecto 1</title>
     <style>
         body {
-            background-image: url(resources/welcome.jpg);
+            background-image: url("${pageContext.request.contextPath}/images/welcome.jpg");
             background-repeat: no-repeat;
+            background-size: cover;
         }
 
         #title {

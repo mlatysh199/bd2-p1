@@ -1,5 +1,8 @@
 package tec.bd2.proyectos.db.entities;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class ClientEntity implements Entity {
 
     private int id;
@@ -64,6 +67,9 @@ public class ClientEntity implements Entity {
         this.cantidadCompras = cantidadCompras;
     }
 
+    public List<Object> asList() {
+        return Arrays.asList(this.id, this.nombre, this.fechaUltimaCompra, this.correo, this.direccion, this.cantidadCompras);
+    }
 
     
 }

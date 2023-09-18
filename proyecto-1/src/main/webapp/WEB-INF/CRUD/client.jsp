@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"  %>
+<%@ page import="java.util.List" %>
+<%@ page import="tec.bd2.proyectos.db.entities.ClientEntity" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -122,19 +124,12 @@
         
 
         /* Estilo para la lista */
-        ul {
+        table {
             list-style-type: none; /* Quita los marcadores de lista (viñetas) */
             padding: 0; /* Elimina el espacio de relleno predeterminado */
             position: absolute; /* Esto establece la posición absoluta para el título */
             top: 210px; /* Ajusta la distancia desde la parte superior */
             left: 100px;
-        }
-
-        /* Estilo para los elementos de la lista */
-        li {
-            margin: 0; /* Elimina el margen predeterminado */
-            padding: 20px 0; /* Espaciado vertical entre elementos */
-            border-bottom: 1px solid gray;
         }
 
         .search-container {
@@ -177,7 +172,7 @@
 
     <button class="boton-eliminar">Eliminar</button>
 
-    <ul>
+    <!--<ul>
         <li>Elemento 1 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
         <li>Elemento 2 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
         <li>Elemento 3 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablalablablablablablablablablablablablablablablablablablalablablabla</li>
@@ -189,7 +184,35 @@
     <p id="fecha-ultima-compra-cliente">Fecha de última compra</p>
     <p id="correo-cliente">Correo</p>
     <p id="direccion-cliente">Dirección</p>
-    <p id="cantidad-compras-cliente">Cantidad de compras</p>
+    <p id="cantidad-compras-cliente">Cantidad de compras</p>-->
+
+    <table>
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>nombre</th>
+            <th>fecha de ultima compra</th>
+            <th>correo</th>
+            <th>direccion</th>
+            <th>cantidad de compras</th>
+        </tr>
+        </thead>
+        <tbody>
+            <%
+                List<ClientEntity> clients = (List<ClientEntity>) request.getAttribute("clients");
+                for (ClientEntity client : clients) {
+            %>
+            <tr>
+                <td><%= client.getId() %></td>
+                <td><%= client.getNombre() %></td>
+                <td><%= client.getFechaUltimaCompra() %></td>
+                <td><%= client.getCorreo() %></td>
+                <td><%= client.getDireccion() %></td>
+                <td><%= client.getCantidadCompras() %></td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
 
     <div class="search-container">
         <input type="text" class="search-input" placeholder="Buscar...">

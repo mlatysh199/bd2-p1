@@ -14,10 +14,10 @@ import tec.bd2.proyectos.db.service.UserFinder;
 
 public class DatabaseContext {
     private final JDBCController jdbcController;
-    /*private final ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
     private final LogRepository logRepository;
     private final ProductBuyRepository productBuyRepository;
-    private final ProductRepository productRepository;*/
+    private final ProductRepository productRepository;
     private final ProviderRepository providerRepository;
     private final ReceiptRepository receiptRepository;
 
@@ -27,10 +27,10 @@ public class DatabaseContext {
     public DatabaseContext(String jdbcURL, String username, String password, String walletLocation) throws ClassNotFoundException, SQLException {
         this.jdbcController = new JDBCController(jdbcURL, username, password, walletLocation);
 
-        /*this.clientRepository = new ClientRepository(this.jdbcController.getConnection());
+        this.clientRepository = new ClientRepository(this.jdbcController.getConnection());
         this.logRepository = new LogRepository(this.jdbcController.getConnection());
         this.productBuyRepository = new ProductBuyRepository(this.jdbcController.getConnection());
-        this.productRepository = new ProductRepository(this.jdbcController.getConnection());*/
+        this.productRepository = new ProductRepository(this.jdbcController.getConnection());
         this.providerRepository = new ProviderRepository(this.jdbcController.getConnection());
         this.receiptRepository = new ReceiptRepository(this.jdbcController.getConnection());
         this.userFinder = new UserFinder(this.jdbcController.getConnection());
@@ -40,7 +40,7 @@ public class DatabaseContext {
         return this.jdbcController;
     }
 
-    /*public ClientRepository getClientRepository() {
+    public ClientRepository getClientRepository() {
         return this.clientRepository;
     }
 
@@ -54,7 +54,7 @@ public class DatabaseContext {
 
     public ProductRepository getProductRepository() {
         return this.productRepository;
-    }*/
+    }
 
     public ProviderRepository getProviderRepository() {
         return this.providerRepository;

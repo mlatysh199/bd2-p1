@@ -65,14 +65,9 @@
         <div class="Nombre">
                 <h1>Probabilidades G90</h1>
         </div>
-    
+
         <div>
-            <nav am-layout="horizontal">
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Products</a>
-            <a href="#">Contact</a>
-            </nav>
+            <a href="/menu"><%= request.getAttribute("username") %></a>
         </div>
     </header>
     <div class="cuerpo">
@@ -82,11 +77,12 @@
           <h2>Bienvenido nuevamente al sistema</h2>
           
         </div>
-        <button>menu1</button>
-        <button>menu2</button>
-        <button>menu3</button>
-        <button>menu4</button>
-        <button>menu5</button>
+        <a href="/CRUD/client"><button>Cliente</button></a>
+        <a href="/CRUD/productBuy"><button>Compra de Productos</button></a>
+        <a href="/CRUD/product"><button>Producto</button></a>
+        <a href="/CRUD/provider"><button>Proveedor</button></a>
+        <a href="/CRUD/receipt"><button>Recibo</button></a>
+        <a href="/CRUD/summary"><button>Métrica</button></a>
     </div>
         
       

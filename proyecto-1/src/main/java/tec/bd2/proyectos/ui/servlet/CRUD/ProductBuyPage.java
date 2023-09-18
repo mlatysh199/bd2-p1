@@ -25,7 +25,7 @@ public class ProductBuyPage extends CRUDPage {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (!loggedIn(req)) {
-            resp.sendRedirect(req.getContextPath() + "/login");
+            redirect("/login", resp);
             return;
         }
         showPage("CRUD/product_buy.jsp", req, resp);

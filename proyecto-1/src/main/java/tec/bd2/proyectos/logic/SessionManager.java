@@ -42,4 +42,8 @@ public class SessionManager {
     public Map<String, String> getSessions() {
         return this.sessions;
     }
+
+    public String getUsername(String session) {
+        return this.sessions.get(session);
+    }
 }

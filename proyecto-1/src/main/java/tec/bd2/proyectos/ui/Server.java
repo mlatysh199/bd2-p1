@@ -17,6 +17,7 @@ import tec.bd2.proyectos.ui.servlet.MenuPage;
 import tec.bd2.proyectos.ui.servlet.CRUD.ClientPage;
 import tec.bd2.proyectos.ui.servlet.CRUD.ProductBuyPage;
 import tec.bd2.proyectos.ui.servlet.CRUD.ProductPage;
+import tec.bd2.proyectos.ui.servlet.CRUD.ProviderPage;
 import tec.bd2.proyectos.ui.servlet.CRUD.ReceiptPage;
 import tec.bd2.proyectos.ui.servlet.CRUD.SummaryPage;
 
@@ -47,6 +48,9 @@ public class Server {
 
         tomcat.addServlet("", "ProductServlet", new ProductPage(sessionManager, databaseContext));
         context.addServletMappingDecoded("/CRUD/product", "ProductServlet");
+
+        tomcat.addServlet("", "ProviderServlet", new ProviderPage(sessionManager, databaseContext));
+        context.addServletMappingDecoded("/CRUD/provider", "ProviderServlet");
 
         tomcat.addServlet("", "ReceiptServlet", new ReceiptPage(sessionManager, databaseContext));
         context.addServletMappingDecoded("/CRUD/receipt", "ReceiptServlet");

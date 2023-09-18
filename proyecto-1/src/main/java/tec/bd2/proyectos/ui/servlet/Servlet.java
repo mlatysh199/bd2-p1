@@ -32,7 +32,11 @@ public abstract class Servlet extends HttpServlet {
         getServletContext().getRequestDispatcher("/WEB-INF/" + path).forward(req, resp);
     }
 
-    protected SessionManager getSessionManager() {
+    protected void showData(String attribute, Object o, HttpServletRequest req) throws IOException {
+        req.setAttribute(attribute, o);
+    }
+
+    public SessionManager getSessionManager() {
         return this.sessionManager;
     }
 
