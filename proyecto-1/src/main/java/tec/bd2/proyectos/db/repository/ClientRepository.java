@@ -29,6 +29,7 @@ public class ClientRepository implements BaseRepository<ClientEntity> {
         cstmt.setString(4, entity.getDireccion());
         cstmt.setInt(5, entity.getCantidadCompras());
         cstmt.execute();
+        cstmt.close();
     }
 
     @Override
@@ -41,6 +42,7 @@ public class ClientRepository implements BaseRepository<ClientEntity> {
         cstmt.setString(5, entity.getDireccion());
         cstmt.setInt(6, entity.getCantidadCompras());
         cstmt.execute(); 
+        cstmt.close();
     }
 
     @Override
@@ -48,6 +50,7 @@ public class ClientRepository implements BaseRepository<ClientEntity> {
         CallableStatement cstmt = conn.prepareCall("{call paquete_modificar.eliminar_cliente(?)}");
         cstmt.setInt(1, id);
         cstmt.execute();
+        cstmt.close();
     }
 
     @Override
@@ -59,8 +62,13 @@ public class ClientRepository implements BaseRepository<ClientEntity> {
 
         // process the cursor returned by the stored procedure into a ResultSet
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
-        if (!rs.next()) return null;
-        return new ClientEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
+        if (!rs.next()) {
+            cstmt.close();
+            return null;
+        }
+        ClientEntity clientEntity = new ClientEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
+        cstmt.close();
+        return clientEntity;
     }
 
     @Override
@@ -76,6 +84,7 @@ public class ClientRepository implements BaseRepository<ClientEntity> {
         while(rs.next()) {
             iterable.add(new ClientEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6)));
         }
+        cstmt.close();
         return iterable;
     }
     

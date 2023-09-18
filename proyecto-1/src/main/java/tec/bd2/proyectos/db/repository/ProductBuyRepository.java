@@ -30,6 +30,7 @@ public class ProductBuyRepository implements BaseRepository<ProductBuyEntity> {
         cstmt.setInt(5,entity.getMonto());
         cstmt.setString(6, entity.getDescripcion());
         cstmt.execute();
+        cstmt.close();
     }
 
     @Override
@@ -43,6 +44,7 @@ public class ProductBuyRepository implements BaseRepository<ProductBuyEntity> {
         cstmt.setInt(6,entity.getMonto());
         cstmt.setString(7, entity.getDescripcion());
         cstmt.execute(); 
+        cstmt.close();
     }
 
     @Override
@@ -50,6 +52,7 @@ public class ProductBuyRepository implements BaseRepository<ProductBuyEntity> {
         CallableStatement cstmt = conn.prepareCall("{call paquete_modificar.eliminar_compra_producto_completo(?)}");
         cstmt.setInt(1, id);
         cstmt.execute();
+        cstmt.close();
     }
 
     @Override
@@ -63,12 +66,19 @@ public class ProductBuyRepository implements BaseRepository<ProductBuyEntity> {
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
 
         if(rs == null){
+            cstmt.close();
             return null;
 
         }
         else{
-            if (!rs.next()) return null;
-            return new ProductBuyEntity(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4),rs.getInt(5), rs.getInt(6),rs.getString(7));
+            if (!rs.next()) {
+                cstmt.close();
+                return null;
+            }
+            ProductBuyEntity productBuyEntity = new ProductBuyEntity(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4),rs.getInt(5), rs.getInt(6),rs.getString(7));
+            cstmt.close();
+
+            return productBuyEntity;
         }
         
     }
@@ -86,6 +96,7 @@ public class ProductBuyRepository implements BaseRepository<ProductBuyEntity> {
         while(rs.next()) {
             iterable.add(new ProductBuyEntity(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4),rs.getInt(5), rs.getInt(6),rs.getString(7)));
         }
+        cstmt.close();
         return iterable;
     }
     

@@ -29,6 +29,7 @@ public class ProductRepository implements BaseRepository<ProductEntity> {
         cstmt.setString(4,entity.getCategoria());
         cstmt.setInt(5,entity.getInventario());
         cstmt.execute();
+        cstmt.close();
     }
 
     @Override
@@ -41,6 +42,7 @@ public class ProductRepository implements BaseRepository<ProductEntity> {
         cstmt.setString(5,entity.getCategoria());
         cstmt.setInt(6,entity.getInventario());
         cstmt.execute(); 
+        cstmt.close();
     }
 
     @Override
@@ -48,6 +50,7 @@ public class ProductRepository implements BaseRepository<ProductEntity> {
         CallableStatement cstmt = conn.prepareCall("{call paquete_modificar.eliminar_producto(?)}");
         cstmt.setInt(1, id);
         cstmt.execute();
+        cstmt.close();
     }
 
     @Override
@@ -60,14 +63,21 @@ public class ProductRepository implements BaseRepository<ProductEntity> {
         // process the cursor returned by the stored procedure into a ResultSet
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
         if(rs == null){
-
+            cstmt.close();
             return null;
 
         }
         else{
 
-            if (!rs.next()) return null;
-            return new ProductEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getString(5), rs.getInt(6));
+            if (!rs.next()) {
+                cstmt.close();
+                return null;
+            }
+
+            ProductEntity productEntity = new ProductEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getString(5), rs.getInt(6));
+            cstmt.close();
+
+            return productEntity;
 
         }
         
@@ -86,6 +96,9 @@ public class ProductRepository implements BaseRepository<ProductEntity> {
         while(rs.next()) {
             iterable.add(new ProductEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getString(5), rs.getInt(6)));
         }
+
+        cstmt.close();
+
         return iterable;
     }
     

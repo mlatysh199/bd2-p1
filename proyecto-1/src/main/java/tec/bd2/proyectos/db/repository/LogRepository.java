@@ -38,8 +38,13 @@ public class LogRepository implements BaseRepository<LogEntity> {
         cstmt.execute();
 
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
-        if (!rs.next()) return null;
-        return new LogEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+        if (!rs.next()) {
+            cstmt.close();
+            return null;
+        }
+        LogEntity logEntity = new LogEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+        cstmt.close();
+        return logEntity;
     }
 
     @Override
@@ -55,6 +60,7 @@ public class LogRepository implements BaseRepository<LogEntity> {
         while(rs.next()) {
             iterable.add(new LogEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)));
         }
+        cstmt.close();
         return iterable;
     }
     

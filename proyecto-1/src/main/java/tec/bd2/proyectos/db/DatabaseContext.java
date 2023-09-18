@@ -22,7 +22,7 @@ public class DatabaseContext {
     private final ReceiptRepository receiptRepository;
 
     private final UserFinder userFinder;
-    //private final Metrics metrics;
+    private final Metrics metrics;
 
     public DatabaseContext(String jdbcURL, String username, String password, String walletLocation) throws ClassNotFoundException, SQLException {
         this.jdbcController = new JDBCController(jdbcURL, username, password, walletLocation);
@@ -33,7 +33,9 @@ public class DatabaseContext {
         this.productRepository = new ProductRepository(this.jdbcController.getConnection());
         this.providerRepository = new ProviderRepository(this.jdbcController.getConnection());
         this.receiptRepository = new ReceiptRepository(this.jdbcController.getConnection());
+
         this.userFinder = new UserFinder(this.jdbcController.getConnection());
+        this.metrics = new Metrics(this.jdbcController.getConnection());
     }
 
     public JDBCController getJdbcController() {
@@ -68,7 +70,7 @@ public class DatabaseContext {
         return this.userFinder;
     }
 
-    /*public Metrics getMetrics() {
+    public Metrics getMetrics() {
         return this.metrics;
-    }*/
+    }
 }
