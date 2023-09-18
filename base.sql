@@ -877,4 +877,4 @@ END paquete_select;
 
 -- Inserts
 
-INSERT INTO USUARIO(nombre, passhash1, passhash2, 0) VALUES('admin', 133524947, 894447882);
+INSERT INTO USUARIO(nombre, passhash1, passhash2, nivel) VALUES('admin', 133524947, 894447882, 1);

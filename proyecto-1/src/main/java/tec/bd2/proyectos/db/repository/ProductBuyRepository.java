@@ -1,5 +1,7 @@
 package tec.bd2.proyectos.db.repository;
 
+import java.util.List;
+
 import tec.bd2.proyectos.db.entities.ProductBuyEntity;
 
 public class ProductBuyRepository implements BaseRepository<ProductBuyEntity> {
@@ -17,7 +19,7 @@ public class ProductBuyRepository implements BaseRepository<ProductBuyEntity> {
     }
 
     @Override
-    public void delete(ProductBuyEntity entity) {
+    public void delete(int id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
@@ -29,7 +31,7 @@ public class ProductBuyRepository implements BaseRepository<ProductBuyEntity> {
     }
 
     @Override
-    public Iterable<ProductBuyEntity> findAll() {
+    public List<ProductBuyEntity> findAll() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findAll'");
     }

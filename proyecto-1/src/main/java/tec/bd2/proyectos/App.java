@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import org.apache.catalina.LifecycleException;
 
 import tec.bd2.proyectos.db.JDBCController;
+import tec.bd2.proyectos.db.entities.ProviderEntity;
+import tec.bd2.proyectos.db.repository.ProviderRepository;
 import tec.bd2.proyectos.logic.PasswordController;
 import tec.bd2.proyectos.ui.Server;
  
@@ -22,9 +24,15 @@ public class App {
         JDBCController controller = new JDBCController("jdbc:oracle:thin:@siuadb2_high", "MLATYSH", "bdAlajuela2023s2", "Wallet_siuadb2");
         Server server = new Server();
 
-        PasswordController passwordController = new PasswordController(); 
-        System.out.println(passwordController.getHash1("root"));
-        System.out.println(passwordController.getHash2("root"));
+        /*ProviderRepository providerRepository = new ProviderRepository(controller.getConnection());
+        ProviderEntity provider = new ProviderEntity(1, "Provider 1", "Description 1", "Address 1");
+        providerRepository.save(provider);
+        provider.setName("wka");
+        providerRepository.update(provider);
+        ProviderEntity provider2 = providerRepository.findById(1);
+        System.out.println(provider2);
+        providerRepository.delete(1);
+        System.out.println(providerRepository.findAll().size());*/
 
         server.start();
 
