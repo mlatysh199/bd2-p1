@@ -53,6 +53,7 @@
     }
   
     </style>
+    </head>
 <body>
 
     <header>
@@ -90,5 +91,5 @@
         
       
 </body>
-</head>
+
 </html>

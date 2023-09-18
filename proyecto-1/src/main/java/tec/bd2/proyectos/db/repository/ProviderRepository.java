@@ -27,6 +27,7 @@ public class ProviderRepository implements BaseRepository<ProviderEntity> {
         cstmt.setString(2, entity.getDescription());
         cstmt.setString(3, entity.getAddress());
         cstmt.execute();
+        cstmt.close();
     }
 
     @Override
@@ -37,6 +38,7 @@ public class ProviderRepository implements BaseRepository<ProviderEntity> {
         cstmt.setString(3, entity.getDescription());
         cstmt.setString(4, entity.getAddress());
         cstmt.execute(); 
+        cstmt.close();
     }
 
     @Override
@@ -44,6 +46,7 @@ public class ProviderRepository implements BaseRepository<ProviderEntity> {
         CallableStatement cstmt = conn.prepareCall("{call paquete_modificar.eliminar_proveedor(?)}");
         cstmt.setInt(1, id);
         cstmt.execute();
+        cstmt.close();
     }
 
     @Override
@@ -53,10 +56,19 @@ public class ProviderRepository implements BaseRepository<ProviderEntity> {
         cstmt.setInt(2, id);
         cstmt.execute();
 
+        cstmt.close();
+
         // process the cursor returned by the stored procedure into a ResultSet
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
-        rs.next();
-        return new ProviderEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+        if (!rs.next()) {
+            rs.close();
+            return null;
+        }
+        ProviderEntity providerEntity = new ProviderEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+
+        rs.close();
+
+        return providerEntity;
     }
 
     @Override
@@ -66,12 +78,15 @@ public class ProviderRepository implements BaseRepository<ProviderEntity> {
 
         cstmt.execute();
 
+        cstmt.close();
+
         // process the cursor returned by the stored procedure into a ResultSet
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
         ArrayList<ProviderEntity> iterable = new ArrayList<>();
         while(rs.next()) {
             iterable.add(new ProviderEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)));
         }
+        rs.close();
         return iterable;
     }
     

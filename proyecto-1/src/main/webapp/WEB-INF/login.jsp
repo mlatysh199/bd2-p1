@@ -62,7 +62,8 @@
         }        
         
     </style>
-    <body>
+</head>
+<body>
     <div class="login-container">
         <h2>Iniciar Sesión</h2>
         <form method="post">
@@ -76,5 +77,4 @@
         </form>
     </div>
 </body>
-</head>
 </html>

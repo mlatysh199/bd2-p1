@@ -1,80 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html lang="es">
+<!-- Welcome page with button to enter into the system -->
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página con Imagen de Fondo</title>
+    <title>Proyecto 1</title>
     <style>
         body {
-            background-image: url(https://img.freepik.com/vector-premium/productos-alimenticios-productos-cocina-envasados-productos-supermercado-comida-enlatada-tarro-galletas-crema-batida-huevos-paquete-iconos-flat_102902-848.jpg); /* Reemplaza 'tu-imagen.jpg' con la URL de tu imagen de fondo */
-            background-size: contain;
+            background-image: url(resources/welcome.jpg);
             background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: center;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
         }
 
-	.login-container {
-            background-color:#BCF5A9;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        #title {
+            position: absolute; /* Esto establece la posición absoluta para el título */
+            top: 50px; /* Ajusta la distancia desde la parte superior */
+            left:50%; /* Ajusta la distancia desde la izquierda */
+            transform: translateX(-50%);
         }
 
-        .login-container h2 {
-            text-align: center;
+        #button {
+            position: absolute;
+            top: 180px;
+            left: 50%;
+            transform: translateX(-50%);
         }
-
-        .login-container form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .login-container label,
-        .login-container input {
-            margin-bottom: 10px;
-        }
-
-        .login-container input[type="text"],
-        .login-container input[type="password"] {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .login-container input[type="submit"] {
-            background-color: #3498db;
-            color: #fff;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .login-container input[type="submit"]:hover {
-            background-color: #2980b9;
-        }        
-        
     </style>
-    <body>
-    <div class="login-container">
-        <h2>Iniciar Sesión</h2>
-        <form action="#" method="post">
-            <label for="username">Nombre de usuario:</label>
-            <input type="text" id="username" name="username" required>
-
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" required>
-
-            <input type="submit" value="Iniciar Sesión">
-        </form>
-    </div>
-</body>
 </head>
+<body>
+<h1 id="title">Bienvenido al Sistema de Gestion de Clientes, Proveedores, Inventario y Compras</h1>
+    <form action="/login">
+        <input id="button" type="submit" value="Ingresar">
+    </form>
+</body>
+
 </html>
