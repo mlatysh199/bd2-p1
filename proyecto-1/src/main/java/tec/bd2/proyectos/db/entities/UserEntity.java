@@ -1,15 +1,7 @@
 package tec.bd2.proyectos.db.entities;
 
 public class UserEntity implements Entity {
-    /*
-     * CREATE TABLE USUARIO(
-    nombre VARCHAR2(50) NOT NULL,
-    passhash1 NUMBER(10) NOT NULL,
-    passhash2 NUMBER(10) NOT NULL,
-    nivel NUMBER(2) NOT NULL,
-    CONSTRAINT pk_usuario PRIMARY KEY(nombre)
-);
-     */
+
 
     private String name;
     private int passhash1;

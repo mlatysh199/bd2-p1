@@ -31,7 +31,7 @@ public class ProductPage extends CRUDPage {
                 return;
             }
         }
-        // Object { nombre: "Value 1", "fecha de ultima compra": "2023", correo: "Value 3", direccion: "Value 4", "cantidad de compras": "5" }
+        
         try {
             ProductEntity product = new ProductEntity(
                 id,
@@ -66,7 +66,7 @@ public class ProductPage extends CRUDPage {
             String search = req.getParameter("search");
             List<ProductEntity> products = new ArrayList<>();
             if (search != null && !search.isEmpty()) {
-                // determine if search can be converted to a number
+
                 try {
                     int id = Integer.parseInt(search);
                     ProductEntity product = this.getDatabaseContext().getProductRepository().findById(id);

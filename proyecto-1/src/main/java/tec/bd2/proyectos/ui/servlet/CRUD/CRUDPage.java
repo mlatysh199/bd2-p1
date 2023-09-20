@@ -17,7 +17,7 @@ public abstract class CRUDPage extends Servlet {
     public CRUDPage(SessionManager sessionManager, DatabaseContext databaseContext) {
         super(sessionManager);
         this.databaseContext = databaseContext;
-        //TODO Auto-generated constructor stub
+
     }
 
     protected DatabaseContext getDatabaseContext() {

@@ -41,7 +41,7 @@ public class SummaryPage extends CRUDPage {
             String search = req.getParameter("search");
             List<LogEntity> logs = new ArrayList<>();
             if (search != null && !search.isEmpty()) {
-                // determine if search can be converted to a number
+
                 try {
                     int id = Integer.parseInt(search);
                     LogEntity logEntity = this.getDatabaseContext().getLogRepository().findById(id);

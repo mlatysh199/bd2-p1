@@ -13,7 +13,7 @@ public class SessionManager {
     }
 
     public boolean attemptAddSession(String session, String username, String password) {
-        // TODO: implement this method
+
         try {
             if (this.sessions.containsKey(session) || !this.passwordController.verifyPassword(username, password)) {
                 return false;

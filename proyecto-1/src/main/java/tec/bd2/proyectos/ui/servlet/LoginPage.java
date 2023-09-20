@@ -12,7 +12,7 @@ public class LoginPage extends Servlet {
 
     public LoginPage(SessionManager sessionManager) {
         super(sessionManager);
-        //TODO Auto-generated constructor stub
+
     }
 
     @Override
@@ -22,7 +22,7 @@ public class LoginPage extends Servlet {
             showPage("login.jsp", req, resp);
             return;
         }
-        redirect("/menu", resp); //si usuario es valido y contraseña tambien
+        redirect("/menu", resp); 
     }
 
     @Override

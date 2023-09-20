@@ -17,7 +17,7 @@ public class ProductBuyPage extends CRUDPage {
 
     public ProductBuyPage(SessionManager sessionManager, DatabaseContext databaseContext) {
         super(sessionManager, databaseContext);
-        //TODO Auto-generated constructor stub
+
     }
 
     @Override
@@ -32,7 +32,7 @@ public class ProductBuyPage extends CRUDPage {
                 return;
             }
         }
-        // Object { nombre: "Value 1", "fecha de ultima compra": "2023", correo: "Value 3", direccion: "Value 4", "cantidad de compras": "5" }
+
         try {
             ProductBuyEntity productBuy = new ProductBuyEntity(
                 id,
@@ -68,7 +68,7 @@ public class ProductBuyPage extends CRUDPage {
             String search = req.getParameter("search");
             List<ProductBuyEntity> productsBuyEntities = new ArrayList<>();
             if (search != null && !search.isEmpty()) {
-                // determine if search can be converted to a number
+
                 try {
                     int id = Integer.parseInt(search);
                     ProductBuyEntity productBuy = this.getDatabaseContext().getProductBuyRepository().findById(id);

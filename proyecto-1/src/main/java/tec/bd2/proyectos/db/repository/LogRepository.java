@@ -54,7 +54,7 @@ public class LogRepository implements BaseRepository<LogEntity> {
 
         cstmt.execute();
 
-        // process the cursor returned by the stored procedure into a ResultSet
+
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
         List<LogEntity> iterable = new ArrayList<>();
         while(rs.next()) {

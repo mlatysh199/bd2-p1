@@ -21,10 +21,6 @@ public class ReceiptRepository implements BaseRepository<ReceiptEntity> {
 
     @Override
     public void save(ReceiptEntity entity) throws SQLException {
-        // Sql package: paquete_modificar
-        // PROCEDURE insertar_recibo_completo(p_fecha DATE, p_cliente_id NUMBER, p_monto NUMBER, p_cantidad NUMBER, p_metodo_pago VARCHAR2, p_descripcion VARCHAR2);
-        // seq_recibo.curval
-        // PROCEDURE insertar_producto_recibo(p_producto_id NUMBER, p_recibo_id NUMBER, p_cantidad NUMBER);
 
         CallableStatement cstmt = conn.prepareCall("{call paquete_modificar.insertar_recibo_completo(?, ?, ?, ?, ?, ?)}");
         cstmt.setString(1, entity.getDate());

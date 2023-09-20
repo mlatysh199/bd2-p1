@@ -97,8 +97,6 @@ CREATE TABLE BITACORA_PRODUCTO(
     CONSTRAINT pk_bitacora_producto PRIMARY KEY(id)
 );
 /
--- Path: base.sql
--- Implement, using ORACLE SQL, automatic sequences for all the tables that need it.
 
 CREATE SEQUENCE seq_producto START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE seq_cliente START WITH 1 INCREMENT BY 1;
@@ -109,7 +107,7 @@ CREATE SEQUENCE seq_compra_producto START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE seq_compra_detalle START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE seq_bitacora_producto START WITH 1 INCREMENT BY 1;
 /
--- Implement, using ORACLE SQL, the triggers for bitacora_producto table [the triggers have to log all the changes to the product table] (all of the triggers have to occur after the event):
+
 
 CREATE OR REPLACE TRIGGER bitacora_producto_insert
 AFTER INSERT ON PRODUCTO
@@ -210,7 +208,7 @@ BEGIN
     WHERE id = recibo_cliente_id;
 END;
 /
--- Create package for the tables PRODUCTOS, CLIENTE, RECIBO, and PROVEEDOR to INSERT, UPDATE, and DELETE:
+
 
 CREATE OR REPLACE PACKAGE paquete_modificar AS
     PROCEDURE insertar_producto(p_nombre VARCHAR2, p_descripcion VARCHAR2, p_precio NUMBER, p_categoria_id VARCHAR2, p_inventario NUMBER);
@@ -225,14 +223,10 @@ CREATE OR REPLACE PACKAGE paquete_modificar AS
     PROCEDURE insertar_proveedor(p_nombre VARCHAR2, p_descripcion VARCHAR2, p_direccion VARCHAR2);
     PROCEDURE actualizar_proveedor(p_id NUMBER, p_nombre VARCHAR2, p_descripcion VARCHAR2, p_direccion VARCHAR2);
     PROCEDURE eliminar_proveedor(p_id NUMBER);
-
-    -- Also, producto_recibo
     PROCEDURE insertar_producto_recibo(p_producto_id NUMBER, p_recibo_id NUMBER, p_cantidad NUMBER);
     PROCEDURE actualizar_producto_recibo(p_producto_id NUMBER, p_recibo_id NUMBER, p_cantidad NUMBER);
     PROCEDURE eliminar_producto_recibo(p_producto_id NUMBER, p_recibo_id NUMBER);
     PROCEDURE eliminar_producto_recibo_completo(p_recibo_id NUMBER);
-
-    -- recibo detalle, compra_producto, compra_detalle
     PROCEDURE insertar_recibo_detalle(p_recibo_id NUMBER, p_monto NUMBER, p_cantidad NUMBER, p_metodo_pago VARCHAR2, p_descripcion VARCHAR2);
     PROCEDURE actualizar_recibo_detalle(p_id NUMBER, p_recibo_id NUMBER, p_monto NUMBER, p_cantidad NUMBER, p_metodo_pago VARCHAR2, p_descripcion VARCHAR2);
     PROCEDURE eliminar_recibo_detalle(p_id NUMBER);
@@ -244,16 +238,12 @@ CREATE OR REPLACE PACKAGE paquete_modificar AS
     PROCEDURE actualizar_compra_detalle(p_id NUMBER, p_compra_producto_id NUMBER, p_cantidad NUMBER, p_monto NUMBER, p_descripcion VARCHAR2);
     PROCEDURE eliminar_compra_detalle(p_id NUMBER);
     PROCEDURE insertar_compra_producto_completo(p_producto_id NUMBER, p_proveedor_id NUMBER, p_fecha DATE, p_cantidad NUMBER, p_monto NUMBER, p_descripcion VARCHAR2);
-
     PROCEDURE actualizar_recibo_completo(p_id NUMBER, p_fecha DATE, p_cliente_id NUMBER, p_monto NUMBER, p_cantidad NUMBER, p_metodo_pago VARCHAR2, p_descripcion VARCHAR2);
     PROCEDURE eliminar_recibo_completo(p_id NUMBER);
-
     PROCEDURE actualizar_compra_producto_completo(p_id NUMBER, p_producto_id NUMBER, p_proveedor_id NUMBER, p_fecha DATE, p_cantidad NUMBER, p_monto NUMBER, p_descripcion VARCHAR2);
     PROCEDURE eliminar_compra_producto_completo(p_id NUMBER);
 END;
 /
-
--- Create package for the tables PRODUCTOS, BITACORA_PRODUCTO, CLIENTE, RECIBO, and PROVEEDOR to SELECT:
 
 CREATE OR REPLACE PACKAGE paquete_select AS
     FUNCTION obtener_productos RETURN SYS_REFCURSOR;
@@ -278,8 +268,6 @@ CREATE OR REPLACE PACKAGE paquete_select AS
     FUNCTION obtener_producto_recibos(p_producto_id NUMBER) RETURN SYS_REFCURSOR;
 END;
 /
-
--- Create package body (with exceptions management) for the tables PRODUCTOS, CLIENTE, RECIBO, and PROVEEDOR to INSERT, UPDATE, and DELETE:
 
 CREATE OR REPLACE PACKAGE BODY paquete_modificar AS 
     PROCEDURE insertar_producto(p_nombre VARCHAR2, p_descripcion VARCHAR2, p_precio NUMBER, p_categoria_id VARCHAR2, p_inventario NUMBER) AS
@@ -589,7 +577,6 @@ CREATE OR REPLACE PACKAGE BODY paquete_modificar AS
 END paquete_modificar;
 /
 
--- Create package body (with exceptions management) for the tables PRODUCTOS, BITACORA_PRODUCTO, CLIENTE, RECIBO, and PROVEEDOR to SELECT:
 
 CREATE OR REPLACE PACKAGE BODY paquete_select AS
     FUNCTION obtener_productos RETURN SYS_REFCURSOR AS
@@ -688,18 +675,6 @@ CREATE OR REPLACE PACKAGE BODY paquete_select AS
             RAISE_APPLICATION_ERROR(-20031, 'Error al obtener cliente');
     END obtener_cliente;
 
-    --FUNCTION obtener_recibos RETURN SYS_REFCURSOR AS --6
-    --    recibos SYS_REFCURSOR;
-    --BEGIN
-    --    OPEN recibos FOR
-    --    SELECT * FROM RECIBO;
-    --    RETURN recibos;
-    --EXCEPTION
-    --    WHEN OTHERS THEN
-    --        RAISE_APPLICATION_ERROR(-20032, 'Error al obtener recibos');
-    --END obtener_recibos;
-
-    -- with join
     FUNCTION obtener_recibos RETURN SYS_REFCURSOR AS --6
         recibos SYS_REFCURSOR;
     BEGIN
@@ -750,18 +725,6 @@ CREATE OR REPLACE PACKAGE BODY paquete_select AS
             RAISE_APPLICATION_ERROR(-20035, 'Error al obtener proveedor');
     END obtener_proveedor;
 
-    --FUNCTION obtener_compra_productos RETURN SYS_REFCURSOR AS --10
-    --    compra_productos SYS_REFCURSOR;
-    --BEGIN
-    --    OPEN compra_productos FOR
-    --    SELECT * FROM COMPRA_PRODUCTO;
-    --    RETURN compra_productos;
-    --EXCEPTION
-    --    WHEN OTHERS THEN
-    --        RAISE_APPLICATION_ERROR(-20036, 'Error al obtener compra productos');
-    --END obtener_compra_productos;
-
-    -- Rewrite the previous function to include the join with COMPRA_DETALLE
     FUNCTION obtener_compra_productos RETURN SYS_REFCURSOR AS --10
         compra_productos SYS_REFCURSOR;
     BEGIN
