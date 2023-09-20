@@ -70,7 +70,8 @@ public class ProviderPage extends CRUDPage {
                 // determine if search can be converted to a number
                 try {
                     int id = Integer.parseInt(search);
-                    providers.add(this.getDatabaseContext().getProviderRepository().findById(id));
+                    ProviderEntity provider = this.getDatabaseContext().getProviderRepository().findById(id);
+                    if (provider != null) providers.add(provider);
                 } catch (NumberFormatException e) {
                     providers = this.getDatabaseContext().getProviderRepository().findAll();
                     showData("providers", this.getDatabaseContext().getProviderRepository().findAll(), req);
@@ -78,7 +79,6 @@ public class ProviderPage extends CRUDPage {
             } else providers = this.getDatabaseContext().getProviderRepository().findAll(); 
             showData("providers", providers, req);
         } catch (SQLException e) {
-            e.printStackTrace();
             showData("providers", new ArrayList<>(), req);
         }
 
