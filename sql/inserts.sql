@@ -1,4 +1,4 @@
--- Antonio
+
 BEGIN
     INSERT INTO CLIENTE VALUES (seq_cliente.NEXTVAL, 'Pedro Perez', DATE '2023-05-05', 'pedro@gmail.com', 'Grecia Centro', 79);
     INSERT INTO CLIENTE VALUES (seq_cliente.NEXTVAL, 'Juan Paez', DATE '2023-05-05', 'juan@gmail.com', 'Grecia Centro', 69);
@@ -63,11 +63,6 @@ BEGIN
     INSERT INTO PROVEEDOR VALUES (seq_proveedor.NEXTVAL, 'El manjar del perro', 'Trae comida de perros', 'Grecia, Alajuela');
     INSERT INTO PROVEEDOR VALUES (seq_proveedor.NEXTVAL, 'El manjar del gato', 'Trae comida de gatos', 'San Jose centro');
 
-
-
-    -- Josué
-    --Categorías
-
     INSERT INTO CATEGORIA  VALUES ('Electrónica', 'Productos electrónicos para el consumo diario.'); 
     INSERT INTO CATEGORIA  VALUES ('Ropa', 'Ropa y accesorios de moda para hombres y mujeres.');
     INSERT INTO CATEGORIA  VALUES ('Calzado', 'Calzado de diversos estilos y tallas.');
@@ -99,9 +94,6 @@ BEGIN
     INSERT INTO CATEGORIA  VALUES ('Enlatados', 'Productos que vienen en una lata');
     INSERT INTO CATEGORIA  VALUES ('Lácteos', 'Productos provenientes de la leche');
 
-    -- Productos
-
-
     INSERT INTO PRODUCTO VALUES (seq_producto.NEXTVAL, 'Samsung 78', 'Teléfono móvil inteligente', 250000 , 'Electrónica', 15);
     INSERT INTO PRODUCTO VALUES (seq_producto.NEXTVAL, 'Vestido Shein', 'Elegante vestido de noche', 15000, 'Ropa', 32);
     INSERT INTO PRODUCTO VALUES (seq_producto.NEXTVAL, 'Naik', 'Calzado deportivo para correr y hacer ejercicio', 35000, 'Calzado', 5);
@@ -132,9 +124,6 @@ BEGIN
     INSERT INTO PRODUCTO VALUES (seq_producto.NEXTVAL, 'Zanahorias', 'Zanahorias orgánicas', 1250, 'Vegetales', 96);
     INSERT INTO PRODUCTO VALUES (seq_producto.NEXTVAL, 'Atún', 'Atún de agua', 400, 'Enlatados', 56);
     INSERT INTO PRODUCTO VALUES (seq_producto.NEXTVAL, 'Leche Entera', 'Leche entera fresca y nutritiva', 1700, 'Lácteos', 80);
-
-
-    -- Compra producto
 
     INSERT INTO COMPRA_PRODUCTO VALUES(seq_compra_producto.NEXTVAL,1,1,DATE '2023-20-09');
     INSERT INTO COMPRA_PRODUCTO VALUES(seq_compra_producto.NEXTVAL,1,1,DATE '2023-20-10');
@@ -226,9 +215,6 @@ BEGIN
     INSERT INTO COMPRA_PRODUCTO VALUES(seq_compra_producto.NEXTVAL,30,30,DATE '2023-20-12');
     INSERT INTO COMPRA_PRODUCTO VALUES(seq_compra_producto.NEXTVAL,30,30,DATE '2023-07-13');
     INSERT INTO COMPRA_PRODUCTO VALUES(seq_compra_producto.NEXTVAL,30,30,DATE '2023-08-11');
-
-    -- Compra detalle
-
     
     INSERT INTO COMPRA_DETALLE  VALUES (seq_compra_detalle.NEXTVAL, 1, 10, 2000, 'Productos variados');
     INSERT INTO COMPRA_DETALLE  VALUES (seq_compra_detalle.NEXTVAL, 2, 15, 3000, 'Productos variados');
