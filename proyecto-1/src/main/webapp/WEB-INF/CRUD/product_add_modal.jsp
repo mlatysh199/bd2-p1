@@ -3,119 +3,24 @@
 <html>
 <head>
     <title>Modal</title>
-    <style>
-        #modal-content {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 950px;
-            height: 300px;
-            background-color: rgb(123, 141, 240);
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .editable-cell {
-            border: 1px solid black;
-            padding: 0px;
-            max-width: 150px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/styles/crud_add_style.css">
+    <script src="<%= request.getContextPath() %>/scripts/crud_add_script.js"></script>
     <script>
-        const modalContent = document.getElementById("modal-content");
-const closeModalButton = document.getElementById("close-modal");
-var isEditing = false;
-var rowEditID = -1;
-const columnNames = ['nombre', 'descripcion', 'precio', 'categoria', 'inventario'];
-function showModal() {
-    modalContent.style.display = "block";
-    isEditing = false;
+function subShowEditModal(rowData) {
+    document.getElementById("e1").value = rowData[columnNames[1]];
+    document.getElementById("e2").value = rowData[columnNames[2]];
+    document.getElementById("e3").value = rowData[columnNames[3]];
+    document.getElementById("e4").value = rowData[columnNames[4]];
+    document.getElementById("e5").value = rowData[columnNames[5]];
 }
-
-function showEditModal(rowData) {
-    showModal();
-    isEditing = true;
-    rowEditID = rowData['id'];
-    document.getElementById("e1").value = rowData[columnNames[0]];
-    document.getElementById("e2").value = rowData[columnNames[1]];
-    document.getElementById("e3").value = rowData[columnNames[2]];
-    document.getElementById("e4").value = rowData[columnNames[3]];
-    document.getElementById("e5").value = rowData[columnNames[4]];
-}
-
-function hideModal() {
-    modalContent.style.display = "none";
-    const modalClosedEvent = new Event('modalClosed');
-    document.dispatchEvent(modalClosedEvent);
-}
-
-const editableCells = document.querySelectorAll('.editable-cell');
-
-editableCells.forEach(cell => {
-    cell.addEventListener('click', () => {
-        const currentValue = cell.innerText;
-        const inputElement = document.createElement('input');
-        inputElement.value = currentValue;
-        cell.innerHTML = '';
-        cell.appendChild(inputElement);
-        inputElement.focus();
-
-        // Save changes when the user finishes editing (e.g., on blur)
-        inputElement.addEventListener('blur', () => {
-            const newValue = inputElement.value;
-            cell.innerHTML = newValue;
-        });
-    });
-});
-
-function sendRowData(rowID) {
-    const row = document.querySelector('tr[data-rowid="'+rowID+ '"]');
-    const columns = row.querySelectorAll('.editable-cell');
-    const rowData = {};
-    var data = "";
-
-    if (isEditing) {
-        data += "id=" + rowEditID + "&";
-    }
-
-    for (var i = 0; i < columns.length; i++) {
-        const cell = columns[i];
-        if (data != "") data += "&";
-        data += columnNames[i] + "=" + cell.value;
-        rowData[columnNames[i]] = cell.value;
-    }
-
-
-
-    // Send rowData to the server via AJAX
-    fetch('/CRUD/product?' + data, {
-        method: 'POST',
-        body: JSON.stringify(rowData),
-    })
-    .then(response => {
-        if (response.ok) {
-            // Handle success (e.g., display a success message)
-            alert('El procedimiento se ejecutó exitósamente!');
-        } else {
-            alert('No se logró ejecutar el procedimiento.');
-        }
-        hideModal();
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('No se logró ejecutar el procedimiento.');
-        hideModal();
-    });
-}
-
     </script>
 </head>
 <body>
-    <h1>Insertar Producto</h1>
-    <button id="close-modal" onclick="hideModal()">Close</button>
-    <table id="waka">
+    <div class="modal-header">
+        <h1 class="modal-title" id="e0">Insertar Cliente</h1>
+        <button class="close-button" onclick="hideModal()">Close</button>
+    </div>
+    <table id="waka" style="border: 2px solid #000;">
         <thead>
             <tr>
                 <th>nombre</th>

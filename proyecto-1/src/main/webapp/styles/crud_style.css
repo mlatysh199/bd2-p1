@@ -1,227 +1,186 @@
-        body {
-            background-color: white;
-        }
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0;
+    padding: 20px 0;
+    text-align: center;
+    background-color: #007bff;
+    color: #fff;
+}
+
+.sub-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5% 0;
+}
+
+.add-button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    float: left;
+}
+
+.add-button:hover {
+    background-color: #024900;
+}
+
+.search-container {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #006797;
+}
 
 
 
-        #mi-titulo {
-            position: absolute;
-            top: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 5% auto;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}
 
-        #id-cliente {
+th,
+td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
 
-            position: absolute;
-            top: 180px;
-            left: 100px;
+th {
+    background-color: #f2f2f2;
+}
 
-        }
+.trara:hover {
+    background-color: #f5f5f5;
+}
 
-        #nombre-cliente {
+.selected-row {
+    background-color: #e0e0e0;
 
-            position: absolute;
-            top: 180px;
-            left: 250px;
+    .delete-button {
+        background-color: red;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
 
-        }
+    .delete-button::before {
+        content: '×';
+        position: absolute;
+        top: 4px;
+        font-size: 16px;
+    }
 
+    .delete-button:hover {
+        background-color: #9c0000;
+    }
 
-        #fecha-ultima-compra-cliente {
+    .delete-cell {
+        width: 50px;
+        padding: 0;
+        text-align: center;
+    }
 
-            position: absolute;
-            top: 180px;
-            left: 450px;
+    .edit-button {
+        background-color: yellow;
+        color: black;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
 
-        }
+    .edit-button::before {
+        content: 'o';
+        position: absolute;
+        top: 4px;
+        font-size: 16px;
+    }
 
-        #correo-cliente {
+    .edit-button:hover {
+        background-color: #9c8a00;
+    }
 
-            position: absolute;
-            top: 180px;
-            left: 750px;
-
-        }
-
-        #direccion-cliente {
-
-            position: absolute;
-            top: 180px;
-            left: 950px;
-
-        }
-
-        #cantidad-compras-cliente {
-
-            position: absolute;
-            top: 180px;
-            left: 1150px;
-
-        }
-
-
-        .boton-agregar {
-
-            background-color: green;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            position: absolute;
-            top: 75px;
-            left: 100px;
-
-        }
-
-        .boton-editar {
-
-            background-color: yellow;
-            color: black;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            position: absolute;
-            top: 200px;
-            left: 1550px;
-        }
-
-        .boton-agregar:hover {
-            background-color: #024900;
-        }
+    .edit-cell {
+        width: 50px;
+        padding: 0;
+        text-align: center;
+    }
 
 
-        table {
-            width: 80%;
-            border-collapse: collapse;
-            margin-top: 10%;
-            margin: 100px auto;
-            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
-        }
 
-        th,
-        td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
+}
 
-        th {
-            background-color: #f2f2f2;
-        }
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    flex-grow: 1;
+}
+.user-button {
+    text-align: right;
+    margin-bottom: 20px;
+}
 
-        tr:hover {
-            background-color: #f5f5f5;
-        }
+.user-button a {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+}
 
-        .search-container {
-            text-align: center;
-            margin-top: 75px;
-            margin-left: 1000px;
-            position: absolute;
-            top: 0;
-            right: 0;
-        }
-
-        .search-input {
-            padding: 10px;
-            width: 300px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .search-button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .search-button:hover {
-            background-color: #006797;
-        }
-
-        .selected-row {
-            background-color: #e0e0e0;
-
-            .delete-button {
-                background-color: red;
-                color: white;
-                border: none;
-                border-radius: 50%;
-                width: 30px;
-                height: 30px;
-                font-size: 16px;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                position: relative;
-            }
-
-            .delete-button::before {
-                content: '×';
-                position: absolute;
-                top: 4px;
-                font-size: 16px;
-            }
-
-            .delete-button:hover {
-                background-color: #9c0000;
-            }
-
-            .delete-cell {
-                width: 50px;
-                padding: 0;
-                text-align: center;
-            }
-
-            .edit-button {
-                background-color: yellow;
-                color: white;
-                border: none;
-                border-radius: 50%;
-                width: 30px;
-                height: 30px;
-                font-size: 16px;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                position: relative;
-            }
-
-            .edit-button::before {
-                content: 'o';
-                position: absolute;
-                top: 4px;
-                font-size: 16px;
-            }
-
-            .edit-button:hover {
-                background-color: #9c8a00;
-            }
-
-            .edit-cell {
-                width: 50px;
-                padding: 0;
-                text-align: center;
-            }
-
-            .user-button a {
-                background-color: #007bff;
-                color: #fff;
-                padding: 10px 20px;
-                border-radius: 5px;
-                text-decoration: none;
-            }
-
-            .user-button a:hover {
-                background-color: #0056b3;
-            }
-
-        }
+.user-button a:hover {
+    background-color: #0056b3;
+}

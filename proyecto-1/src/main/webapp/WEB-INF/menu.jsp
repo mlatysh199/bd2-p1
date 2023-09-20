@@ -83,7 +83,7 @@
             <h1>Probabilidades G90</h1>
         </div>
         <div class="user-button">
-            <a href="/menu"><%= request.getAttribute("username") %></a>
+            <a href="/menu">USUARIO : <%= request.getAttribute("username") %></a>
         </div>
     </header>
     <div class="cuerpo">

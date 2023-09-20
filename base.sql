@@ -494,7 +494,7 @@ CREATE OR REPLACE PACKAGE BODY paquete_modificar AS
         INSERT INTO COMPRA_PRODUCTO(id, producto_id, proveedor_id, fecha)
         VALUES(seq_compra_producto.NEXTVAL, p_producto_id, p_proveedor_id, p_fecha);
         INSERT INTO COMPRA_DETALLE(id, compra_producto_id, cantidad, monto, descripcion)
-        VALUES(seq_compra_detalle.NEXTVAL, seq_compra_producto.CURRVAL, p_cantidad, p_monto, p_descripcion);
+        VALUES(seq_compra_detalle.CURVAL, seq_compra_producto.CURRVAL, p_cantidad, p_monto, p_descripcion);
     EXCEPTION
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20023, 'Error al insertar compra producto completo');

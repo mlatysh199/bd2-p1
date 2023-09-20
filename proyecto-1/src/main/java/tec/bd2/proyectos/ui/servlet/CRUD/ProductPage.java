@@ -48,7 +48,6 @@ public class ProductPage extends CRUDPage {
                 this.getDatabaseContext().getProductRepository().update(product);
             resp.setStatus(HttpServletResponse.SC_OK);
         } catch (SQLException e) {
-            e.printStackTrace();
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } catch (NumberFormatException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);

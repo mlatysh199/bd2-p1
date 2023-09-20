@@ -2,6 +2,7 @@ package tec.bd2.proyectos.db.repository;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class ProductBuyRepository implements BaseRepository<ProductBuyEntity> {
         CallableStatement cstmt = conn.prepareCall("{call paquete_modificar.insertar_compra_producto_completo(?, ?, ?, ?, ?, ?)}");
         cstmt.setInt(1, entity.getProducto_id());
         cstmt.setInt(2, entity.getProveedor_id());
-        cstmt.setString(3, entity.getFecha());
+        cstmt.setDate(3, Date.valueOf(entity.getFecha()));
         cstmt.setInt(4,entity.getCantidad());
         cstmt.setInt(5,entity.getMonto());
         cstmt.setString(6, entity.getDescripcion());
@@ -39,7 +40,7 @@ public class ProductBuyRepository implements BaseRepository<ProductBuyEntity> {
         cstmt.setInt(1, entity.getId());
         cstmt.setInt(2, entity.getProducto_id());
         cstmt.setInt(3, entity.getProveedor_id());
-        cstmt.setString(4, entity.getFecha());
+        cstmt.setDate(4, Date.valueOf(entity.getFecha()));
         cstmt.setInt(5,entity.getCantidad());
         cstmt.setInt(6,entity.getMonto());
         cstmt.setString(7, entity.getDescripcion());
@@ -75,7 +76,8 @@ public class ProductBuyRepository implements BaseRepository<ProductBuyEntity> {
                 cstmt.close();
                 return null;
             }
-            ProductBuyEntity productBuyEntity = new ProductBuyEntity(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4),rs.getInt(5), rs.getInt(6),rs.getString(7));
+
+            ProductBuyEntity productBuyEntity = new ProductBuyEntity(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getDate(4).toString(),rs.getInt(5), rs.getInt(6),rs.getString(7));
             cstmt.close();
 
             return productBuyEntity;
@@ -94,7 +96,7 @@ public class ProductBuyRepository implements BaseRepository<ProductBuyEntity> {
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
         ArrayList<ProductBuyEntity> iterable = new ArrayList<>();
         while(rs.next()) {
-            iterable.add(new ProductBuyEntity(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4),rs.getInt(5), rs.getInt(6),rs.getString(7)));
+            iterable.add(new ProductBuyEntity(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getDate(4).toString(),rs.getInt(5), rs.getInt(6),rs.getString(7)));
         }
         cstmt.close();
         return iterable;

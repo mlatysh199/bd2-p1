@@ -1,0 +1,58 @@
+#modal-content {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 950px;
+    height: 300px; /* Change height to auto to fit content */
+    /*max-height: 80vh; /* Limit max height to 80% of viewport height */
+    background-color: rgb(123, 141, 240);
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-title {
+    font-size: 24px;
+    font-weight: bold;
+    background-color: transparent;
+}
+
+.close-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    background-color: #d32f2f;
+}
+
+.editable-cell {
+    border: 1px solid black;
+    padding: 5px;
+    max-width: 150px;
+}
+
+.save-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.save-button:hover {
+    background-color: #45a049;
+}

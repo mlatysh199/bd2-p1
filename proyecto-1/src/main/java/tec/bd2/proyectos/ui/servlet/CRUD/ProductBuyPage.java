@@ -49,7 +49,6 @@ public class ProductBuyPage extends CRUDPage {
                 this.getDatabaseContext().getProductBuyRepository().update(productBuy);
             resp.setStatus(HttpServletResponse.SC_OK);
         } catch (SQLException e) {
-            e.printStackTrace();
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } catch (NumberFormatException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -77,9 +76,9 @@ public class ProductBuyPage extends CRUDPage {
                 } catch (NumberFormatException e) {
                 }
             } else productsBuyEntities = this.getDatabaseContext().getProductBuyRepository().findAll(); 
-            showData("products", productsBuyEntities, req);
+            showData("productsBuy", productsBuyEntities, req);
         } catch (SQLException e) {
-            showData("products", new ArrayList<>(), req);
+            showData("productsBuy", new ArrayList<>(), req);
         }
 
         showPage("CRUD/product_buy.jsp", req, resp);
