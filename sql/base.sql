@@ -7,7 +7,7 @@ CREATE TABLE USUARIO(
 );
 
 CREATE TABLE CATEGORIA(
-    id VARCHAR2(10) NOT NULL,
+    id VARCHAR2(40) NOT NULL,
     descripcion VARCHAR2(100) NOT NULL,
     CONSTRAINT pk_categoria PRIMARY KEY(id)
 );
@@ -17,7 +17,7 @@ CREATE TABLE PRODUCTO(
     nombre VARCHAR2(40) NOT NULL,
     descripcion VARCHAR2(100) NOT NULL,
     precio NUMBER(10,2) NOT NULL,
-    categoria_id VARCHAR2(10) NOT NULL,
+    categoria_id VARCHAR2(40) NOT NULL,
     inventario NUMBER(10) NOT NULL,
     CONSTRAINT pk_producto PRIMARY KEY(id),
     CONSTRAINT fk_categoria FOREIGN KEY(categoria_id) REFERENCES CATEGORIA(id)
@@ -494,7 +494,7 @@ CREATE OR REPLACE PACKAGE BODY paquete_modificar AS
         INSERT INTO COMPRA_PRODUCTO(id, producto_id, proveedor_id, fecha)
         VALUES(seq_compra_producto.NEXTVAL, p_producto_id, p_proveedor_id, p_fecha);
         INSERT INTO COMPRA_DETALLE(id, compra_producto_id, cantidad, monto, descripcion)
-        VALUES(seq_compra_detalle.CURVAL, seq_compra_producto.CURRVAL, p_cantidad, p_monto, p_descripcion);
+        VALUES(seq_compra_detalle.NEXTVAL, seq_compra_producto.CURRVAL, p_cantidad, p_monto, p_descripcion);
     EXCEPTION
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20023, 'Error al insertar compra producto completo');
@@ -875,8 +875,3 @@ CREATE OR REPLACE PACKAGE BODY paquete_select AS
 END paquete_select;
 /
 
--- Inserts
-
-INSERT INTO USUARIO(nombre, passhash1, passhash2, nivel) VALUES('admin', 133524947, 894447882, 1);
-
-select * from USUARIO;
