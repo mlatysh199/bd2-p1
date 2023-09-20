@@ -1,6 +1,10 @@
 package tec.bd2.proyectos.db.entities;
 
+import java.util.HashMap;
 import java.util.Map;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class ReceiptEntity implements Entity {
     /*
@@ -67,15 +71,34 @@ CREATE TABLE RECIBO_DETALLE(
         this.productsAmounts = productsAmounts;
     }
 
+    public ReceiptEntity(int id, String date, int clientId, int detailId, int total, int totalAmount, String paymentMethod, String description) {
+        this.id = id;
+        this.date = date;
+        this.clientId = clientId;
+        this.detailId = detailId;
+        this.total = total;
+        this.totalAmount = totalAmount;
+        this.paymentMethod = paymentMethod;
+        this.description = description;
+    }
+
+    public ReceiptEntity(int id, String date, int clientId, int detailId, int total, int totalAmount, String paymentMethod, String description, String jsonProductsAmounts) {
+        this.id = id;
+        this.date = date;
+        this.clientId = clientId;
+        this.detailId = detailId;
+        this.total = total;
+        this.totalAmount = totalAmount;
+        this.paymentMethod = paymentMethod;
+        this.description = description;
+        this.productsAmounts = new Gson().fromJson(jsonProductsAmounts, new TypeToken<HashMap<Integer, Integer>>() {}.getType());
+    }
+
     @Override
     public String toString() {
-        String products = "";
-        for (Map.Entry<Integer, Integer> entry : productsAmounts.entrySet()) {
-            products += entry.getKey() + " " + entry.getValue() + ", ";
-        }
         return "ReceiptEntity [clientId=" + clientId + ", date=" + date + ", description=" + description + ", detailId="
                 + detailId + ", id=" + id + ", paymentMethod=" + paymentMethod + ", productsAmounts=" + productsAmounts
-                + ", total=" + total + ", totalAmount=" + totalAmount + " [" + products +  "]]";
+                + ", total=" + total + ", totalAmount=" + totalAmount + " [" + getJSONProductsAmounts() +  "]]";
     }
     
     public int getId() {
@@ -114,6 +137,11 @@ CREATE TABLE RECIBO_DETALLE(
         return productsAmounts;
     }
 
+    public String getJSONProductsAmounts() {
+        return new Gson().toJson(productsAmounts);
+    }
+
+
     public void setId(int id) {
         this.id = id;
     }
@@ -148,5 +176,9 @@ CREATE TABLE RECIBO_DETALLE(
 
     public void setProductsAmounts(Map<Integer, Integer> productsAmounts) {
         this.productsAmounts = productsAmounts;
+    }
+
+    public void setJSONProductsAmounts(String json) {
+        this.productsAmounts = new Gson().fromJson(json, new TypeToken<HashMap<Integer, Integer>>() {}.getType());
     }
 }

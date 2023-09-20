@@ -32,7 +32,7 @@ function subShowEditModal(rowData) {
                 <td><input type="text" id="e1" value="Value 1" class="editable-cell"></td>
                 <td><input type="text" id="e2" value="Value 2" class="editable-cell"></td>
                 <td><input type="text" id="e3" value="Value 3" class="editable-cell"></td>
-                <td><button onclick="sendRowData(1)">Save</button></td>
+                <td><button onclick="sendRowData(1)" class="save-button">Save</button></td>
             </tr>
         </tbody>
     </table>

@@ -17,7 +17,6 @@ public class ProductPage extends CRUDPage {
 
     public ProductPage(SessionManager sessionManager, DatabaseContext databaseContext) {
         super(sessionManager, databaseContext);
-        //TODO Auto-generated constructor stub
     }
 
     @Override
@@ -71,7 +70,7 @@ public class ProductPage extends CRUDPage {
                 try {
                     int id = Integer.parseInt(search);
                     ProductEntity product = this.getDatabaseContext().getProductRepository().findById(id);
-                    if (product != null) products.add(this.getDatabaseContext().getProductRepository().findById(id));
+                    if (product != null) products.add(product);
                 } catch (NumberFormatException e) {
                 }
             } else products = this.getDatabaseContext().getProductRepository().findAll(); 

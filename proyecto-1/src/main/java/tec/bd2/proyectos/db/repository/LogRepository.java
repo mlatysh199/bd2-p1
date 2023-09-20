@@ -42,7 +42,7 @@ public class LogRepository implements BaseRepository<LogEntity> {
             cstmt.close();
             return null;
         }
-        LogEntity logEntity = new LogEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+        LogEntity logEntity = new LogEntity(rs.getInt(1), rs.getDate(2).toString(), rs.getString(3), rs.getString(4));
         cstmt.close();
         return logEntity;
     }
@@ -58,7 +58,7 @@ public class LogRepository implements BaseRepository<LogEntity> {
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
         List<LogEntity> iterable = new ArrayList<>();
         while(rs.next()) {
-            iterable.add(new LogEntity(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+            iterable.add(new LogEntity(rs.getInt(1), rs.getDate(2).toString(), rs.getString(3), rs.getString(4)));
         }
         cstmt.close();
         return iterable;

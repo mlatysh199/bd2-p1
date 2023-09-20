@@ -20,12 +20,14 @@
 }
 
 .modal-title {
+    margin-left: 10%;
     font-size: 24px;
     font-weight: bold;
     background-color: transparent;
 }
 
 .close-button {
+    margin-right: 10%;
     background-color: #f44336;
     color: white;
     border: none;

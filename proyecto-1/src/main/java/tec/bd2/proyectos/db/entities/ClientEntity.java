@@ -15,7 +15,8 @@ public class ClientEntity implements Entity {
     public ClientEntity() {
     }
 
-    public ClientEntity(int id, String nombre, String fechaUltimaCompra, String correo, String direccion, int cantidadCompras) {
+    public ClientEntity(int id, String nombre, String fechaUltimaCompra, String correo, String direccion,
+            int cantidadCompras) {
         this.id = id;
         this.nombre = nombre;
         this.fechaUltimaCompra = fechaUltimaCompra;
@@ -24,29 +25,34 @@ public class ClientEntity implements Entity {
         this.cantidadCompras = cantidadCompras;
     }
 
-    public ClientEntity (String nombre, String fechaUltimaCompra, String correo, String direccion, int cantidadCompras) {
+    public ClientEntity(String nombre, String fechaUltimaCompra, String correo, String direccion, int cantidadCompras) {
         this.nombre = nombre;
         this.fechaUltimaCompra = fechaUltimaCompra;
         this.correo = correo;
         this.direccion = direccion;
         this.cantidadCompras = cantidadCompras;
     }
-    
+
     public int getId() {
         return id;
     }
+
     public String getNombre() {
         return nombre;
     }
+
     public String getFechaUltimaCompra() {
         return fechaUltimaCompra;
     }
+
     public String getCorreo() {
         return correo;
     }
+
     public String getDireccion() {
         return direccion;
     }
+
     public int getCantidadCompras() {
         return cantidadCompras;
     }
@@ -54,25 +60,30 @@ public class ClientEntity implements Entity {
     public void setId(int id) {
         this.id = id;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     public void setFechaUltimaCompra(String fechaUltimaCompra) {
         this.fechaUltimaCompra = fechaUltimaCompra;
     }
+
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+
     public void setCantidadCompras(int cantidadCompras) {
         this.cantidadCompras = cantidadCompras;
     }
 
     public List<Object> asList() {
-        return Arrays.asList(this.id, this.nombre, this.fechaUltimaCompra, this.correo, this.direccion, this.cantidadCompras);
+        return Arrays.asList(this.id, this.nombre, this.fechaUltimaCompra, this.correo, this.direccion,
+                this.cantidadCompras);
     }
 
-    
 }

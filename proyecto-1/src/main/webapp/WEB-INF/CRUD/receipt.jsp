@@ -8,8 +8,51 @@
     <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/styles/crud_style.css">
     <script src="<%= request.getContextPath() %>/scripts/crud_script.js"></script> 
     <script>
-        const columnNames = ['id', 'fecha', 'client_id', 'total', 'cantidad total', 'metodo de pago', 'descripcion', 'productos'];
+        const columnNames = ['id', 'fecha', 'cliente_id', 'detalle_id', 'total', 'cantidad total', 'metodo de pago', 'descripcion', 'cantidad productos'];
+        
         const pathName = '/CRUD/receipt';
+        function populateProductsAmountDropdown(cell) {
+            console.log("papageno")
+  // Parse the JSON string into a JavaScript object
+  var productsAmounts = JSON.parse(cell.innerHTML);
+
+  // Create a select element
+  var select = document.createElement("select");
+
+  // Iterate through the JavaScript object and add options
+  for (var key in productsAmounts) {
+    if (productsAmounts.hasOwnProperty(key)) {
+      var option = document.createElement("option");
+      var link = document.createElement("a");
+
+      // Create a link with the key as text and a custom URL (modify as needed)
+      link.textContent = key + " : " + productsAmounts[key];
+      link.href = "/CRUD/product?search=" + key; // Set your custom URL here
+
+      // Append the link to the option
+      option.appendChild(link);
+      // make all options disabled
+        option.disabled = true;
+
+      // Append the option to the select
+      select.appendChild(option);
+    }
+  }
+
+  // Set the select element's value based on the cell's current value (if needed)
+  select.value = "ver productos";
+
+  // Clear the cell's content and append the select element
+  cell.innerHTML = "";
+  cell.appendChild(select);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Call your function here, e.g., toggleButtons
+    var elem = document.querySelector(".products-amount-cell");
+    populateProductsAmountDropdown(elem);
+  });
+
     </script>
 </head>
 <body>
@@ -36,32 +79,47 @@
 <table>
     <thead>
     <tr>
-        <!-- ['id', 'fecha', 'client_id', 'total', 'cantidad total', 'metodo de pago', 'descripcion', 'productos'];-->
+        <!-- const columnNames = ['id', 'fecha', 'cliente_id', 'detalle_id', 'total', 'cantidad total', 'metodo de pago', 'descripcion', 'cantidad productos'];-->
         <th>id</th>
         <th>fecha</th>
-        <th>client_id</th>
+        <th>cliente_id</th>
+        <th>detalle_id</th>
         <th>total</th>
         <th>cantidad total</th>
         <th>metodo de pago</th>
         <th>descripcion</th>
-        <th>productos</th>
+        <th>cantidad productos</th>
         <th style="width: 50px;"></th>
         <th style="width: 50px;"></th>
     </tr>
     </thead>
     <tbody>
         <%
-            List<ProductBuyEntity> productsBuy = (List<ProductBuyEntity>) request.getAttribute("productsBuy");
-            for (ProductBuyEntity productBuy : productsBuy) {
+            List<ReceiptEntity> receipts = (List<ReceiptEntity>) request.getAttribute("receipts");
+            for (ReceiptEntity receipt : receipts) {
         %>
+        <!--
+                private int id;
+    private String date;
+    private int clientId;
+    private int detailId;
+    private int total;
+    private int totalAmount;
+    private String paymentMethod;
+    private String description;
+    private Map<Integer, Integer> productsAmounts;
+        -->
         <tr onclick="toggleButtons(this)" class="trara">
-            <td><%= productBuy.getId() %></td>
-            <td><%= productBuy.getProducto_id() %></td>
-            <td><%= productBuy.getProveedor_id() %></td>
-            <td><%= productBuy.getFecha() %></td>
-            <td><%= productBuy.getCantidad() %></td>
-            <td><%= productBuy.getMonto() %></td>
-            <td><%= productBuy.getDescripcion() %></td>
+            <td><%= receipt.getId() %></td>
+            <td><%= receipt.getDate() %></td>
+            <td><%= receipt.getClientId() %></td>
+            <td><%= receipt.getDetailId() %></td>
+            <td><%= receipt.getTotal() %></td>
+            <td><%= receipt.getTotalAmount() %></td>
+            <td><%= receipt.getPaymentMethod() %></td>
+            <td><%= receipt.getDescription() %></td>
+            <td class="products-amount-cell"><%= receipt.getJSONProductsAmounts() %></td>
+            
             <td class="delete-cell">
                 
             </td>

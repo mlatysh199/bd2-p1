@@ -72,7 +72,7 @@ public class ProductBuyPage extends CRUDPage {
                 try {
                     int id = Integer.parseInt(search);
                     ProductBuyEntity productBuy = this.getDatabaseContext().getProductBuyRepository().findById(id);
-                    if (productBuy != null) productsBuyEntities.add(this.getDatabaseContext().getProductBuyRepository().findById(id));
+                    if (productBuy != null) productsBuyEntities.add(productBuy);
                 } catch (NumberFormatException e) {
                 }
             } else productsBuyEntities = this.getDatabaseContext().getProductBuyRepository().findAll(); 

@@ -71,7 +71,7 @@ public class ClientPage extends CRUDPage {
                 try {
                     int id = Integer.parseInt(search);
                     ClientEntity client = this.getDatabaseContext().getClientRepository().findById(id);
-                    if (client != null) clients.add(this.getDatabaseContext().getClientRepository().findById(id));
+                    if (client != null) clients.add(client);
                 } catch (NumberFormatException e) {
                 }
             } else clients = this.getDatabaseContext().getClientRepository().findAll(); 
