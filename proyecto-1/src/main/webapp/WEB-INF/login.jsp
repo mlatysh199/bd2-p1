@@ -7,7 +7,7 @@
     <title>Página con Imagen de Fondo</title>
     <style>
         body {
-            background-image: url(https://img.freepik.com/vector-premium/productos-alimenticios-productos-cocina-envasados-productos-supermercado-comida-enlatada-tarro-galletas-crema-batida-huevos-paquete-iconos-flat_102902-848.jpg); /* Reemplaza 'tu-imagen.jpg' con la URL de tu imagen de fondo */
+            background-image: url(${pageContext.request.contextPath}/images/productos.jpg); /* Reemplaza 'tu-imagen.jpg' con la URL de tu imagen de fondo */
             background-size: contain;
             background-repeat: no-repeat;
             background-attachment: fixed;

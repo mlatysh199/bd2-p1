@@ -106,6 +106,8 @@
             width: 80%;
             border-collapse: collapse;
             margin-top: 10%;
+            margin: 100px auto;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
         }
 
         th, td {
@@ -183,7 +185,7 @@
 }
 
 .delete-cell {
-    width: 34.5px; /* Set a fixed width for the delete cell */
+    width: 31.4px; /* Set a fixed width for the delete cell */
     padding: 0; /* Remove padding to avoid increasing cell size */
     text-align: center; /* Center the button horizontally */
 }
@@ -215,10 +217,22 @@
 }
 
 .edit-cell {
-    width: 34.5px; /* Set a fixed width for the delete cell */
+    width: 31.4px; /* Set a fixed width for the delete cell */
     padding: 0; /* Remove padding to avoid increasing cell size */
     text-align: center; /* Center the button horizontally */
 }
+
+.user-button a {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .user-button a:hover {
+            background-color: #0056b3;
+        }
 
 }
 
@@ -242,7 +256,7 @@ function toggleButtons(row) {
             const cellData = selectedRow.querySelector('.delete-cell');
         cellData.removeChild(cellData.querySelector('.delete-button'));
         const cellData2 = selectedRow.querySelector('.edit-cell');
-        cellData2.removeChild(cellData.querySelector('.edit-button'));
+        cellData2.removeChild(cellData2.querySelector('.edit-button'));
         selectedRow.classList.remove('selected-row');
         }
         
@@ -304,6 +318,11 @@ function editRow(event, row) {
     showEditModal(rowData);
 }
 
+document.addEventListener('modalOpened', function() {
+    // Focus on the first input element when the modal is opened
+    toggleButtons(selectedRow);
+});
+
 document.addEventListener('modalClosed', function() {
     // Refresh the page when the modal is closed
     window.location.reload();
@@ -317,6 +336,10 @@ document.addEventListener('modalClosed', function() {
     <button class="boton-agregar" onclick="showModal()">Agregar nuevo cliente</button>
     <div id="modal-content">
         <%@ include file="/WEB-INF/CRUD/client_add_modal.jsp" %>
+    </div>
+
+    <div class="user-button">
+        <a href="/menu"><%= request.getAttribute("username") %></a>
     </div>
 
     <!--<ul>

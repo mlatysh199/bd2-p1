@@ -80,6 +80,7 @@ public class ClientPage extends CRUDPage {
             showData("clients", new ArrayList<>(), req);
         }
 
+        showData("username", this.getSessionManager().getUsername(req.getSession().getId()), req);
         showPage("CRUD/client.jsp", req, resp);
     }
 

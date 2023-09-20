@@ -32,12 +32,16 @@ const columnNames = ['nombre', 'fecha de ultima compra', 'correo', 'direccion', 
 function showModal() {
     modalContent.style.display = "block";
     isEditing = false;
+    document.getElementById("e0").textContent = "Insertar Cliente";
+    const modalOpenedEvent = new Event('modalOpened');
+    document.dispatchEvent(modalOpenedEvent);
 }
 
 function showEditModal(rowData) {
     showModal();
     isEditing = true;
     rowEditID = rowData['id'];
+    document.getElementById("e0").textContent = "Modificar Cliente";
     document.getElementById("e1").value = rowData[columnNames[0]];
     document.getElementById("e2").value = rowData[columnNames[1]];
     document.getElementById("e3").value = rowData[columnNames[2]];
@@ -113,7 +117,7 @@ function sendRowData(rowID) {
     </script>
 </head>
 <body>
-    <h1>Insertar Cliente</h1>
+    <h1 id="e0">Insertar Cliente</h1>
     <button id="close-modal" onclick="hideModal()">Close</button>
     <table id="waka">
         <thead>
