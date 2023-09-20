@@ -65,3 +65,99 @@ INSERT INTO PROVEEDOR VALUES ('El manjar del gato', 'Trae comida de gatos', 'San
 
 
 -- Josué
+--Categorías
+
+INSERT INTO CATEGORIA  VALUES ('Electrónica', 'Productos electrónicos para el consumo diario.'); 
+INSERT INTO CATEGORIA  VALUES ('Ropa', 'Ropa y accesorios de moda para hombres y mujeres.');
+INSERT INTO CATEGORIA  VALUES ('Calzado', 'Calzado de diversos estilos y tallas.');
+INSERT INTO CATEGORIA  VALUES ('Electrodomésticos', 'Electrodomésticos para el hogar');
+INSERT INTO CATEGORIA  VALUES ('Joyería', 'Joyas y bisutería');
+INSERT INTO CATEGORIA  VALUES ('Muebles', 'Muebles y decoración para el hogar.');
+INSERT INTO CATEGORIA  VALUES ('Productos de Belleza', 'Productos de cuidado personal y belleza.');
+INSERT INTO CATEGORIA  VALUES ('Juguetes', 'Juguetes para niños.');
+INSERT INTO CATEGORIA  VALUES ('Librería', 'Productos para estudio u oficina.');
+INSERT INTO CATEGORIA  VALUES ('Deportivo', 'Artículos para deporte');
+INSERT INTO CATEGORIA  VALUES ('Carnes', 'Productos hechos de carne');
+INSERT INTO CATEGORIA  VALUES ('Bebés', 'Productos para bebés y cuidado infantil.');
+INSERT INTO CATEGORIA  VALUES ('Bebidas', 'Productos que se consumen tomandolo');
+INSERT INTO CATEGORIA  VALUES ('Ferretería', 'Herramientas y suministros de ferretería.');
+INSERT INTO CATEGORIA  VALUES ('Mariscos', 'Productos provenientes del mar');
+INSERT INTO CATEGORIA  VALUES ('Limpieza', 'Productos de limpieza');
+INSERT INTO CATEGORIA  VALUES ('Snacks', 'Productos para picar');
+INSERT INTO CATEGORIA  VALUES ('Jardinería', 'Suministros y herramientas para jardinería.');
+INSERT INTO CATEGORIA  VALUES ('Mascotas', 'Suministros y alimentos para mascotas.');
+INSERT INTO CATEGORIA  VALUES ('Congelados', 'Productos congelados');
+INSERT INTO CATEGORIA  VALUES ('Instrumentos Musicales', 'Instrumentos musicales y accesorios.');
+INSERT INTO CATEGORIA  VALUES ('Sexo', 'Productos relacionado al coito');
+INSERT INTO CATEGORIA  VALUES ('Cocina', 'Utensilios y productos para cocina.');
+INSERT INTO CATEGORIA  VALUES ('Dulces', 'Confites, chocolates, etc...');
+INSERT INTO CATEGORIA  VALUES ('Fiesta', 'Suministros para fiestas y eventos especiales.');
+INSERT INTO CATEGORIA  VALUES ('Embutidos', 'Productos embutidos');
+INSERT INTO CATEGORIA  VALUES ('Frutas', 'Frutas para la familia');
+INSERT INTO CATEGORIA  VALUES ('Vegetales', 'Verduras para la familia');
+INSERT INTO CATEGORIA  VALUES ('Enlatados', 'Productos que vienen en una lata');
+INSERT INTO CATEGORIA  VALUES ('Lacteos', 'Productos provenientes de la leche');
+
+-- Productos
+
+
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Samsung 78', 'Teléfono móvil inteligente', 250000 , 'Electrónica', 15);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Vestido Shein', 'Elegante vestido de noche', 15000, 'Ropa', 32);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Naik', 'Calzado deportivo para correr y hacer ejercicio', 35000 'Calzado', 5);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Refrigerador Samsung', 'Refrigerador de gran capacidad', 650000, 'Electrodomésticos', 3);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Anillo de plata', 'Anillo con plata de alta calidad', 80000, 'Joyería', 2);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Sofá', 'Sofá de cuero de lujo', 350000, 'Muebles', 1);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Crema Hidratante', 'Crema hidratante para el cuidado de la piel', 13000, 'Productos de Belleza', 67);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Blocks', 'Set de construcción de bloques para niños', 10000, 'Juguetes', 43);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Cuaderno de Notas', 'Cuaderno de notas para tomar apuntes', 3000, 'Librería', 13);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Balón de Fútbol', 'Balón de fútbol oficial', 20000, 'Deportivo', 17);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Filete de Res', 'Filete de res de primera calidad', 2000, 'Carnes', 120);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Pañales para Bebés', 'Pañales desechables para bebés', 24000, 'Bebés', 23);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Vino Tinto', 'Botella de vino tinto de alta calidad', 50000, 'Bebidas', 20);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Martillo', 'Herramienta para clavar', 7000, 'Ferretería', 100);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Camarones Frescos', 'Camarones frescos para cocinar', 16000, 'Mariscos', 30);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Detergente Líquido', 'Detergente líquido para lavar ropa', 5000, 'Limpieza', 14);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Papiola', 'Chips de papas crujientes y sabrosos', 300, 'Snacks', 300);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Tijeras', 'Tijeras para jardín', 4500, 'Jardinería', 12);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Alimento para Gatos', 'Alimento de alta calidad para gatos', 3600, 'Mascotas', 25);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Pizza Congelada', 'Pizza congelada para una cena rápida', 3000, 'Congelados', 60);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Flauta', 'Flauta para músicos aficionados', 15000, 'Instrumentos Musicales', 15);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Condones', 'Condones de calidad para la protección', 2500, 'Sexo', 200);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Cuchillo', 'Cuchillo para cocinar', 5500, 'Cocina', 40);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Barra de Chocolate', 'Barra de chocolate suizo premium', 1500, 'Dulces', 25);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Globos', 'Globos para fiestas', 2500, 'Fiesta', 26);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Salchichas Ahumadas', 'Salchichas ahumadas para parrilladas', 4500, 'Embutidos', 50);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Manzanas', 'Manzanas frescas y crujientes', 1000, 'Frutas', 200);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Zanahorias', 'Zanahorias orgánicas', 1250, 'Vegetales', 96);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Atún', 'Atún de agua', 400, 'Enlatados', 56);
+INSERT INTO PRODUCTO (nombre, descripcion, precio, categoria_id, inventario) VALUES
+('Leche Entera', 'Leche entera fresca y nutritiva', 1700, 'Lácteos', 80);
