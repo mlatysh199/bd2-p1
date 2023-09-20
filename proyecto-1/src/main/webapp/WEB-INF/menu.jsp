@@ -79,7 +79,7 @@
 <body>
     <header>
         <div class="Logo">
-            <img src="https://i.kym-cdn.com/photos/images/newsfeed/002/652/426/725.jpg">
+            <img src="<%= request.getContextPath() %>/images/image.png">
         </div>
         <div class="Nombre">
             <h1>Probabilidades G90</h1>

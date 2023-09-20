@@ -20,6 +20,7 @@
       width: 6%;
       box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
       border: 1px solid #00A4BD;
+      background-color: #00A4BD;
   }
 
   .dropdown-content a {
