@@ -85,7 +85,7 @@ public class ProductRepository implements BaseRepository<ProductEntity> {
 
     @Override
     public List<ProductEntity> findAll() throws SQLException {
-        CallableStatement cstmt = conn.prepareCall("{? = call paquete_select.obtener_proveedores()}");
+        CallableStatement cstmt = conn.prepareCall("{? = call paquete_select.obtener_productos()}");
         cstmt.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
 
         cstmt.execute();

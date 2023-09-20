@@ -318,7 +318,7 @@
     
     <button class="boton-agregar" onclick="showModal()">Agregar nuevo Producto</button>
     <div id="modal-content">
-        <%@ include file="/WEB-INF/CRUD/client_add_modal.jsp" %>
+        <%@ include file="/WEB-INF/CRUD/product_add_modal.jsp" %>
     </div>
 
 <table>
@@ -344,8 +344,8 @@
             <td><%= product.getNombre() %></td>
             <td><%= product.getDescripcion() %></td>
             <td><%= product.getPrecio() %></td>
-            <td><%= client.getCategoria() %></td>
-            <td><%= client.getInventario() %></td>
+            <td><%= product.getCategoria() %></td>
+            <td><%= product.getInventario() %></td>
             <td class="delete-cell">
                 
             </td>
