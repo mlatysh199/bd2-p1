@@ -19,8 +19,7 @@ public class ProviderRepository implements BaseRepository<ProviderEntity> {
 
     @Override
     public void save(ProviderEntity entity) throws SQLException {
-        // PROCEDURE insertar_proveedor(p_nombre VARCHAR2, p_descripcion VARCHAR2, p_direccion VARCHAR2);
-        // under the sql package paquete_modificar
+
 
         CallableStatement cstmt = conn.prepareCall("{call paquete_modificar.insertar_proveedor(?, ?, ?)}");
         cstmt.setString(1, entity.getName());
@@ -58,7 +57,6 @@ public class ProviderRepository implements BaseRepository<ProviderEntity> {
 
         
 
-        // process the cursor returned by the stored procedure into a ResultSet
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
         if (!rs.next()) {
             cstmt.close();
@@ -80,7 +78,7 @@ public class ProviderRepository implements BaseRepository<ProviderEntity> {
 
         
 
-        // process the cursor returned by the stored procedure into a ResultSet
+  
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
         ArrayList<ProviderEntity> iterable = new ArrayList<>();
         while(rs.next()) {

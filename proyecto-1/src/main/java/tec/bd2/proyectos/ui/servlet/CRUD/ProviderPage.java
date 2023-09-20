@@ -17,7 +17,7 @@ public class ProviderPage extends CRUDPage {
 
     public ProviderPage(SessionManager sessionManager, DatabaseContext databaseContext) {
         super(sessionManager, databaseContext);
-        //TODO Auto-generated constructor stub
+ 
     }
 
     @Override
@@ -33,7 +33,7 @@ public class ProviderPage extends CRUDPage {
                 return;
             }
         }
-        // Object { nombre: "Value 1", "fecha de ultima compra": "2023", correo: "Value 3", direccion: "Value 4", "cantidad de compras": "5" }
+
         try {
             ProviderEntity provider = new ProviderEntity(
                 id,
@@ -67,7 +67,7 @@ public class ProviderPage extends CRUDPage {
             String search = req.getParameter("search");
             List<ProviderEntity> providers = new ArrayList<>();
             if (search != null) {
-                // determine if search can be converted to a number
+
                 try {
                     int id = Integer.parseInt(search);
                     ProviderEntity provider = this.getDatabaseContext().getProviderRepository().findById(id);

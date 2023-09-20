@@ -20,8 +20,7 @@ public class ClientRepository implements BaseRepository<ClientEntity> {
 
     @Override
     public void save(ClientEntity entity) throws SQLException {
-        // PROCEDURE insertar_proveedor(p_nombre VARCHAR2, p_descripcion VARCHAR2, p_direccion VARCHAR2);
-        // under the sql package paquete_modificar
+
 
         CallableStatement cstmt = conn.prepareCall("{call paquete_modificar.insertar_cliente(?, ?, ?, ?, ?)}");
         cstmt.setString(1, entity.getNombre());
@@ -63,7 +62,6 @@ public class ClientRepository implements BaseRepository<ClientEntity> {
         cstmt.setInt(2, id);
         cstmt.execute();
 
-        // process the cursor returned by the stored procedure into a ResultSet
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
         if (!rs.next()) {
             cstmt.close();
@@ -83,7 +81,7 @@ public class ClientRepository implements BaseRepository<ClientEntity> {
 
         cstmt.execute();
 
-        // process the cursor returned by the stored procedure into a ResultSet
+
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
         List<ClientEntity> iterable = new ArrayList<>();
         while(rs.next()) {
