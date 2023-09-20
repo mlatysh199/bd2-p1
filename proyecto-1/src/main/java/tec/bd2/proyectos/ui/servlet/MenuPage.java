@@ -12,12 +12,12 @@ public class MenuPage extends Servlet {
 
     public MenuPage(SessionManager sessionManager) {
         super(sessionManager);
-        //TODO Auto-generated constructor stub
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // TODO Auto-generated method stub
+
         throw new UnsupportedOperationException("Unimplemented method 'doPost'");
     }
 

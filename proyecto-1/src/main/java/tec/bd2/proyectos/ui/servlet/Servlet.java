@@ -17,12 +17,12 @@ public abstract class Servlet extends HttpServlet {
         this.sessionManager = sessionManager;
     }
 
-    // doPost is generally used when you want to create something on the server
+
     @Override
     protected abstract void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException;
 
-    // doGet is generally used when you want to retrieve something from the server
+
     @Override
     protected abstract void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException;

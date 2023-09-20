@@ -16,7 +16,7 @@ public class Metrics {
     public int getAmountOfItemsSoldPerMonth(int year, int month) throws SQLException {
         long time = new GregorianCalendar(year, month, 1).getTimeInMillis();
         Date date = new Date(time);
-        // FUNCTION obtener_articulos_vendido_mes(anio_mes DATE) RETURN NUMBER AS articulos_vendidos NUMBER;
+
 
         CallableStatement cstmt = conn.prepareCall("{? = call paquete_select.obtener_articulos_vendido_mes(?)}");
         cstmt.setDate(2, date);
@@ -32,7 +32,7 @@ public class Metrics {
     public int getAmountOfItemSoldPerMonth(int year, int month, int itemId) throws SQLException {
         long time = new GregorianCalendar(year, month, 1).getTimeInMillis();
         Date date = new Date(time);
-        // FUNCTION obtener_articulo_vendido_mes(anio_mes DATE, id_articulo NUMBER) RETURN NUMBER AS articulos_vendidos NUMBER;
+
 
         CallableStatement cstmt = conn.prepareCall("{? = call paquete_select.obtener_articulo_vendido_mes(?, ?)}");
         cstmt.setDate(3, date);

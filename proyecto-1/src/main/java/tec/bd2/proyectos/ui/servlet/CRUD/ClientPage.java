@@ -17,7 +17,7 @@ public class ClientPage extends CRUDPage {
 
     public ClientPage(SessionManager sessionManager, DatabaseContext databaseContext) {
         super(sessionManager, databaseContext);
-        //TODO Auto-generated constructor stub
+
     }
 
     @Override
@@ -32,7 +32,7 @@ public class ClientPage extends CRUDPage {
                 return;
             }
         }
-        // Object { nombre: "Value 1", "fecha de ultima compra": "2023", correo: "Value 3", direccion: "Value 4", "cantidad de compras": "5" }
+
         try {
             ClientEntity client = new ClientEntity(
                 id,
@@ -67,7 +67,7 @@ public class ClientPage extends CRUDPage {
             String search = req.getParameter("search");
             List<ClientEntity> clients = new ArrayList<>();
             if (search != null && !search.isEmpty()) {
-                // determine if search can be converted to a number
+
                 try {
                     int id = Integer.parseInt(search);
                     ClientEntity client = this.getDatabaseContext().getClientRepository().findById(id);

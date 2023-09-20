@@ -32,17 +32,7 @@ public class ReceiptPage extends CRUDPage {
             }
         }
         try {
-            /*
-             *     private int id;
-    private String date;
-    private int clientId;
-    private int detailId;
-    private int total;
-    private int totalAmount;
-    private String paymentMethod;
-    private String description;
-    private Map<Integer, Integer> productsAmounts;
-             */
+
             ReceiptEntity receipt = new ReceiptEntity(
                 id,
                 req.getParameter("fecha"),

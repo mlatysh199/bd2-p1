@@ -20,8 +20,7 @@ public class ProductBuyRepository implements BaseRepository<ProductBuyEntity> {
 
     @Override
     public void save(ProductBuyEntity entity) throws SQLException {
-        // PROCEDURE insertar_proveedor(p_nombre VARCHAR2, p_descripcion VARCHAR2, p_direccion VARCHAR2);
-        // under the sql package paquete_modificar
+
 
         CallableStatement cstmt = conn.prepareCall("{call paquete_modificar.insertar_compra_producto_completo(?, ?, ?, ?, ?, ?)}");
         cstmt.setInt(1, entity.getProducto_id());
@@ -63,7 +62,7 @@ public class ProductBuyRepository implements BaseRepository<ProductBuyEntity> {
         cstmt.setInt(2, id);
         cstmt.execute();
 
-        // process the cursor returned by the stored procedure into a ResultSet
+
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
 
         if(rs == null){
@@ -92,7 +91,7 @@ public class ProductBuyRepository implements BaseRepository<ProductBuyEntity> {
 
         cstmt.execute();
 
-        // process the cursor returned by the stored procedure into a ResultSet
+
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
         ArrayList<ProductBuyEntity> iterable = new ArrayList<>();
         while(rs.next()) {
