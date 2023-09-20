@@ -7,7 +7,7 @@
     <title>Página con Imagen de Fondo</title>
     <style>
         body {
-            background-image: url(${pageContext.request.contextPath}/images/productos.jpg); /* Reemplaza 'tu-imagen.jpg' con la URL de tu imagen de fondo */
+            background-image: url(${pageContext.request.contextPath}/images/productos.jpg);
             background-size: contain;
             background-repeat: no-repeat;
             background-attachment: fixed;

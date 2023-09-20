@@ -57,25 +57,21 @@
         
         const pathName = '/CRUD/receipt';
         function populateProductsAmountDropdown(cell) {
-  // Parse the JSON string into a JavaScript object
   var productsAmounts = JSON.parse(cell.querySelector(".json-content").textContent);
 
   for (var key in productsAmounts) {
     if (productsAmounts.hasOwnProperty(key)) {
       var link = document.createElement("a");
 
-      // Create a link with the key as text and a custom URL (modify as needed)
       link.textContent = key + " : " + productsAmounts[key];
-      link.href = "/CRUD/product?search=" + key; // Set your custom URL here
+      link.href = "/CRUD/product?search=" + key; 
 
-      // Append the option to the select
       cell.querySelector(".dropdown-content").appendChild(link);
     }
   }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Call your function here, e.g., toggleButtons
     var elem = document.querySelector(".dropdown");
     populateProductsAmountDropdown(elem);
   });
@@ -106,7 +102,6 @@ document.addEventListener("DOMContentLoaded", function() {
 <table>
     <thead>
     <tr>
-        <!-- const columnNames = ['id', 'fecha', 'cliente_id', 'detalle_id', 'total', 'cantidad total', 'metodo de pago', 'descripcion', 'cantidad productos'];-->
         <th>id</th>
         <th>fecha</th>
         <th>cliente_id</th>
