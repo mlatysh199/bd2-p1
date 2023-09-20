@@ -157,19 +157,172 @@
             background-color: #006797;
         }
 
+        .selected-row {
+    background-color: #e0e0e0; /* Change the background hue as desired */
 
+    .delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%; /* Make it a circle */
+    width: 30px; /* Set the width and height to make it a circle */
+    height: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex; /* Center the "×" character horizontally and vertically */
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Enable relative positioning */
+}
+
+.delete-button::before {
+    content: '×'; /* Use ::before pseudo-element for "×" symbol */
+    position: absolute; /* Enable absolute positioning */
+    top: 4px; /* Adjust the top position as needed to vertically align it */
+    font-size: 16px; /* Match the font size of the circular button */
+}
+
+.delete-button:hover {
+    background-color: #9c0000;
+}
+
+.delete-cell {
+    width: 34.5px; /* Set a fixed width for the delete cell */
+    padding: 0; /* Remove padding to avoid increasing cell size */
+    text-align: center; /* Center the button horizontally */
+}
+
+.edit-button {
+    background-color: yellow;
+    color: white;
+    border: none;
+    border-radius: 50%; /* Make it a circle */
+    width: 30px; /* Set the width and height to make it a circle */
+    height: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex; /* Center the "×" character horizontally and vertically */
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Enable relative positioning */
+}
+
+.edit-button::before {
+    content: 'o'; /* Use ::before pseudo-element for "×" symbol */
+    position: absolute; /* Enable absolute positioning */
+    top: 4px; /* Adjust the top position as needed to vertically align it */
+    font-size: 16px; /* Match the font size of the circular button */
+}
+
+.edit-button:hover {
+    background-color: #9c8a00;
+}
+
+.edit-cell {
+    width: 34.5px; /* Set a fixed width for the delete cell */
+    padding: 0; /* Remove padding to avoid increasing cell size */
+    text-align: center; /* Center the button horizontally */
+}
+
+}
 
     </style>
+<script>
+    let selectedRow = null; // Keep track of the currently selected row
+    
+    function toggleButtons(row) {
+        // Check if this row is already selected
+        if (selectedRow === row) {
+            // Unselect the row and remove the delete button
+            selectedRow = null;
+            const cellData = row.querySelector('.delete-cell');
+            cellData.removeChild(cellData.querySelector('.delete-button'));
+            const cellData2 = row.querySelector('.edit-cell');
+            cellData2.removeChild(cellData2.querySelector('.edit-button'));
+            row.classList.remove('selected-row'); // Remove the selected-row class
+        } else {
+            // Unselect the previously selected row, if any
+            if (selectedRow) {
+                const cellData = selectedRow.querySelector('.delete-cell');
+            cellData.removeChild(cellData.querySelector('.delete-button'));
+            const cellData2 = selectedRow.querySelector('.edit-cell');
+            cellData2.removeChild(cellData.querySelector('.edit-button'));
+            selectedRow.classList.remove('selected-row');
+            }
+            
+            // Select the new row
+            selectedRow = row;
+            
+            // Add the delete button with the "×" character
+            const deleteButton = document.createElement('button');
+            //deleteButton.innerHTML = '&times;'; // Use the "×" character
+            deleteButton.onclick = (event) => deleteRow(event, row);
+            row.querySelector('.delete-cell').appendChild(deleteButton);
+            deleteButton.classList.add('delete-button');
+            const editButton = document.createElement('button');
+            //deleteButton.innerHTML = '&times;'; // Use the "×" character
+            editButton.onclick = (event) => {toggleButtons(row); editRow(event, row)};
+            // fix the previous line
+            row.querySelector('.edit-cell').appendChild(editButton);
+            editButton.classList.add('edit-button');
+            row.classList.add('selected-row'); // Add the selected-row class
+        }
+    }
+    function deleteRow(event, row) {
+        event.stopPropagation(); // Prevent the row click event from firing
+        if (confirm("Are you sure you want to delete this client?")) {
+    
+            const provider_id = row.querySelector('td:first-child').textContent; // Extract client ID
+    
+    
+            // Send an AJAX request to delete the client record
+            fetch('/CRUD/provider?id=' + provider_id, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Remove the deleted row from the table
+                    row.remove();
+                    selectedRow = null;
+                    alert('Provider deleted successfully!');
+                } else {
+                    alert('Failed to delete the client.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while deleting the client.');
+            });
+        }
+    }
+    
+    function editRow(event, row) {
+        event.stopPropagation(); // Prevent the row click event from firing
+        const columns = row.querySelectorAll('td');
+        const columnNames = ['id', 'nombre', 'direccion', 'descripcion'];
+        const rowData = {};
+        for (var i = 0; i < columns.length; i++) {
+            const cell = columns[i];
+            rowData[columnNames[i]] = cell.textContent;
+        }
+        showEditModal(rowData);
+    }
+    
+    document.addEventListener('modalClosed', function() {
+        // Refresh the page when the modal is closed
+        window.location.reload();
+    });
+    </script>
+
 </head>
 <body>
     
     <h1 id="mi-titulo">Gestion de Proveedores</h1>
     
     <button class="boton-agregar">Agregar nuevo proveedor</button>
-
-    <button class="boton-editar">Editar</button>
-
-    <button class="boton-eliminar">Eliminar</button>
+    <div id="modal-content">
+        <%@ include file="/WEB-INF/CRUD/client_add_modal.jsp" %>
+    </div>
 
     <table>
         <thead>

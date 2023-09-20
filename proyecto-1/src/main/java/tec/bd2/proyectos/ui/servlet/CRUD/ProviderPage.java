@@ -22,8 +22,36 @@ public class ProviderPage extends CRUDPage {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'doPost'");
+        
+        int id = 0;
+        boolean isSave = req.getParameter("id") == null || req.getParameter("id").isEmpty();
+        if (!isSave) {
+            try {
+                id = Integer.parseInt(req.getParameter("id"));
+            } catch (NumberFormatException e) {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return;
+            }
+        }
+        // Object { nombre: "Value 1", "fecha de ultima compra": "2023", correo: "Value 3", direccion: "Value 4", "cantidad de compras": "5" }
+        try {
+            ProviderEntity provider = new ProviderEntity(
+                id,
+                req.getParameter("nombre"),
+                req.getParameter("descripcion"),
+                req.getParameter("direccion")
+            );
+            if (isSave)
+                this.getDatabaseContext().getProviderRepository().save(provider);
+            else
+                this.getDatabaseContext().getProviderRepository().update(provider);
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } catch (SQLException e) {
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } catch (NumberFormatException e) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
     }
 
     @Override
@@ -58,9 +86,19 @@ public class ProviderPage extends CRUDPage {
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'doDelete'");
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        String id = request.getParameter("id");
+        if (id != null) {
+            try {
+                this.getDatabaseContext().getClientRepository().delete(Integer.parseInt(id));
+                response.setStatus(HttpServletResponse.SC_OK); 
+                return;
+            } catch (NumberFormatException | SQLException e) {
+            }
+        }
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+
     }
 
 
