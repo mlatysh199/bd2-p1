@@ -7,7 +7,7 @@ function showModal() {
     modalContent.style.width = calculateTableWidth() + "px";
     modalContent.style.display = "block";
     isEditing = false;
-    document.getElementById("e0").textContent = "Insertar Cliente";
+    document.getElementById("e0").textContent = "Insertar Entidad";
     const modalOpenedEvent = new Event('modalOpened');
     document.dispatchEvent(modalOpenedEvent);
 }
@@ -17,7 +17,7 @@ function showEditModal(rowData) {
     isEditing = true;
     rowEditID = rowData['id'];
 
-    document.getElementById("e0").textContent = "Modificar Cliente";
+    document.getElementById("e0").textContent = "Modificar Entidad";
     subShowEditModal(rowData);
 }
 

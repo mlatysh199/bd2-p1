@@ -9,7 +9,7 @@
         body {
             margin: 0;
             padding: 0;
-            background-image: url("${pageContext.request.contextPath}/images/menu.png");
+            background-image: url("${pageContext.request.contextPath}/images/pulpo.png");
             background-repeat: no-repeat;
             background-size: cover;
             font-family: Arial, sans-serif;
@@ -82,7 +82,7 @@
             <img src="<%= request.getContextPath() %>/images/image.png">
         </div>
         <div class="Nombre">
-            <h1>Probabilidades G90</h1>
+            <h1>Pulpería La Pulpa</h1>
         </div>
         <div class="user-button">
             <a href="/menu">USUARIO : <%= request.getAttribute("username") %></a>

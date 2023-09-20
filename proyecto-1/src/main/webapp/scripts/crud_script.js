@@ -35,7 +35,7 @@ let selectedRow = null;
 
         function deleteRow(event, row) {
             event.stopPropagation(); 
-            if (confirm("Are you sure you want to delete this client?")) {
+            if (confirm("Are you sure you want to delete this entity?")) {
 
                 const clientId = row.querySelector('td:first-child').textContent; 
 
@@ -47,14 +47,14 @@ let selectedRow = null;
                         if (response.ok) {
                             row.remove();
                             selectedRow = null;
-                            alert('Client deleted successfully!');
+                            alert('Entity deleted successfully!');
                         } else {
-                            alert('Failed to delete the client.');
+                            alert('Failed to delete the entity.');
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        alert('An error occurred while deleting the client.');
+                        alert('An error occurred while deleting the entity.');
                     });
             }
         }

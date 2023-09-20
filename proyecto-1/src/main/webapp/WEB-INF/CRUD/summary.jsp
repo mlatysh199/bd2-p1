@@ -6,7 +6,7 @@
 <html>
 
 <head>
-    <title>Gestion de Clientes</title>
+    <title>Métricas</title>
     <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/styles/crud_style.css">
     <script src="<%= request.getContextPath() %>/scripts/crud_script.js"></script>
     <script>
@@ -17,7 +17,7 @@
 
 <body>
     <div class="container">
-    <h1>Gestion de Clientes</h1>
+    <h1>Métricas</h1>
     <div class="sub-header">
     <div class="user-button">
         <a href="/menu">

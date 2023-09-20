@@ -19,7 +19,7 @@ function subShowEditModal(rowData) {
 </head>
 <body>
     <div class="modal-header">
-        <h1 class="modal-title" id="e0">Insertar Cliente</h1>
+        <h1 class="modal-title" id="e0">Insertar Compra Producto</h1>
         <button class="close-button" onclick="hideModal()">Close</button>
     </div>
     <table id="waka" style="border: 2px solid #000;">
