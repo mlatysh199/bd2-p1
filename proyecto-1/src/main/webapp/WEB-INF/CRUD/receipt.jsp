@@ -6,50 +6,76 @@
 <head>
     <title>Gestion de Compras de productos</title>
     <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/styles/crud_style.css">
+    <style>
+
+.dropdown:hover .dropdown-content {
+      display: block;
+      opacity: 1;
+  }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      transition: opacity 0.3s ease-in-out;
+      overflow: auto;
+      width: 6%;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      border: 1px solid #00A4BD;
+  }
+
+  .dropdown-content a {
+      display: block;
+      color: #000000;
+      padding: 5px;
+      text-decoration: none;
+      
+  }
+
+  .dropdown-content a:hover {
+      color: #FFFFFF;
+      background-color: #00A4BD;
+  }
+
+  .dropdown-button {
+    background-color: #00A4BD;
+    color: #FFFFFF;
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Add a hover effect */
+.dropdown-button:hover {
+    background-color: #0084A0;
+}
+    </style>
     <script src="<%= request.getContextPath() %>/scripts/crud_script.js"></script> 
     <script>
         const columnNames = ['id', 'fecha', 'cliente_id', 'detalle_id', 'total', 'cantidad total', 'metodo de pago', 'descripcion', 'cantidad productos'];
         
         const pathName = '/CRUD/receipt';
         function populateProductsAmountDropdown(cell) {
-            console.log("papageno")
   // Parse the JSON string into a JavaScript object
-  var productsAmounts = JSON.parse(cell.innerHTML);
+  var productsAmounts = JSON.parse(cell.querySelector(".json-content").textContent);
 
-  // Create a select element
-  var select = document.createElement("select");
-
-  // Iterate through the JavaScript object and add options
   for (var key in productsAmounts) {
     if (productsAmounts.hasOwnProperty(key)) {
-      var option = document.createElement("option");
       var link = document.createElement("a");
 
       // Create a link with the key as text and a custom URL (modify as needed)
       link.textContent = key + " : " + productsAmounts[key];
       link.href = "/CRUD/product?search=" + key; // Set your custom URL here
 
-      // Append the link to the option
-      option.appendChild(link);
-      // make all options disabled
-        option.disabled = true;
-
       // Append the option to the select
-      select.appendChild(option);
+      cell.querySelector(".dropdown-content").appendChild(link);
     }
   }
-
-  // Set the select element's value based on the cell's current value (if needed)
-  select.value = "ver productos";
-
-  // Clear the cell's content and append the select element
-  cell.innerHTML = "";
-  cell.appendChild(select);
 }
 
 document.addEventListener("DOMContentLoaded", function() {
     // Call your function here, e.g., toggleButtons
-    var elem = document.querySelector(".products-amount-cell");
+    var elem = document.querySelector(".dropdown");
     populateProductsAmountDropdown(elem);
   });
 
@@ -98,17 +124,6 @@ document.addEventListener("DOMContentLoaded", function() {
             List<ReceiptEntity> receipts = (List<ReceiptEntity>) request.getAttribute("receipts");
             for (ReceiptEntity receipt : receipts) {
         %>
-        <!--
-                private int id;
-    private String date;
-    private int clientId;
-    private int detailId;
-    private int total;
-    private int totalAmount;
-    private String paymentMethod;
-    private String description;
-    private Map<Integer, Integer> productsAmounts;
-        -->
         <tr onclick="toggleButtons(this)" class="trara">
             <td><%= receipt.getId() %></td>
             <td><%= receipt.getDate() %></td>
@@ -118,8 +133,12 @@ document.addEventListener("DOMContentLoaded", function() {
             <td><%= receipt.getTotalAmount() %></td>
             <td><%= receipt.getPaymentMethod() %></td>
             <td><%= receipt.getDescription() %></td>
-            <td class="products-amount-cell"><%= receipt.getJSONProductsAmounts() %></td>
-            
+            <td class="dropdown" style="justify-content: center;">
+                <p hidden class="json-content"><%= receipt.getJSONProductsAmounts() %></p>
+                <button class="dropdown-button">ver productos</button>
+            <div class="dropdown-content">
+            </div>
+            </td>
             <td class="delete-cell">
                 
             </td>

@@ -38,6 +38,7 @@
 
 .close-button:hover {
     background-color: #d32f2f;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .editable-cell {
@@ -57,4 +58,5 @@
 
 .save-button:hover {
     background-color: #45a049;
+    transition: background-color 0.3s, color 0.3s;
 }

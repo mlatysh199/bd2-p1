@@ -45,6 +45,7 @@
 
         .user-button a:hover {
             background-color: #0056b3;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .cuerpo {
@@ -71,6 +72,7 @@
 
         .menu-button a:hover {
             background-color: #0056b3;
+            transition: background-color 0.3s, color 0.3s;
         }
     </style>
 </head>

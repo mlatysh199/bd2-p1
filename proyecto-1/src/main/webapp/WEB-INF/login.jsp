@@ -59,6 +59,7 @@
 
         .login-container input[type="submit"]:hover {
             background-color: #2980b9;
+            transition: background-color 0.3s, color 0.3s;
         }        
         
     </style>

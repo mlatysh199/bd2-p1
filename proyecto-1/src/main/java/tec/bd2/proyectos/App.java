@@ -21,16 +21,6 @@ public class App {
         DatabaseContext databaseContext = new DatabaseContext("jdbc:oracle:thin:@siuadb2_high", "MLATYSH", "bdAlajuela2023s2", "Wallet_siuadb2");
         Server server = new Server(databaseContext);
 
-        /*ProviderRepository providerRepository = new ProviderRepository(controller.getConnection());
-        ProviderEntity provider = new ProviderEntity(1, "Provider 1", "Description 1", "Address 1");
-        providerRepository.save(provider);
-        provider.setName("wka");
-        providerRepository.update(provider);
-        ProviderEntity provider2 = providerRepository.findById(1);
-        System.out.println(provider2);
-        providerRepository.delete(1);
-        System.out.println(providerRepository.findAll().size());*/
-
         server.start();
 
         System.out.print("\n\n (*) Press ENTER to stop server thread... ");

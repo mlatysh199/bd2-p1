@@ -38,6 +38,7 @@ h1 {
 
 .add-button:hover {
     background-color: #024900;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .search-container {
@@ -63,6 +64,7 @@ h1 {
 
 .search-button:hover {
     background-color: #006797;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 
@@ -87,6 +89,7 @@ th {
 
 .trara:hover {
     background-color: #f5f5f5;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .selected-row {
@@ -116,6 +119,7 @@ th {
 
     .delete-button:hover {
         background-color: #9c0000;
+        transition: background-color 0.3s, color 0.3s;
     }
 
     .delete-cell {
@@ -148,6 +152,7 @@ th {
 
     .edit-button:hover {
         background-color: #9c8a00;
+        transition: background-color 0.3s, color 0.3s;
     }
 
     .edit-cell {
@@ -183,4 +188,5 @@ th {
 
 .user-button a:hover {
     background-color: #0056b3;
+    transition: background-color 0.3s, color 0.3s;
 }
