@@ -14,9 +14,9 @@
        
 
         #mi-titulo {
-            position: absolute; /* Esto establece la posición absoluta para el título */
-            top: 50px; /* Ajusta la distancia desde la parte superior */
-            left:50%; /* Ajusta la distancia desde la izquierda */
+            position: absolute;
+            top: 50px;
+            left:50%; 
             transform: translateX(-50%);
         }
 
@@ -72,12 +72,12 @@
 
         .boton-agregar{
 
-            background-color: green; /* Color de fondo verde */
-            color: white; /* Color del texto en blanco */
-            padding: 10px 20px; /* Espaciado interno para el botón */
-            border: none; /* Sin borde */
-            border-radius: 5px; /* Bordes redondeados */
-            cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+            background-color: green;
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
             position: absolute;
             top: 75px;
             left: 100px;
@@ -86,12 +86,12 @@
 
         .boton-editar{
 
-            background-color: yellow; /* Color de fondo verde */
-            color: black; /* Color del texto en blanco */
-            padding: 10px 20px; /* Espaciado interno para el botón */
-            border: none; /* Sin borde */
-            border-radius: 5px; /* Bordes redondeados */
-            cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+            background-color: yellow; 
+            color: black; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 5px;
+            cursor: pointer;
             position: absolute;
             top: 200px;
             left: 1550px;
@@ -123,7 +123,7 @@
         }
 
         .search-container{
-            text-align: center; /* Centra el contenido horizontalmente */
+            text-align: center; 
             margin-top: 75px;
             margin-left: 1000px;
             position: absolute;
@@ -131,22 +131,22 @@
             right: 0;
         }
 
-        /* Estilo para la entrada de búsqueda */
+       
         .search-input {
-            padding: 10px; /* Espaciado interno */
-            width: 300px; /* Ancho de la barra de búsqueda */
-            border: 1px solid #ccc; /* Borde con color gris claro */
-            border-radius: 5px; /* Bordes redondeados */
+            padding: 10px;
+            width: 300px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px;
         }
 
-        /* Estilo para el botón de búsqueda */
+        
         .search-button {
-            padding: 10px 20px; /* Espaciado interno */
-            background-color: #007bff; /* Color de fondo azul (puedes cambiarlo) */
-            color: white; /* Color del texto en blanco */
-            border: none; /* Sin borde */
-            border-radius: 5px; /* Bordes redondeados */
-            cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
         }
 
 	  .search-button:hover {
@@ -154,28 +154,28 @@
         }
 
         .selected-row {
-    background-color: #e0e0e0; /* Change the background hue as desired */
+    background-color: #e0e0e0; 
 
     .delete-button {
     background-color: red;
     color: white;
     border: none;
-    border-radius: 50%; /* Make it a circle */
-    width: 30px; /* Set the width and height to make it a circle */
+    border-radius: 50%;
+    width: 30px; 
     height: 30px;
     font-size: 16px;
     cursor: pointer;
-    display: flex; /* Center the "×" character horizontally and vertically */
+    display: flex; 
     align-items: center;
     justify-content: center;
-    position: relative; /* Enable relative positioning */
+    position: relative; 
 }
 
 .delete-button::before {
-    content: '×'; /* Use ::before pseudo-element for "×" symbol */
-    position: absolute; /* Enable absolute positioning */
-    top: 4px; /* Adjust the top position as needed to vertically align it */
-    font-size: 16px; /* Match the font size of the circular button */
+    content: '×';
+    position: absolute; 
+    top: 4px; 
+    font-size: 16px; 
 }
 
 .delete-button:hover {
@@ -183,31 +183,31 @@
 }
 
 .delete-cell {
-    width: 34.5px; /* Set a fixed width for the delete cell */
-    padding: 0; /* Remove padding to avoid increasing cell size */
-    text-align: center; /* Center the button horizontally */
+    width: 34.5px;
+    padding: 0;
+    text-align: center; 
 }
 
 .edit-button {
     background-color: yellow;
     color: white;
     border: none;
-    border-radius: 50%; /* Make it a circle */
-    width: 30px; /* Set the width and height to make it a circle */
+    border-radius: 50%; 
+    width: 30px; 
     height: 30px;
     font-size: 16px;
     cursor: pointer;
-    display: flex; /* Center the "×" character horizontally and vertically */
+    display: flex; 
     align-items: center;
     justify-content: center;
-    position: relative; /* Enable relative positioning */
+    position: relative;
 }
 
 .edit-button::before {
-    content: 'o'; /* Use ::before pseudo-element for "×" symbol */
-    position: absolute; /* Enable absolute positioning */
-    top: 4px; /* Adjust the top position as needed to vertically align it */
-    font-size: 16px; /* Match the font size of the circular button */
+    content: 'o'; 
+    position: absolute;
+    top: 4px; 
+    font-size: 16px; 
 }
 
 .edit-button:hover {
@@ -215,29 +215,29 @@
 }
 
 .edit-cell {
-    width: 34.5px; /* Set a fixed width for the delete cell */
-    padding: 0; /* Remove padding to avoid increasing cell size */
-    text-align: center; /* Center the button horizontally */
+    width: 34.5px; 
+    padding: 0; 
+    text-align: center; 
 }
 
 }
     </style>
 
 <script>
-    let selectedRow = null; // Keep track of the currently selected row
+    let selectedRow = null; 
     
     function toggleButtons(row) {
-        // Check if this row is already selected
+       
         if (selectedRow === row) {
-            // Unselect the row and remove the delete button
+            
             selectedRow = null;
             const cellData = row.querySelector('.delete-cell');
             cellData.removeChild(cellData.querySelector('.delete-button'));
             const cellData2 = row.querySelector('.edit-cell');
             cellData2.removeChild(cellData2.querySelector('.edit-button'));
-            row.classList.remove('selected-row'); // Remove the selected-row class
+            row.classList.remove('selected-row'); 
         } else {
-            // Unselect the previously selected row, if any
+            
             if (selectedRow) {
                 const cellData = selectedRow.querySelector('.delete-cell');
             cellData.removeChild(cellData.querySelector('.delete-button'));
@@ -246,38 +246,38 @@
             selectedRow.classList.remove('selected-row');
             }
             
-            // Select the new row
+            
             selectedRow = row;
             
-            // Add the delete button with the "×" character
+            
             const deleteButton = document.createElement('button');
-            //deleteButton.innerHTML = '&times;'; // Use the "×" character
+            
             deleteButton.onclick = (event) => deleteRow(event, row);
             row.querySelector('.delete-cell').appendChild(deleteButton);
             deleteButton.classList.add('delete-button');
             const editButton = document.createElement('button');
-            //deleteButton.innerHTML = '&times;'; // Use the "×" character
+           
             editButton.onclick = (event) => {toggleButtons(row); editRow(event, row)};
-            // fix the previous line
+           
             row.querySelector('.edit-cell').appendChild(editButton);
             editButton.classList.add('edit-button');
-            row.classList.add('selected-row'); // Add the selected-row class
+            row.classList.add('selected-row'); 
         }
     }
     function deleteRow(event, row) {
-        event.stopPropagation(); // Prevent the row click event from firing
+        event.stopPropagation();
         if (confirm("Are you sure you want to delete this client?")) {
     
-            const productId = row.querySelector('td:first-child').textContent; // Extract client ID
+            const productId = row.querySelector('td:first-child').textContent; 
     
     
-            // Send an AJAX request to delete the client record
+           
             fetch('/CRUD/product_buy?id=' + productBuyId, {
                 method: 'DELETE'
             })
             .then(response => {
                 if (response.ok) {
-                    // Remove the deleted row from the table
+                   
                     row.remove();
                     selectedRow = null;
                     alert('Product deleted successfully!');
@@ -293,7 +293,7 @@
     }
     
     function editRow(event, row) {
-        event.stopPropagation(); // Prevent the row click event from firing
+        event.stopPropagation(); 
         const columns = row.querySelectorAll('td');
         const columnNames = ['id', 'producto_id', 'proveedor_id', 'fecha', 'cantidad', 'monto', 'descripcion'];
         const rowData = {};
@@ -305,7 +305,7 @@
     }
     
     document.addEventListener('modalClosed', function() {
-        // Refresh the page when the modal is closed
+       
         window.location.reload();
     });
         </script>
@@ -318,23 +318,7 @@
     <div id="modal-content">
         <%@ include file="/WEB-INF/CRUD/product_buy_add_modal.jsp" %>
     </div>
-<!--
-    <ul>
-        <li>Elemento 1 </li>
-        <li>Elemento 2 </li>
-        <li>Elemento 3 </li>
-        <li>Elemento 4 </li>
-    </ul>
-    
-    <p id="id-compra">ID</p>
-    <p id="producto-compra">Producto</p>
-    <p id="proveedor-compra"> Proveedor</p>
-    <p id="fecha-compra"> Fecha</p>
-    <p id="cantidad-compra"> Cantidad</p>
-    <p id="monto-compra"> Monto</p>
-    <p id="descripcion-compra"> Descripción</p>
-    
--->
+
 <table>
     <thead>
     <tr>

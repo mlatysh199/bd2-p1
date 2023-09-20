@@ -62,7 +62,7 @@ editableCells.forEach(cell => {
         cell.appendChild(inputElement);
         inputElement.focus();
 
-        // Save changes when the user finishes editing (e.g., on blur)
+    
         inputElement.addEventListener('blur', () => {
             const newValue = inputElement.value;
             cell.innerHTML = newValue;
@@ -89,14 +89,14 @@ function sendRowData(rowID) {
 
 
 
-    // Send rowData to the server via AJAX
+ 
     fetch('/CRUD/provider?' + data, {
         method: 'POST',
         body: JSON.stringify(rowData),
     })
     .then(response => {
         if (response.ok) {
-            // Handle success (e.g., display a success message)
+ 
             alert('El procedimiento se ejecutó exitósamente!');
         } else {
             alert('No se logró ejecutar el procedimiento.');

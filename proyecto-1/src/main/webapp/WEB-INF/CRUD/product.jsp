@@ -8,20 +8,20 @@
     <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/styles/crud_style.css">
 
 <script>
-    let selectedRow = null; // Keep track of the currently selected row
+    let selectedRow = null; 
     
     function toggleButtons(row) {
-    // Check if this row is already selected
+
     if (selectedRow === row) {
-        // Unselect the row and remove the delete button
+ 
         selectedRow = null;
         const cellData = row.querySelector('.delete-cell');
         cellData.removeChild(cellData.querySelector('.delete-button'));
         const cellData2 = row.querySelector('.edit-cell');
         cellData2.removeChild(cellData2.querySelector('.edit-button'));
-        row.classList.remove('selected-row'); // Remove the selected-row class
+        row.classList.remove('selected-row');
     } else {
-        // Unselect the previously selected row, if any
+       
         if (selectedRow) {
             const cellData = selectedRow.querySelector('.delete-cell');
         cellData.removeChild(cellData.querySelector('.delete-button'));
@@ -30,38 +30,38 @@
         selectedRow.classList.remove('selected-row');
         }
         
-        // Select the new row
+
         selectedRow = row;
         
-        // Add the delete button with the "×" character
+  
         const deleteButton = document.createElement('button');
-        //deleteButton.innerHTML = '&times;'; // Use the "×" character
+   
         deleteButton.onclick = (event) => deleteRow(event, row);
         row.querySelector('.delete-cell').appendChild(deleteButton);
         deleteButton.classList.add('delete-button');
         const editButton = document.createElement('button');
-        //deleteButton.innerHTML = '&times;'; // Use the "×" character
+     
         editButton.onclick = (event) => {toggleButtons(row); editRow(event, row)};
-        // fix the previous line
+  
         row.querySelector('.edit-cell').appendChild(editButton);
         editButton.classList.add('edit-button');
-        row.classList.add('selected-row'); // Add the selected-row class
+        row.classList.add('selected-row'); 
     }
 }
 function deleteRow(event, row) {
-    event.stopPropagation(); // Prevent the row click event from firing
+    event.stopPropagation();
     if (confirm("Are you sure you want to delete this client?")) {
 
-        const clientId = row.querySelector('td:first-child').textContent; // Extract client ID
+        const clientId = row.querySelector('td:first-child').textContent; 
 
 
-        // Send an AJAX request to delete the client record
+        
         fetch('/CRUD/product?id=' + clientId, {
             method: 'DELETE'
         })
         .then(response => {
             if (response.ok) {
-                // Remove the deleted row from the table
+                
                 row.remove();
                 selectedRow = null;
                 alert('Client deleted successfully!');
@@ -77,7 +77,7 @@ function deleteRow(event, row) {
 }
     
     function editRow(event, row) {
-        event.stopPropagation(); // Prevent the row click event from firing
+        event.stopPropagation(); 
         const columns = row.querySelectorAll('td');
         const columnNames = ['id', 'nombre', 'descripcion', 'precio', 'categoria', 'inventario'];
         const rowData = {};
@@ -89,7 +89,7 @@ function deleteRow(event, row) {
     }
     
     document.addEventListener('modalClosed', function() {
-        // Refresh the page when the modal is closed
+      
         window.location.reload();
     });
         </script>

@@ -10,9 +10,9 @@
         }
 
         #mi-titulo {
-            position: absolute; /* Esto establece la posición absoluta para el título */
-            top: 50px; /* Ajusta la distancia desde la parte superior */
-            left:50%; /* Ajusta la distancia desde la izquierda */
+            position: absolute; 
+            top: 50px; 
+            left:50%; 
             transform: translateX(-50%);
         }
 
@@ -76,12 +76,12 @@
 
         .boton-agregar{
 
-            background-color: green; /* Color de fondo verde */
-            color: white; /* Color del texto en blanco */
-            padding: 10px 20px; /* Espaciado interno para el botón */
-            border: none; /* Sin borde */
-            border-radius: 5px; /* Bordes redondeados */
-            cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+            background-color: green; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
             position: absolute;
             top: 75px;
             left: 100px;
@@ -90,12 +90,12 @@
 
         .boton-editar{
 
-            background-color: yellow; /* Color de fondo verde */
-            color: black; /* Color del texto en blanco */
-            padding: 10px 20px; /* Espaciado interno para el botón */
-            border: none; /* Sin borde */
-            border-radius: 5px; /* Bordes redondeados */
-            cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+            background-color: yellow;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px; 
+            cursor: pointer; 
             position: absolute;
             top: 250px;
             left: 1275px;
@@ -103,12 +103,12 @@
 
         .boton-eliminar{
 
-            background-color: red; /* Color de fondo verde */
-            color: white; /* Color del texto en blanco */
-            padding: 10px 20px; /* Espaciado interno para el botón */
-            border: none; /* Sin borde */
-            border-radius: 5px; /* Bordes redondeados */
-            cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+            background-color: red;
+            color: white; 
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
             position: absolute;
             top: 250px;
             left: 1375px;
@@ -128,74 +128,71 @@
             background-color: #9c0000;
         }
 
-        /* Estilo para la lista */
         ul {
-            list-style-type: none; /* Quita los marcadores de lista (viñetas) */
-            padding: 0; /* Elimina el espacio de relleno predeterminado */
-            position: absolute; /* Esto establece la posición absoluta para el título */
-            top: 210px; /* Ajusta la distancia desde la parte superior */
+            list-style-type: none;
+            padding: 0; 
+            position: absolute;
+            top: 210px; 
             left: 100px;
         }
 
-        /* Estilo para los elementos de la lista */
+ 
         li {
-            margin: 0; /* Elimina el margen predeterminado */
-            padding: 20px 0; /* Espaciado vertical entre elementos */
+            margin: 0; 
+            padding: 20px 0; 
             border-bottom: 1px solid gray;
         }
 
         .search-container {
-            text-align: center; /* Centra el contenido horizontalmente */
+            text-align: center;
             margin-top: 75px;
             margin-left: 900px;
         }
 
-        /* Estilo para la entrada de búsqueda */
         .search-input {
-            padding: 10px; /* Espaciado interno */
-            width: 300px; /* Ancho de la barra de búsqueda */
-            border: 1px solid #ccc; /* Borde con color gris claro */
-            border-radius: 5px; /* Bordes redondeados */
+            padding: 10px; 
+            width: 300px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px;
         }
 
-        /* Estilo para el botón de búsqueda */
         .search-button {
-            padding: 10px 20px; /* Espaciado interno */
-            background-color: #007bff; /* Color de fondo azul (puedes cambiarlo) */
-            color: white; /* Color del texto en blanco */
-            border: none; /* Sin borde */
-            border-radius: 5px; /* Bordes redondeados */
-            cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+            padding: 10px 20px; 
+            background-color: #007bff; 
+            color: white; 
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
         .search-button:hover {
             background-color: #006797;
         }
 
-        /* Estilos para el select */
+ 
         select {
-            font-size: 1em; /* Tamaño de fuente */
+            font-size: 1em; 
             text-align: center;
             color: white;
-            padding: 8px; /* Espacio alrededor del texto */
-            border: none; /* Quitamos el borde */
-            background-color: #d66000e7; /* Color de fondo */
-            border-radius: 5px; /* Borde redondeado */
-            appearance: none; /* Quitamos la apariencia nativa */
-            outline: none; /* Quitamos el borde al enfocar */
-            box-shadow: none; /* Quitamos la sombra */
+            padding: 8px; 
+            border: none;
+            background-color: #d66000e7;
+            border-radius: 5px; 
+            appearance: none;
+            outline: none;
+            box-shadow: none;
             margin-top: 100px;
             margin-left: 520px;
 
         }
 
-        /* Estilos para las opciones */
+     
         select option {
-        font-size: 1em; /* Tamaño de fuente */
-        padding: 8px; /* Espacio alrededor del texto */
-        border: none; /* Quitamos el borde */
-        background-color: #ff9254; /* Color de fondo */
-        border-radius: 5px; /* Borde redondeado */
+        font-size: 1em; 
+        padding: 8px; 
+        border: none; 
+        background-color: #ff9254;
+        border-radius: 5px; 
         }
 
 

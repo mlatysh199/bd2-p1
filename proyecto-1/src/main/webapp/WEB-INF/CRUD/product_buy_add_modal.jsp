@@ -64,7 +64,7 @@ editableCells.forEach(cell => {
         cell.appendChild(inputElement);
         inputElement.focus();
 
-        // Save changes when the user finishes editing (e.g., on blur)
+
         inputElement.addEventListener('blur', () => {
             const newValue = inputElement.value;
             cell.innerHTML = newValue;
@@ -91,14 +91,14 @@ function sendRowData(rowID) {
 
 
 
-    // Send rowData to the server via AJAX
+
     fetch('/CRUD/product_buy?' + data, {
         method: 'POST',
         body: JSON.stringify(rowData),
     })
     .then(response => {
         if (response.ok) {
-            // Handle success (e.g., display a success message)
+           
             alert('El procedimiento se ejecutó exitósamente!');
         } else {
             alert('No se logró ejecutar el procedimiento.');
@@ -127,7 +127,7 @@ function sendRowData(rowID) {
                 <th>monto</th>
                 <th>descripcion</th>
                 <th>Mandar</th>
-                <!-- Add more column headers as needed -->
+
             </tr>
         </thead>
         <tbody>
@@ -140,9 +140,9 @@ function sendRowData(rowID) {
                 <td><input type="text" id="e6" value="Value 6" class="editable-cell"></td>
                 <td><input type="text" id="e7" value="Value 7" class="editable-cell"></td>
                 <td><button onclick="sendRowData(1)">Save</button></td>
-                <!-- Add more cells as needed -->
+
             </tr>
-            <!-- Add more rows as needed -->
+
         </tbody>
     </table>
 
