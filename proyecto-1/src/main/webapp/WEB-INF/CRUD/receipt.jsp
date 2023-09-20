@@ -125,16 +125,16 @@ document.addEventListener("DOMContentLoaded", function() {
             for (ReceiptEntity receipt : receipts) {
         %>
         <tr onclick="toggleButtons(this)" class="trara">
-            <td><%= receipt.getId() %></td>
-            <td><%= receipt.getDate() %></td>
-            <td><%= receipt.getClientId() %></td>
-            <td><%= receipt.getDetailId() %></td>
-            <td><%= receipt.getTotal() %></td>
-            <td><%= receipt.getTotalAmount() %></td>
-            <td><%= receipt.getPaymentMethod() %></td>
-            <td><%= receipt.getDescription() %></td>
+            <td><div class="cell-content"><%= receipt.getId() %></div></td>
+            <td><div class="cell-content"><%= receipt.getDate() %></div></td>
+            <td><div class="cell-content"><%= receipt.getClientId() %></div></td>
+            <td><div class="cell-content"><%= receipt.getDetailId() %></div></td>
+            <td><div class="cell-content"><%= receipt.getTotal() %></div></td>
+            <td><div class="cell-content"><%= receipt.getTotalAmount() %></div></td>
+            <td><div class="cell-content"><%= receipt.getPaymentMethod() %></div></td>
+            <td><div class="cell-content"><%= receipt.getDescription() %></div></td>
             <td class="dropdown" style="justify-content: center;">
-                <p hidden class="json-content"><%= receipt.getJSONProductsAmounts() %></p>
+                <p hidden class="json-content"  class="cell-content"><%= receipt.getJSONProductsAmounts() %></p>
                 <button class="dropdown-button">ver productos</button>
             <div class="dropdown-content">
             </div>

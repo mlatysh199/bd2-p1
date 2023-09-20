@@ -72,9 +72,9 @@ let selectedRow = null;
             const columns = row.querySelectorAll('td');
             
             const rowData = {};
-            for (var i = 0; i < columns.length; i++) {
+            for (var i = 0; i < columnNames.length; i++) {
                 const cell = columns[i];
-                rowData[columnNames[i]] = cell.textContent;
+                rowData[columnNames[i]] = cell.querySelector(".cell-content:first-child").textContent;
             }
             showEditModal(rowData);
         }

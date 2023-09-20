@@ -78,9 +78,9 @@
                     for (MetricEntity metric : metrics) {
                     %>
                     <tr onclick="toggleButtons(this)" class="trara">
-                        <td><%= metric.getDate() %></td>
-                        <td><%= metric.getProduct_id() %></td>
-                        <td><%= metric.getTotal() %></td>
+                        <td><div class="cell-content"><%= metric.getDate() %></div></td>
+                        <td><div class="cell-content"><%= metric.getProduct_id() %></div></td>
+                        <td><div class="cell-content"><%= metric.getTotal() %></div></td>
                     </tr>
                     <% } %>
         </tbody>

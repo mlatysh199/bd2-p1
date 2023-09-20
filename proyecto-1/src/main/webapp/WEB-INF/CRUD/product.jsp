@@ -53,12 +53,12 @@
             for (ProductEntity product : products) {
         %>
         <tr onclick="toggleButtons(this)" class="trara">
-            <td><%= product.getId() %></td>
-            <td><%= product.getNombre() %></td>
-            <td><%= product.getDescripcion() %></td>
-            <td><%= product.getPrecio() %></td>
-            <td><%= product.getCategoria() %></td>
-            <td><%= product.getInventario() %></td>
+            <td><div class="cell-content"><%= product.getId() %></div></td>
+            <td><div class="cell-content"><%= product.getNombre() %></div></td>
+            <td><div class="cell-content"><%= product.getDescripcion() %></div></td>
+            <td><div class="cell-content"><%= product.getPrecio() %></div></td>
+            <td><div class="cell-content"><%= product.getCategoria() %></div></td>
+            <td><div class="cell-content"><%= product.getInventario() %></div></td>
             <td style="width: 50px;" class="delete-cell">
                 
             </td>
