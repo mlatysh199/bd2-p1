@@ -1,13 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="tec.bd2.proyectos.db.entities.ProductBuyEntity" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gestion de Compras</title>
+    <title>Gestion de Compras de productos</title>
     <style>
         
         body {
             background-color: white;
         }
+
+       
 
         #mi-titulo {
             position: absolute; /* Esto establece la posición absoluta para el título */
@@ -16,7 +20,7 @@
             transform: translateX(-50%);
         }
 
-        #id-compra{
+        #id-cliente{
 
             position: absolute;
             top: 180px;
@@ -24,52 +28,44 @@
 
         }
 
-        #producto-compra{
+        #nombre-cliente{
 
             position: absolute;
             top: 180px;
-            left: 220px;
+            left: 250px;
 
         }
 
 
-        #proveedor-compra{
+        #fecha-ultima-compra-cliente{
 
             position: absolute;
             top: 180px;
-            left: 400px;
+            left: 450px;
 
         }
 
-        #fecha-compra{
-
-            position: absolute;
-            top: 180px;
-            left: 600px;
-
-        }
-
-        #cantidad-compra{
+        #correo-cliente{
 
             position: absolute;
             top: 180px;
             left: 750px;
 
-        }   
+        }
 
-        #monto-compra{
+        #direccion-cliente{
 
             position: absolute;
             top: 180px;
-            left: 925px;
+            left: 950px;
 
-        }
+        }   
 
-        #descripcion-compra{
+        #cantidad-compras-cliente{
 
-        position: absolute;
-        top: 180px;
-        left: 1100px;
+            position: absolute;
+            top: 180px;
+            left: 1150px;
 
         }
 
@@ -97,57 +93,42 @@
             border-radius: 5px; /* Bordes redondeados */
             cursor: pointer; /* Cambiar el cursor al pasar el ratón */
             position: absolute;
-            top: 250px;
-            left: 1275px;
+            top: 200px;
+            left: 1550px;
         }   
-
-        .boton-eliminar{
-
-            background-color: red; /* Color de fondo verde */
-            color: white; /* Color del texto en blanco */
-            padding: 10px 20px; /* Espaciado interno para el botón */
-            border: none; /* Sin borde */
-            border-radius: 5px; /* Bordes redondeados */
-            cursor: pointer; /* Cambiar el cursor al pasar el ratón */
-            position: absolute;
-            top: 250px;
-            left: 1375px;
-
-
-        }
-
+        
         .boton-agregar:hover {
             background-color: #024900;
         }
+        
 
-        .boton-editar:hover {
-            background-color: #96b101;
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 10%;
         }
 
-        .boton-eliminar:hover {
-            background-color: #9c0000;
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
         }
 
-        /* Estilo para la lista */
-        ul {
-            list-style-type: none; /* Quita los marcadores de lista (viñetas) */
-            padding: 0; /* Elimina el espacio de relleno predeterminado */
-            position: absolute; /* Esto establece la posición absoluta para el título */
-            top: 210px; /* Ajusta la distancia desde la parte superior */
-            left: 100px;
+        th {
+            background-color: #f2f2f2;
         }
 
-        /* Estilo para los elementos de la lista */
-        li {
-            margin: 0; /* Elimina el margen predeterminado */
-            padding: 20px 0; /* Espaciado vertical entre elementos */
-            border-bottom: 1px solid gray;
+        tr:hover {
+            background-color: #f5f5f5;
         }
 
-        .search-container {
+        .search-container{
             text-align: center; /* Centra el contenido horizontalmente */
             margin-top: 75px;
-            margin-left: 900px;
+            margin-left: 1000px;
+            position: absolute;
+            top: 0;
+            right: 0;
         }
 
         /* Estilo para la entrada de búsqueda */
@@ -168,22 +149,176 @@
             cursor: pointer; /* Cambiar el cursor al pasar el ratón */
         }
 
-        .search-button:hover {
+	  .search-button:hover {
             background-color: #006797;
         }
 
+        .selected-row {
+    background-color: #e0e0e0; /* Change the background hue as desired */
+
+    .delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%; /* Make it a circle */
+    width: 30px; /* Set the width and height to make it a circle */
+    height: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex; /* Center the "×" character horizontally and vertically */
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Enable relative positioning */
+}
+
+.delete-button::before {
+    content: '×'; /* Use ::before pseudo-element for "×" symbol */
+    position: absolute; /* Enable absolute positioning */
+    top: 4px; /* Adjust the top position as needed to vertically align it */
+    font-size: 16px; /* Match the font size of the circular button */
+}
+
+.delete-button:hover {
+    background-color: #9c0000;
+}
+
+.delete-cell {
+    width: 34.5px; /* Set a fixed width for the delete cell */
+    padding: 0; /* Remove padding to avoid increasing cell size */
+    text-align: center; /* Center the button horizontally */
+}
+
+.edit-button {
+    background-color: yellow;
+    color: white;
+    border: none;
+    border-radius: 50%; /* Make it a circle */
+    width: 30px; /* Set the width and height to make it a circle */
+    height: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex; /* Center the "×" character horizontally and vertically */
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Enable relative positioning */
+}
+
+.edit-button::before {
+    content: 'o'; /* Use ::before pseudo-element for "×" symbol */
+    position: absolute; /* Enable absolute positioning */
+    top: 4px; /* Adjust the top position as needed to vertically align it */
+    font-size: 16px; /* Match the font size of the circular button */
+}
+
+.edit-button:hover {
+    background-color: #9c8a00;
+}
+
+.edit-cell {
+    width: 34.5px; /* Set a fixed width for the delete cell */
+    padding: 0; /* Remove padding to avoid increasing cell size */
+    text-align: center; /* Center the button horizontally */
+}
+
+}
     </style>
+
+<script>
+    let selectedRow = null; // Keep track of the currently selected row
+    
+    function toggleButtons(row) {
+        // Check if this row is already selected
+        if (selectedRow === row) {
+            // Unselect the row and remove the delete button
+            selectedRow = null;
+            const cellData = row.querySelector('.delete-cell');
+            cellData.removeChild(cellData.querySelector('.delete-button'));
+            const cellData2 = row.querySelector('.edit-cell');
+            cellData2.removeChild(cellData2.querySelector('.edit-button'));
+            row.classList.remove('selected-row'); // Remove the selected-row class
+        } else {
+            // Unselect the previously selected row, if any
+            if (selectedRow) {
+                const cellData = selectedRow.querySelector('.delete-cell');
+            cellData.removeChild(cellData.querySelector('.delete-button'));
+            const cellData2 = selectedRow.querySelector('.edit-cell');
+            cellData2.removeChild(cellData.querySelector('.edit-button'));
+            selectedRow.classList.remove('selected-row');
+            }
+            
+            // Select the new row
+            selectedRow = row;
+            
+            // Add the delete button with the "×" character
+            const deleteButton = document.createElement('button');
+            //deleteButton.innerHTML = '&times;'; // Use the "×" character
+            deleteButton.onclick = (event) => deleteRow(event, row);
+            row.querySelector('.delete-cell').appendChild(deleteButton);
+            deleteButton.classList.add('delete-button');
+            const editButton = document.createElement('button');
+            //deleteButton.innerHTML = '&times;'; // Use the "×" character
+            editButton.onclick = (event) => {toggleButtons(row); editRow(event, row)};
+            // fix the previous line
+            row.querySelector('.edit-cell').appendChild(editButton);
+            editButton.classList.add('edit-button');
+            row.classList.add('selected-row'); // Add the selected-row class
+        }
+    }
+    function deleteRow(event, row) {
+        event.stopPropagation(); // Prevent the row click event from firing
+        if (confirm("Are you sure you want to delete this client?")) {
+    
+            const productId = row.querySelector('td:first-child').textContent; // Extract client ID
+    
+    
+            // Send an AJAX request to delete the client record
+            fetch('/CRUD/product_buy?id=' + productBuyId, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Remove the deleted row from the table
+                    row.remove();
+                    selectedRow = null;
+                    alert('Product deleted successfully!');
+                } else {
+                    alert('Failed to delete the Product.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while deleting the Product.');
+            });
+        }
+    }
+    
+    function editRow(event, row) {
+        event.stopPropagation(); // Prevent the row click event from firing
+        const columns = row.querySelectorAll('td');
+        const columnNames = ['id', 'producto_id', 'proveedor_id', 'fecha', 'cantidad', 'monto', 'descripcion'];
+        const rowData = {};
+        for (var i = 0; i < columns.length; i++) {
+            const cell = columns[i];
+            rowData[columnNames[i]] = cell.textContent;
+        }
+        showEditModal(rowData);
+    }
+    
+    document.addEventListener('modalClosed', function() {
+        // Refresh the page when the modal is closed
+        window.location.reload();
+    });
+        </script>
 </head>
 <body>
     
-    <h1 id="mi-titulo">Gestion de Compras</h1>
+    <h1 id="mi-titulo">Gestion de Productos</h1>
     
-    <button class="boton-agregar">Agregar nueva compra</button>
-
-    <button class="boton-editar">Editar</button>
-
-    <button class="boton-eliminar">Eliminar</button>
-
+    <button class="boton-agregar" onclick="showModal()">Agregar nuevo Producto compra</button>
+    <div id="modal-content">
+        <%@ include file="/WEB-INF/CRUD/product_buy_add_modal.jsp" %>
+    </div>
+<!--
     <ul>
         <li>Elemento 1 </li>
         <li>Elemento 2 </li>
@@ -198,10 +333,51 @@
     <p id="cantidad-compra"> Cantidad</p>
     <p id="monto-compra"> Monto</p>
     <p id="descripcion-compra"> Descripción</p>
-    <div class="search-container">
-        <input type="text" class="search-input" placeholder="Buscar...">
-        <button class="search-button">Buscar</button>
-    </div>
+    
+-->
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>producto</th>
+        <th>proveedor</th>
+        <th>fecha</th>
+        <th>cantidad</th>
+        <th>monto</th>
+        <th>descripcion</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        <%
+            List<ProductBuyEntity> productsBuy = (List<ProductBuyEntity>) request.getAttribute("productsBuy");
+            for (ProductBuyEntity productBuy : productsBuy) {
+        %>
+        <tr onclick="toggleButtons(this)">
+            <td><%= productBuy.getId() %></td>
+            <td><%= productBuy.getProducto_id() %></td>
+            <td><%= productBuy.getProveedor_id() %></td>
+            <td><%= productBuy.getFecha() %></td>
+            <td><%= productBuy.getCantidad() %></td>
+            <td><%= productBuy.getMonto() %></td>
+            <td><%= productBuy.getDescripcion() %></td>
+            <td class="delete-cell">
+                
+            </td>
+            <td class="edit-cell">
+                
+            </td>
+        </tr>
+        <% } %>
+    </tbody>
+</table>
+<div class="search-container">
+    <form action="/CRUD/product_buy" method="get">
+    <input type="text" name="search" class="search-input" placeholder="Buscar...">
+    <button type="submit" class="search-button">Buscar</button>
+</form>
+</div>
 
 </body>
 </html>
