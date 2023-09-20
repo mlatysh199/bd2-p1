@@ -26,9 +26,23 @@
     <script>
         const modalContent = document.getElementById("modal-content");
 const closeModalButton = document.getElementById("close-modal");
-
+var isEditing = false;
+var rowEditID = -1;
+const columnNames = ['nombre', 'fecha de ultima compra', 'correo', 'direccion', 'cantidad de compras'];
 function showModal() {
     modalContent.style.display = "block";
+    isEditing = false;
+}
+
+function showEditModal(rowData) {
+    showModal();
+    isEditing = true;
+    rowEditID = rowData['id'];
+    document.getElementById("e1").value = rowData[columnNames[0]];
+    document.getElementById("e2").value = rowData[columnNames[1]];
+    document.getElementById("e3").value = rowData[columnNames[2]];
+    document.getElementById("e4").value = rowData[columnNames[3]];
+    document.getElementById("e5").value = rowData[columnNames[4]];
 }
 
 function hideModal() {
@@ -59,9 +73,12 @@ editableCells.forEach(cell => {
 function sendRowData(rowID) {
     const row = document.querySelector('tr[data-rowid="'+rowID+ '"]');
     const columns = row.querySelectorAll('.editable-cell');
-    const columnNames = ['nombre', 'fecha de ultima compra', 'correo', 'direccion', 'cantidad de compras'];
     const rowData = {};
     var data = "";
+
+    if (isEditing) {
+        data += "id=" + rowEditID + "&";
+    }
 
     for (var i = 0; i < columns.length; i++) {
         const cell = columns[i];
@@ -80,15 +97,15 @@ function sendRowData(rowID) {
     .then(response => {
         if (response.ok) {
             // Handle success (e.g., display a success message)
-            alert('Se insertó la entidad exitósamente!');
+            alert('El procedimiento se ejecutó exitósamente!');
         } else {
-            alert('No se logró insertar la entidad.');
+            alert('No se logró ejecutar el procedimiento.');
         }
         hideModal();
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('No se logró insertar la entidad.');
+        alert('No se logró ejecutar el procedimiento.');
         hideModal();
     });
 }
@@ -112,11 +129,11 @@ function sendRowData(rowID) {
         </thead>
         <tbody>
             <tr data-rowid="1">
-                <td><input type="text" value="Value 1" class="editable-cell"></td>
-                <td><input type="text" value="Value 2" class="editable-cell"></td>
-                <td><input type="text" value="Value 3" class="editable-cell"></td>
-                <td><input type="text" value="Value 4" class="editable-cell"></td>
-                <td><input type="text" value="Value 5" class="editable-cell"></td>
+                <td><input type="text" id="e1" value="Value 1" class="editable-cell"></td>
+                <td><input type="text" id="e2" value="Value 2" class="editable-cell"></td>
+                <td><input type="text" id="e3" value="Value 3" class="editable-cell"></td>
+                <td><input type="text" id="e4" value="Value 4" class="editable-cell"></td>
+                <td><input type="text" id="e5" value="Value 5" class="editable-cell"></td>
                 <td><button onclick="sendRowData(1)">Save</button></td>
                 <!-- Add more cells as needed -->
             </tr>

@@ -28,7 +28,6 @@ public class ClientPage extends CRUDPage {
             try {
                 id = Integer.parseInt(req.getParameter("id"));
             } catch (NumberFormatException e) {
-                e.printStackTrace();
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 return;
             }
@@ -49,7 +48,6 @@ public class ClientPage extends CRUDPage {
                 this.getDatabaseContext().getClientRepository().update(client);
             resp.setStatus(HttpServletResponse.SC_OK);
         } catch (SQLException e) {
-            e.printStackTrace();
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } catch (NumberFormatException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -79,7 +77,6 @@ public class ClientPage extends CRUDPage {
             } else clients = this.getDatabaseContext().getClientRepository().findAll(); 
             showData("clients", clients, req);
         } catch (SQLException e) {
-            e.printStackTrace();
             showData("clients", new ArrayList<>(), req);
         }
 
@@ -95,7 +92,6 @@ public class ClientPage extends CRUDPage {
                 response.setStatus(HttpServletResponse.SC_OK); 
                 return;
             } catch (NumberFormatException | SQLException e) {
-                e.printStackTrace();
             }
         }
         response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

@@ -79,6 +79,5 @@ public class Server {
     public void kill() throws LifecycleException, SQLException {
         tomcat.stop();
         tomcat.destroy();
-        databaseContext.getJdbcController().closeConnection();
     }
 }

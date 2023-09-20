@@ -18,7 +18,8 @@ public class App {
         }
     }
     public static void main(String[] args) throws LifecycleException, ClassNotFoundException, SQLException  {
-        Server server = new Server(new DatabaseContext("jdbc:oracle:thin:@siuadb2_high", "MLATYSH", "bdAlajuela2023s2", "Wallet_siuadb2"));
+        DatabaseContext databaseContext = new DatabaseContext("jdbc:oracle:thin:@siuadb2_high", "MLATYSH", "bdAlajuela2023s2", "Wallet_siuadb2");
+        Server server = new Server(databaseContext);
 
         /*ProviderRepository providerRepository = new ProviderRepository(controller.getConnection());
         ProviderEntity provider = new ProviderEntity(1, "Provider 1", "Description 1", "Address 1");
@@ -37,5 +38,6 @@ public class App {
         System.out.println("\n (!) Killing server thread...\n\n");
 
         server.kill();
+        databaseContext.getJdbcController().closeConnection();
     }
 }

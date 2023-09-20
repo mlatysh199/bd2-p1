@@ -25,7 +25,8 @@ public class ClientRepository implements BaseRepository<ClientEntity> {
 
         CallableStatement cstmt = conn.prepareCall("{call paquete_modificar.insertar_cliente(?, ?, ?, ?, ?)}");
         cstmt.setString(1, entity.getNombre());
-        cstmt.setDate(2, Date.valueOf(entity.getFechaUltimaCompra()));
+        if (!entity.getFechaUltimaCompra().isEmpty()) cstmt.setDate(2, Date.valueOf(entity.getFechaUltimaCompra()));
+        else cstmt.setDate(2, null);
         cstmt.setString(3, entity.getCorreo());
         cstmt.setString(4, entity.getDireccion());
         cstmt.setInt(5, entity.getCantidadCompras());
@@ -38,7 +39,8 @@ public class ClientRepository implements BaseRepository<ClientEntity> {
         CallableStatement cstmt = conn.prepareCall("{call paquete_modificar.actualizar_cliente(?, ?, ?, ?, ?, ?)}");
         cstmt.setInt(1, entity.getId());
         cstmt.setString(2, entity.getNombre());
-        cstmt.setDate(3, Date.valueOf(entity.getFechaUltimaCompra()));
+        if (!entity.getFechaUltimaCompra().isEmpty()) cstmt.setDate(3, Date.valueOf(entity.getFechaUltimaCompra()));
+        else cstmt.setDate(3, null);
         cstmt.setString(4, entity.getCorreo());
         cstmt.setString(5, entity.getDireccion());
         cstmt.setInt(6, entity.getCantidadCompras());
@@ -67,7 +69,9 @@ public class ClientRepository implements BaseRepository<ClientEntity> {
             cstmt.close();
             return null;
         }
-        ClientEntity clientEntity = new ClientEntity(rs.getInt(1), rs.getString(2), rs.getDate(3).toString(), rs.getString(4), rs.getString(5), rs.getInt(6));
+        Date date = rs.getDate(3);
+        String dateStr = date == null ? "" : date.toString();
+        ClientEntity clientEntity = new ClientEntity(rs.getInt(1), rs.getString(2), dateStr, rs.getString(4), rs.getString(5), rs.getInt(6));
         cstmt.close();
         return clientEntity;
     }
@@ -83,7 +87,9 @@ public class ClientRepository implements BaseRepository<ClientEntity> {
         ResultSet rs = ((oracle.jdbc.OracleCallableStatement)cstmt).getCursor(1);
         List<ClientEntity> iterable = new ArrayList<>();
         while(rs.next()) {
-            iterable.add(new ClientEntity(rs.getInt(1), rs.getString(2), rs.getDate(3).toString(), rs.getString(4), rs.getString(5), rs.getInt(6)));
+            Date date = rs.getDate(3);
+            String dateStr = date == null ? "" : date.toString();
+            iterable.add(new ClientEntity(rs.getInt(1), rs.getString(2), dateStr, rs.getString(4), rs.getString(5), rs.getInt(6)));
         }
         cstmt.close();
         return iterable;
