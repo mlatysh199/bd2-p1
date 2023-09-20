@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html lang="es">
-<!-- Welcome page with button to enter into the system -->
 <head>
     <title>Proyecto 1</title>
     <style>
