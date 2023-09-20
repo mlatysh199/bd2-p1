@@ -53,10 +53,10 @@
                 for (ProviderEntity provider : providers) {
             %>
             <tr onclick="toggleButtons(this)" class="trara">
-                <td><%= provider.getId() %></td>
-                <td><%= provider.getName() %></td>
-                <td><%= provider.getAddress() %></td>
-                <td><%= provider.getDescription() %></td>
+                <td><div class="cell-content"><%= provider.getId() %></div></td>
+                <td><div class="cell-content"><%= provider.getName() %></div></td>
+                <td><div class="cell-content"><%= provider.getAddress() %></div></td>
+                <td><div class="cell-content"><%= provider.getDescription() %></div></td>
                 <td style="width: 50px;" class="delete-cell">
                 
                 </td>

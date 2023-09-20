@@ -52,12 +52,12 @@
                     for (ClientEntity client : clients) {
                     %>
                     <tr onclick="toggleButtons(this)" class="trara">
-                        <td><%= client.getId() %></td>
-                        <td><%= client.getNombre() %></td>
-                        <td><%= client.getFechaUltimaCompra() %></td>
-                        <td><%= client.getCorreo() %></td>
-                        <td><%= client.getDireccion() %></td>
-                        <td><%= client.getCantidadCompras() %></td>
+                        <td><div class="cell-content"><%= client.getId() %></div></td>
+                        <td><div class="cell-content"><%= client.getNombre() %></div></td>
+                        <td><div class="cell-content"><%= client.getFechaUltimaCompra() %></div></td>
+                        <td><div class="cell-content"><%= client.getCorreo() %></div></td>
+                        <td><div class="cell-content"><%= client.getDireccion() %></div></td>
+                        <td><div class="cell-content"><%= client.getCantidadCompras() %></div></td>
                         <td class="delete-cell">
                         </td>
                         <td class="edit-cell">
